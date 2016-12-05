@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : samba
-Release  : 1
+Release  : 2
 URL      : https://github.com/samba-team/samba/archive/samba-4.5.1.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.5.1.tar.gz
 Summary  : Generate parsers / DCE/RPC-clients from IDL
@@ -359,8 +359,45 @@ rm -rf %{buildroot}
 /usr/include/samba-4.0/util/xfile.h
 /usr/include/samba-4.0/util_ldb.h
 /usr/include/samba-4.0/wbclient.h
-/usr/lib64/*.so
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/libdcerpc-binding.so
+/usr/lib64/libdcerpc-samr.so
+/usr/lib64/libdcerpc-server.so
+/usr/lib64/libdcerpc.so
+/usr/lib64/libndr-krb5pac.so
+/usr/lib64/libndr-nbt.so
+/usr/lib64/libndr-standard.so
+/usr/lib64/libndr.so
+/usr/lib64/libnetapi.so
+/usr/lib64/libnss_winbind.so
+/usr/lib64/libnss_wins.so
+/usr/lib64/libsamba-credentials.so
+/usr/lib64/libsamba-errors.so
+/usr/lib64/libsamba-hostconfig.so
+/usr/lib64/libsamba-passdb.so
+/usr/lib64/libsamba-policy.so
+/usr/lib64/libsamba-util.so
+/usr/lib64/libsamdb.so
+/usr/lib64/libsmbclient.so
+/usr/lib64/libsmbconf.so
+/usr/lib64/libsmbldap.so
+/usr/lib64/libtevent-util.so
+/usr/lib64/libwbclient.so
+/usr/lib64/pkgconfig/dcerpc.pc
+/usr/lib64/pkgconfig/dcerpc_samr.pc
+/usr/lib64/pkgconfig/dcerpc_server.pc
+/usr/lib64/pkgconfig/ndr.pc
+/usr/lib64/pkgconfig/ndr_krb5pac.pc
+/usr/lib64/pkgconfig/ndr_nbt.pc
+/usr/lib64/pkgconfig/ndr_standard.pc
+/usr/lib64/pkgconfig/netapi.pc
+/usr/lib64/pkgconfig/samba-credentials.pc
+/usr/lib64/pkgconfig/samba-hostconfig.pc
+/usr/lib64/pkgconfig/samba-policy.pc
+/usr/lib64/pkgconfig/samba-util.pc
+/usr/lib64/pkgconfig/samdb.pc
+/usr/lib64/pkgconfig/smbclient.pc
+/usr/lib64/pkgconfig/wbclient.pc
+/usr/lib64/winbind_krb5_locator.so
 
 %files doc
 %defattr(-,root,root,-)
@@ -369,7 +406,46 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
+/usr/lib64/libdcerpc-binding.so.0
+/usr/lib64/libdcerpc-binding.so.0.0.1
+/usr/lib64/libdcerpc-samr.so.0
+/usr/lib64/libdcerpc-samr.so.0.0.1
+/usr/lib64/libdcerpc-server.so.0
+/usr/lib64/libdcerpc-server.so.0.0.1
+/usr/lib64/libdcerpc.so.0
+/usr/lib64/libdcerpc.so.0.0.1
+/usr/lib64/libndr-krb5pac.so.0
+/usr/lib64/libndr-krb5pac.so.0.0.1
+/usr/lib64/libndr-nbt.so.0
+/usr/lib64/libndr-nbt.so.0.0.1
+/usr/lib64/libndr-standard.so.0
+/usr/lib64/libndr-standard.so.0.0.1
+/usr/lib64/libndr.so.0
+/usr/lib64/libndr.so.0.0.8
+/usr/lib64/libnetapi.so.0
+/usr/lib64/libnss_winbind.so.2
+/usr/lib64/libnss_wins.so.2
+/usr/lib64/libsamba-credentials.so.0
+/usr/lib64/libsamba-credentials.so.0.0.1
+/usr/lib64/libsamba-errors.so.1
+/usr/lib64/libsamba-hostconfig.so.0
+/usr/lib64/libsamba-hostconfig.so.0.0.1
+/usr/lib64/libsamba-passdb.so.0
+/usr/lib64/libsamba-passdb.so.0.25.0
+/usr/lib64/libsamba-policy.so.0
+/usr/lib64/libsamba-policy.so.0.0.1
+/usr/lib64/libsamba-util.so.0
+/usr/lib64/libsamba-util.so.0.0.1
+/usr/lib64/libsamdb.so.0
+/usr/lib64/libsamdb.so.0.0.1
+/usr/lib64/libsmbclient.so.0
+/usr/lib64/libsmbclient.so.0.2.3
+/usr/lib64/libsmbconf.so.0
+/usr/lib64/libsmbldap.so.0
+/usr/lib64/libtevent-util.so.0
+/usr/lib64/libtevent-util.so.0.0.1
+/usr/lib64/libwbclient.so.0
+/usr/lib64/libwbclient.so.0.13
 /usr/lib64/samba/auth/script.so
 /usr/lib64/samba/bind9/dlz_bind9.so
 /usr/lib64/samba/bind9/dlz_bind9_10.so
