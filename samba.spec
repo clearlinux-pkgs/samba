@@ -4,12 +4,12 @@
 #
 Name     : samba
 Version  : samba
-Release  : 3
+Release  : 5
 URL      : https://github.com/samba-team/samba/archive/samba-4.5.1.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.5.1.tar.gz
 Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
-License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT X11 gplv3
+License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT X11
 Requires: samba-bin
 Requires: samba-python
 Requires: samba-lib
