@@ -1,2 +1,23 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+attr-dev
+libaio-dev
+krb5-dev
+Linux-PAM-dev
+readline-dev
+libxslt-dev
+python3-dev
+iso8601
+popt-dev
+gpgme-dev
+systemd-dev
+openssl-dev
+gnutls-dev
+openldap-dev
+ncurses-dev
+acl-dev
+libunwind-dev
+LVM2-dev
+libcap-ng-dev
+libcap-dev
+cups-dev
