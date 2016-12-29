@@ -1,0 +1,3 @@
+d /var/log/samba 0700 - - - -
+d /var/log/samba/cores 0700 - - - -
+d /var/lib/samba/private 0700 - - - -
