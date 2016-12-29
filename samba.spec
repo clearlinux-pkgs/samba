@@ -4,14 +4,16 @@
 #
 Name     : samba
 Version  : 4.5.3
-Release  : 10
+Release  : 11
 URL      : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
+Source1  : samba.tmpfiles
 Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
 License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT X11
 Requires: samba-bin
 Requires: samba-python
+Requires: samba-config
 Requires: samba-lib
 Requires: samba-doc
 Requires: samba-data
@@ -51,9 +53,18 @@ Patch1: 0001-confiugre-patch-to-avoid-last-argument.patch
 Summary: bin components for the samba package.
 Group: Binaries
 Requires: samba-data
+Requires: samba-config
 
 %description bin
 bin components for the samba package.
+
+
+%package config
+Summary: config components for the samba package.
+Group: Default
+
+%description config
+config components for the samba package.
 
 
 %package data
@@ -88,6 +99,7 @@ doc components for the samba package.
 Summary: lib components for the samba package.
 Group: Libraries
 Requires: samba-data
+Requires: samba-config
 
 %description lib
 lib components for the samba package.
@@ -107,7 +119,7 @@ python components for the samba package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=`date +%s -r configure`
+export SOURCE_DATE_EPOCH=1483030992
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -118,6 +130,8 @@ make V=1  %{?_smp_mflags}
 %install
 rm -rf %{buildroot}
 %make_install
+mkdir -p %{buildroot}/usr/lib/tmpfiles.d
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 
 %files
 %defattr(-,root,root,-)
@@ -179,6 +193,10 @@ rm -rf %{buildroot}
 /usr/bin/wbinfo
 /usr/bin/winbindd
 /usr/libexec/samba/smbspool_krb5_wrapper
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/tmpfiles.d/samba.conf
 
 %files data
 %defattr(-,root,root,-)
