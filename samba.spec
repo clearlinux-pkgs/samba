@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.5.3
-Release  : 11
+Release  : 12
 URL      : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
 Source1  : samba.tmpfiles
@@ -119,7 +119,7 @@ python components for the samba package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1483030992
+export SOURCE_DATE_EPOCH=1484494490
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -128,6 +128,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
+export SOURCE_DATE_EPOCH=1484494490
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
