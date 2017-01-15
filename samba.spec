@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.5.3
-Release  : 12
+Release  : 13
 URL      : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.5.3.tar.gz
 Source1  : samba.tmpfiles
@@ -45,6 +45,7 @@ BuildRequires : readline-dev
 BuildRequires : setuptools
 BuildRequires : systemd-dev
 Patch1: 0001-confiugre-patch-to-avoid-last-argument.patch
+Patch2: timestamps.patch
 
 %description
 
@@ -116,10 +117,11 @@ python components for the samba package.
 %prep
 %setup -q -n samba-samba-4.5.3
 %patch1 -p1
+%patch2 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1484494490
+export SOURCE_DATE_EPOCH=1484508002
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -128,7 +130,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1484494490
+export SOURCE_DATE_EPOCH=1484508002
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
