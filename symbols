@@ -4201,6 +4201,7 @@ libsamba-hostconfig.so.0:lpcfg_iconv_handle
 libsamba-hostconfig.so.0:lpcfg_idmap_cache_time
 libsamba-hostconfig.so.0:lpcfg_idmap_negative_cache_time
 libsamba-hostconfig.so.0:lpcfg_imessaging_path
+libsamba-hostconfig.so.0:lpcfg_include_system_krb5_conf
 libsamba-hostconfig.so.0:lpcfg_inherit_acls
 libsamba-hostconfig.so.0:lpcfg_inherit_owner
 libsamba-hostconfig.so.0:lpcfg_inherit_permissions
@@ -5973,6 +5974,7 @@ libsmbconf.so.0:lp_idmap_default_range
 libsmbconf.so.0:lp_idmap_negative_cache_time
 libsmbconf.so.0:lp_idmap_range
 libsmbconf.so.0:lp_include
+libsmbconf.so.0:lp_include_system_krb5_conf
 libsmbconf.so.0:lp_inherit_acls
 libsmbconf.so.0:lp_inherit_owner
 libsmbconf.so.0:lp_inherit_permissions
