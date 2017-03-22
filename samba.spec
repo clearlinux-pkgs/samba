@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.6.0
-Release  : 16
+Release  : 17
 URL      : https://github.com/samba-team/samba/archive/samba-4.6.0.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.6.0.tar.gz
 Source1  : samba.tmpfiles
@@ -96,6 +96,14 @@ Group: Documentation
 doc components for the samba package.
 
 
+%package extras
+Summary: extras components for the samba package.
+Group: Default
+
+%description extras
+extras components for the samba package.
+
+
 %package lib
 Summary: lib components for the samba package.
 Group: Libraries
@@ -121,7 +129,7 @@ python components for the samba package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1489073557
+export SOURCE_DATE_EPOCH=1490206156
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -130,7 +138,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1489073557
+export SOURCE_DATE_EPOCH=1490206156
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
@@ -448,8 +456,13 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 %doc /usr/share/man/man1/*
 %doc /usr/share/man/man3/*
 
+%files extras
+%defattr(-,root,root,-)
+/usr/lib64/samba/libsamba-python-samba4.so
+
 %files lib
 %defattr(-,root,root,-)
+%exclude /usr/lib64/samba/libsamba-python-samba4.so
 /usr/lib64/libdcerpc-binding.so.0
 /usr/lib64/libdcerpc-binding.so.0.0.1
 /usr/lib64/libdcerpc-samr.so.0
@@ -651,7 +664,6 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
 /usr/lib64/samba/libsamba-net-samba4.so
-/usr/lib64/samba/libsamba-python-samba4.so
 /usr/lib64/samba/libsamba-security-samba4.so
 /usr/lib64/samba/libsamba-sockets-samba4.so
 /usr/lib64/samba/libsamba3-util-samba4.so
@@ -751,4 +763,4 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
