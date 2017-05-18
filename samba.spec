@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.6.3
-Release  : 22
+Release  : 23
 URL      : https://github.com/samba-team/samba/archive/samba-4.6.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.6.3.tar.gz
 Source1  : samba.tmpfiles
