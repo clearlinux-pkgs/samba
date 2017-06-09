@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.6.5
-Release  : 25
+Release  : 26
 URL      : https://github.com/samba-team/samba/archive/samba-4.6.5.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.6.5.tar.gz
 Source1  : samba.tmpfiles
@@ -46,6 +46,7 @@ BuildRequires : setuptools
 BuildRequires : systemd-dev
 Patch1: 0001-confiugre-patch-to-avoid-last-argument.patch
 Patch2: timestamps.patch
+Patch3: cve-2017-7494.nopatch
 
 %description
 
@@ -132,16 +133,16 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1496776343
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export SOURCE_DATE_EPOCH=1497050410
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1496776343
+export SOURCE_DATE_EPOCH=1497050410
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
