@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.6.7
-Release  : 28
+Release  : 29
 URL      : https://github.com/samba-team/samba/archive/samba-4.6.7.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.6.7.tar.gz
 Source1  : samba.tmpfiles
@@ -136,7 +136,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1502419892
+export SOURCE_DATE_EPOCH=1503675139
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
@@ -145,7 +145,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1502419892
+export SOURCE_DATE_EPOCH=1503675139
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
@@ -708,6 +708,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libwind-samba4.so.0
 /usr/lib64/samba/libwind-samba4.so.0.0.0
 /usr/lib64/samba/libxattr-tdb-samba4.so
+/usr/lib64/samba/libz-samba4.so
 /usr/lib64/samba/nss_info/hash.so
 /usr/lib64/samba/nss_info/rfc2307.so
 /usr/lib64/samba/nss_info/sfu.so
