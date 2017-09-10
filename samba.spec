@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.6.7
-Release  : 29
+Release  : 30
 URL      : https://github.com/samba-team/samba/archive/samba-4.6.7.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.6.7.tar.gz
 Source1  : samba.tmpfiles
@@ -12,7 +12,7 @@ Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
 License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT X11
 Requires: samba-bin
-Requires: samba-python
+Requires: samba-legacypython
 Requires: samba-config
 Requires: samba-lib
 Requires: samba-doc
@@ -108,6 +108,14 @@ Group: Default
 extras components for the samba package.
 
 
+%package legacypython
+Summary: legacypython components for the samba package.
+Group: Default
+
+%description legacypython
+legacypython components for the samba package.
+
+
 %package lib
 Summary: lib components for the samba package.
 Group: Libraries
@@ -116,14 +124,6 @@ Requires: samba-config
 
 %description lib
 lib components for the samba package.
-
-
-%package python
-Summary: python components for the samba package.
-Group: Default
-
-%description python
-python components for the samba package.
 
 
 %prep
@@ -136,7 +136,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503675139
+export SOURCE_DATE_EPOCH=1505061119
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fstack-protector-strong "
@@ -145,7 +145,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1503675139
+export SOURCE_DATE_EPOCH=1505061119
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
@@ -467,6 +467,10 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 %defattr(-,root,root,-)
 /usr/lib64/samba/libsamba-python-samba4.so
 
+%files legacypython
+%defattr(-,root,root,-)
+/usr/lib/python2*/*
+
 %files lib
 %defattr(-,root,root,-)
 %exclude /usr/lib64/samba/libsamba-python-samba4.so
@@ -768,7 +772,3 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/vfs/worm.so
 /usr/lib64/samba/vfs/xattr_tdb.so
 /usr/lib64/security/pam_winbind.so
-
-%files python
-%defattr(-,root,root,-)
-/usr/lib/python2*/*
