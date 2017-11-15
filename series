@@ -1,4 +1,3 @@
-0001-confiugre-patch-to-avoid-last-argument.patch
-
+0001-add-mock-disable-static-option.patch
 timestamps.patch
 cve-2017-7494.nopatch
