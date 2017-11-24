@@ -21,3 +21,4 @@ LVM2-dev
 libcap-ng-dev
 libcap-dev
 cups-dev
+e2fsprogs-dev
