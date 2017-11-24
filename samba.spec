@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 36
+Release  : 37
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
@@ -13,6 +13,7 @@ Group    : Development/Tools
 License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin
 Requires: samba-legacypython
+Requires: samba-python3
 Requires: samba-config
 Requires: samba-lib
 Requires: samba-doc
@@ -24,6 +25,7 @@ BuildRequires : acl-dev
 BuildRequires : attr-dev
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
+BuildRequires : e2fsprogs-dev
 BuildRequires : gnutls-dev
 BuildRequires : gpgme-dev
 BuildRequires : iso8601
@@ -45,7 +47,7 @@ BuildRequires : python3-dev
 BuildRequires : readline-dev
 BuildRequires : setuptools
 BuildRequires : systemd-dev
-Patch1: 0001-confiugre-patch-to-avoid-last-argument.patch
+Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: cve-2017-7494.nopatch
 
@@ -131,9 +133,19 @@ lib components for the samba package.
 Summary: python components for the samba package.
 Group: Default
 Requires: samba-legacypython
+Requires: samba-python3
 
 %description python
 python components for the samba package.
+
+
+%package python3
+Summary: python3 components for the samba package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the samba package.
 
 
 %prep
@@ -146,20 +158,24 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1511274599
+export SOURCE_DATE_EPOCH=1511550593
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-%configure --disable-static
-make  %{?_smp_mflags}
+%configure --disable-static --with-systemd --enable-fhs --extra-python=/usr/bin/python3 --with-system-mitkrb5 --nopyc --nopyo
+make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1511274599
+export SOURCE_DATE_EPOCH=1511550593
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
+## make_install_append content
+install -d -m 755 %{buildroot}/usr/lib/systemd/system
+install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -225,6 +241,10 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 
 %files config
 %defattr(-,root,root,-)
+/usr/lib/systemd/system/nmb.service
+/usr/lib/systemd/system/samba.service
+/usr/lib/systemd/system/smb.service
+/usr/lib/systemd/system/winbind.service
 /usr/lib/tmpfiles.d/samba.conf
 
 %files data
@@ -487,6 +507,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 %files lib
 %defattr(-,root,root,-)
 %exclude /usr/lib64/samba/libsamba-python-samba4.so
+/usr/lib64/krb5/plugins/kdb/samba.so
 /usr/lib64/libdcerpc-binding.so.0
 /usr/lib64/libdcerpc-binding.so.0.0.1
 /usr/lib64/libdcerpc-samr.so.0
@@ -593,14 +614,11 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/ldb/vlv.so
 /usr/lib64/samba/ldb/wins_ldb.so
 /usr/lib64/samba/libCHARSET3-samba4.so
-/usr/lib64/samba/libHDB-SAMBA4-samba4.so
 /usr/lib64/samba/libLIBWBCLIENT-OLD-samba4.so
 /usr/lib64/samba/libMESSAGING-SEND-samba4.so
 /usr/lib64/samba/libMESSAGING-samba4.so
 /usr/lib64/samba/libaddns-samba4.so
 /usr/lib64/samba/libads-samba4.so
-/usr/lib64/samba/libasn1-samba4.so.8
-/usr/lib64/samba/libasn1-samba4.so.8.0.0
 /usr/lib64/samba/libasn1util-samba4.so
 /usr/lib64/samba/libauth-samba4.so
 /usr/lib64/samba/libauth-unix-token-samba4.so
@@ -616,8 +634,6 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libcluster-samba4.so
 /usr/lib64/samba/libcmdline-credentials-samba4.so
 /usr/lib64/samba/libcmocka-samba4.so
-/usr/lib64/samba/libcom_err-samba4.so.0
-/usr/lib64/samba/libcom_err-samba4.so.0.25
 /usr/lib64/samba/libcommon-auth-samba4.so
 /usr/lib64/samba/libdb-glue-samba4.so
 /usr/lib64/samba/libdbwrap-samba4.so
@@ -634,26 +650,10 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libgensec-samba4.so
 /usr/lib64/samba/libgpo-samba4.so
 /usr/lib64/samba/libgse-samba4.so
-/usr/lib64/samba/libgssapi-samba4.so.2
-/usr/lib64/samba/libgssapi-samba4.so.2.0.0
-/usr/lib64/samba/libhcrypto-samba4.so.5
-/usr/lib64/samba/libhcrypto-samba4.so.5.0.1
-/usr/lib64/samba/libhdb-samba4.so.11
-/usr/lib64/samba/libhdb-samba4.so.11.0.2
-/usr/lib64/samba/libheimbase-samba4.so.1
-/usr/lib64/samba/libheimbase-samba4.so.1.0.0
-/usr/lib64/samba/libheimntlm-samba4.so.1
-/usr/lib64/samba/libheimntlm-samba4.so.1.0.1
 /usr/lib64/samba/libhttp-samba4.so
-/usr/lib64/samba/libhx509-samba4.so.5
-/usr/lib64/samba/libhx509-samba4.so.5.0.0
 /usr/lib64/samba/libidmap-samba4.so
 /usr/lib64/samba/libinterfaces-samba4.so
 /usr/lib64/samba/libiov-buf-samba4.so
-/usr/lib64/samba/libkdc-samba4.so.2
-/usr/lib64/samba/libkdc-samba4.so.2.0.0
-/usr/lib64/samba/libkrb5-samba4.so.26
-/usr/lib64/samba/libkrb5-samba4.so.26.0.0
 /usr/lib64/samba/libkrb5samba-samba4.so
 /usr/lib64/samba/libldb-cmdline-samba4.so
 /usr/lib64/samba/libldb.so.1
@@ -678,14 +678,16 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libposix-eadb-samba4.so
 /usr/lib64/samba/libprinting-migrate-samba4.so
 /usr/lib64/samba/libprocess-model-samba4.so
+/usr/lib64/samba/libpyldb-util.cpython-36m-x86-64-linux-gnu.so.1
+/usr/lib64/samba/libpyldb-util.cpython-36m-x86-64-linux-gnu.so.1.2.2
 /usr/lib64/samba/libpyldb-util.so.1
 /usr/lib64/samba/libpyldb-util.so.1.2.2
+/usr/lib64/samba/libpytalloc-util.cpython-36m-x86-64-linux-gnu.so.2
+/usr/lib64/samba/libpytalloc-util.cpython-36m-x86-64-linux-gnu.so.2.1.9
 /usr/lib64/samba/libpytalloc-util.so.2
 /usr/lib64/samba/libpytalloc-util.so.2.1.9
 /usr/lib64/samba/libregistry-samba4.so
 /usr/lib64/samba/libreplace-samba4.so
-/usr/lib64/samba/libroken-samba4.so.19
-/usr/lib64/samba/libroken-samba4.so.19.0.1
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
@@ -724,8 +726,6 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 /usr/lib64/samba/libutil-setid-samba4.so
 /usr/lib64/samba/libutil-tdb-samba4.so
 /usr/lib64/samba/libwinbind-client-samba4.so
-/usr/lib64/samba/libwind-samba4.so.0
-/usr/lib64/samba/libwind-samba4.so.0.0.0
 /usr/lib64/samba/libxattr-tdb-samba4.so
 /usr/lib64/samba/libz-samba4.so
 /usr/lib64/samba/nss_info/hash.so
@@ -790,3 +790,7 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 
 %files python
 %defattr(-,root,root,-)
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
