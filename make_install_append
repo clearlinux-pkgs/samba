@@ -1,0 +1,2 @@
+install -d -m 755 %{buildroot}/usr/lib/systemd/system
+install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
