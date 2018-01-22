@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 38
+Release  : 40
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
@@ -35,7 +35,6 @@ BuildRequires : libcap-dev
 BuildRequires : libcap-ng-dev
 BuildRequires : libgpg-error-dev
 BuildRequires : libunwind-dev
-BuildRequires : libxslt-dev
 BuildRequires : ncurses-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
@@ -158,16 +157,16 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1511550593
+export SOURCE_DATE_EPOCH=1516657673
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 %configure --disable-static --with-systemd --enable-fhs --extra-python=/usr/bin/python3 --with-system-mitkrb5 --nopyc --nopyo
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1511550593
+export SOURCE_DATE_EPOCH=1516657673
 rm -rf %{buildroot}
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d

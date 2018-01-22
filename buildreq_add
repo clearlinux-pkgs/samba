@@ -5,7 +5,6 @@ libaio-dev
 krb5-dev
 Linux-PAM-dev
 readline-dev
-libxslt-dev
 python3-dev
 iso8601
 popt-dev
