@@ -1,3 +1,4 @@
 0001-add-mock-disable-static-option.patch
 timestamps.patch
 cve-2017-7494.nopatch
+0002-Force-build-using-python2.patch

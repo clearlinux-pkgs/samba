@@ -1,1 +1,1 @@
---with-systemd --enable-fhs --extra-python=/usr/bin/python3 --with-system-mitkrb5 --nopyc --nopyo
+--with-systemd --enable-fhs --with-system-mitkrb5 --nopyc --nopyo

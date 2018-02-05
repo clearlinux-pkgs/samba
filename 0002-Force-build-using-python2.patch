@@ -1,0 +1,40 @@
+From 01763353e77fcce0b521437adf58afcba5abf062 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Mon, 5 Feb 2018 03:34:25 +0000
+Subject: [PATCH] Force build using python2
+
+---
+ buildtools/wafsamba/samba_python.py | 4 ++--
+ configure                           | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/buildtools/wafsamba/samba_python.py b/buildtools/wafsamba/samba_python.py
+index f97439c..c04caff 100644
+--- a/buildtools/wafsamba/samba_python.py
++++ b/buildtools/wafsamba/samba_python.py
+@@ -28,9 +28,9 @@ def SAMBA_CHECK_PYTHON(conf, mandatory=True, version=(2,4,2)):
+         interpreters.append(conf.env['PYTHON'])
+         conf.setenv('default')
+ 
+-    conf.find_program('python', var='PYTHON', mandatory=mandatory)
++    conf.find_program('python2', var='PYTHON', mandatory=mandatory)
+     conf.check_tool('python')
+-    path_python = conf.find_program('python')
++    path_python = conf.find_program('python2')
+     conf.env.PYTHON_SPECIFIED = (conf.env.PYTHON != path_python)
+     conf.check_python_version(version)
+ 
+diff --git a/configure b/configure
+index a94c835..a122348 100755
+--- a/configure
++++ b/configure
+@@ -13,5 +13,5 @@ export JOBS
+ unset LD_PRELOAD
+ 
+ cd . || exit 1
+-${PYTHON:=python} $WAF configure "$@" || exit 1
++${PYTHON:=python2} $WAF configure "$@" || exit 1
+ cd $PREVPATH
+-- 
+2.15.1
+

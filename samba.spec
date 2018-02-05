@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 42
+Release  : 43
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
@@ -13,7 +13,6 @@ Group    : Development/Tools
 License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin
 Requires: samba-legacypython
-Requires: samba-python3
 Requires: samba-config
 Requires: samba-lib
 Requires: samba-doc
@@ -26,6 +25,7 @@ BuildRequires : attr-dev
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
 BuildRequires : e2fsprogs-dev
+BuildRequires : gmp-dev
 BuildRequires : gnutls-dev
 BuildRequires : gpgme-dev
 BuildRequires : iso8601
@@ -49,6 +49,7 @@ BuildRequires : systemd-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: cve-2017-7494.nopatch
+Patch4: 0002-Force-build-using-python2.patch
 
 %description
 This is the release version of Samba, the free SMB and CIFS client and
@@ -132,43 +133,34 @@ lib components for the samba package.
 Summary: python components for the samba package.
 Group: Default
 Requires: samba-legacypython
-Requires: samba-python3
 
 %description python
 python components for the samba package.
-
-
-%package python3
-Summary: python3 components for the samba package.
-Group: Default
-Requires: python3-core
-
-%description python3
-python3 components for the samba package.
 
 
 %prep
 %setup -q -n samba-samba-4.7.3
 %patch1 -p1
 %patch2 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1516657673
+export SOURCE_DATE_EPOCH=1517810756
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-%configure --disable-static --with-systemd --enable-fhs --extra-python=/usr/bin/python3 --with-system-mitkrb5 --nopyc --nopyo
-make  %{?_smp_mflags}
+%configure --disable-static --with-systemd --enable-fhs --with-system-mitkrb5 --nopyc --nopyo
+make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1516657673
+export SOURCE_DATE_EPOCH=1517810756
 rm -rf %{buildroot}
-%make_install
+%make_install PYTHON=python2
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## make_install_append content
@@ -677,12 +669,8 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libposix-eadb-samba4.so
 /usr/lib64/samba/libprinting-migrate-samba4.so
 /usr/lib64/samba/libprocess-model-samba4.so
-/usr/lib64/samba/libpyldb-util.cpython-36m-x86-64-linux-gnu.so.1
-/usr/lib64/samba/libpyldb-util.cpython-36m-x86-64-linux-gnu.so.1.2.2
 /usr/lib64/samba/libpyldb-util.so.1
 /usr/lib64/samba/libpyldb-util.so.1.2.2
-/usr/lib64/samba/libpytalloc-util.cpython-36m-x86-64-linux-gnu.so.2
-/usr/lib64/samba/libpytalloc-util.cpython-36m-x86-64-linux-gnu.so.2.1.9
 /usr/lib64/samba/libpytalloc-util.so.2
 /usr/lib64/samba/libpytalloc-util.so.2.1.9
 /usr/lib64/samba/libregistry-samba4.so
@@ -789,7 +777,3 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 
 %files python
 %defattr(-,root,root,-)
-
-%files python3
-%defattr(-,root,root,-)
-/usr/lib/python3*/*
