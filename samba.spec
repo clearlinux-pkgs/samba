@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 48
+Release  : 49
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
