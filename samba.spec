@@ -40,7 +40,7 @@ BuildRequires : openssl-dev
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : popt-dev
-BuildRequires : python-dev
+
 BuildRequires : python3-dev
 BuildRequires : qtbase-dev
 BuildRequires : readline-dev
