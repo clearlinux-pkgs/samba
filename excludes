@@ -2,3 +2,9 @@
 # names, one per line.
 /usr/lib/python2.7/site-packages/_tdb_text.py
 /usr/lib/python2.7/site-packages/tdb.so
+/usr/bin/ldbmodify
+/usr/bin/ldbedit
+/usr/bin/ldbdel
+/usr/bin/ldbrename
+/usr/bin/ldbsearch
+/usr/bin/ldbadd
