@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 51
+Release  : 52
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
@@ -14,19 +14,26 @@ License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin
 Requires: samba-config
 Requires: samba-lib
-Requires: samba-doc
+Requires: samba-license
+Requires: samba-man
 Requires: samba-data
 Requires: samba-python
 BuildRequires : LVM2-dev
 BuildRequires : Linux-PAM-dev
 BuildRequires : acl-dev
 BuildRequires : attr-dev
+BuildRequires : buildreq-cpan
+BuildRequires : buildreq-distutils3
+BuildRequires : buildreq-qmake
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
 BuildRequires : e2fsprogs-dev
+BuildRequires : fuse-dev
+BuildRequires : gdb
 BuildRequires : gmp-dev
 BuildRequires : gnutls-dev
 BuildRequires : gpgme-dev
+BuildRequires : intltool-dev
 BuildRequires : iso8601
 BuildRequires : krb5-dev
 BuildRequires : libaio-dev
@@ -37,15 +44,13 @@ BuildRequires : libunwind-dev
 BuildRequires : ncurses-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
-BuildRequires : pbr
-BuildRequires : pip
 BuildRequires : popt-dev
-
-BuildRequires : python3-dev
-BuildRequires : qtbase-dev
+BuildRequires : python-dev
 BuildRequires : readline-dev
-BuildRequires : setuptools
 BuildRequires : systemd-dev
+BuildRequires : talloc-dev
+BuildRequires : tdb-dev
+BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: cve-2017-7494.nopatch
@@ -62,6 +67,8 @@ Summary: bin components for the samba package.
 Group: Binaries
 Requires: samba-data
 Requires: samba-config
+Requires: samba-license
+Requires: samba-man
 
 %description bin
 bin components for the samba package.
@@ -95,14 +102,6 @@ Provides: samba-devel
 dev components for the samba package.
 
 
-%package doc
-Summary: doc components for the samba package.
-Group: Documentation
-
-%description doc
-doc components for the samba package.
-
-
 %package extras
 Summary: extras components for the samba package.
 Group: Default
@@ -124,9 +123,26 @@ legacypython components for the samba package.
 Summary: lib components for the samba package.
 Group: Libraries
 Requires: samba-data
+Requires: samba-license
 
 %description lib
 lib components for the samba package.
+
+
+%package license
+Summary: license components for the samba package.
+Group: Default
+
+%description license
+license components for the samba package.
+
+
+%package man
+Summary: man components for the samba package.
+Group: Default
+
+%description man
+man components for the samba package.
 
 
 %package python
@@ -148,7 +164,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526019524
+export SOURCE_DATE_EPOCH=1535906193
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -157,15 +173,25 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1526019524
+export SOURCE_DATE_EPOCH=1535906193
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/samba
+cp COPYING %{buildroot}/usr/share/doc/samba/COPYING
+cp ctdb/COPYING %{buildroot}/usr/share/doc/samba/ctdb_COPYING
+cp examples/pcap2nbench/COPYING %{buildroot}/usr/share/doc/samba/examples_pcap2nbench_COPYING
+cp third_party/dnspython/LICENSE %{buildroot}/usr/share/doc/samba/third_party_dnspython_LICENSE
+cp third_party/dnspython/util/COPYRIGHT %{buildroot}/usr/share/doc/samba/third_party_dnspython_util_COPYRIGHT
+cp third_party/pep8/LICENSE %{buildroot}/usr/share/doc/samba/third_party_pep8_LICENSE
+cp third_party/popt/COPYING %{buildroot}/usr/share/doc/samba/third_party_popt_COPYING
+cp third_party/pyiso8601/LICENSE %{buildroot}/usr/share/doc/samba/third_party_pyiso8601_LICENSE
+cp third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/doc/samba/third_party_zlib_contrib_dotzlib_LICENSE_1_0.txt
 %make_install PYTHON=python2
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
-## make_install_append content
+## install_append content
 install -d -m 755 %{buildroot}/usr/lib/systemd/system
 install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
-## make_install_append end
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -220,10 +246,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/bin/smbtar
 /usr/bin/smbtorture
 /usr/bin/smbtree
-/usr/bin/tdbbackup
-/usr/bin/tdbdump
-/usr/bin/tdbrestore
-/usr/bin/tdbtool
 /usr/bin/testparm
 /usr/bin/wbinfo
 /usr/bin/winbindd
@@ -480,11 +502,11 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/pkgconfig/smbclient.pc
 /usr/lib64/pkgconfig/wbclient.pc
 /usr/lib64/winbind_krb5_locator.so
-
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-%doc /usr/share/man/man3/*
+/usr/share/man/man3/Parse::Pidl::Dump.3
+/usr/share/man/man3/Parse::Pidl::NDR.3
+/usr/share/man/man3/Parse::Pidl::Util.3
+/usr/share/man/man3/Parse::Pidl::Wireshark::Conformance.3
+/usr/share/man/man3/Parse::Pidl::Wireshark::NDR.3
 
 %files extras
 %defattr(-,root,root,-)
@@ -670,8 +692,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libprocess-model-samba4.so
 /usr/lib64/samba/libpyldb-util.so.1
 /usr/lib64/samba/libpyldb-util.so.1.2.2
-/usr/lib64/samba/libpytalloc-util.so.2
-/usr/lib64/samba/libpytalloc-util.so.2.1.9
 /usr/lib64/samba/libregistry-samba4.so
 /usr/lib64/samba/libreplace-samba4.so
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
@@ -697,11 +717,7 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libsocket-blocking-samba4.so
 /usr/lib64/samba/libsys-rw-samba4.so
 /usr/lib64/samba/libtalloc-report-samba4.so
-/usr/lib64/samba/libtalloc.so.2
-/usr/lib64/samba/libtalloc.so.2.1.9
 /usr/lib64/samba/libtdb-wrap-samba4.so
-/usr/lib64/samba/libtdb.so.1
-/usr/lib64/samba/libtdb.so.1.3.14
 /usr/lib64/samba/libtevent.so.0
 /usr/lib64/samba/libtevent.so.0.9.34
 /usr/lib64/samba/libtime-basic-samba4.so
@@ -713,7 +729,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libutil-tdb-samba4.so
 /usr/lib64/samba/libwinbind-client-samba4.so
 /usr/lib64/samba/libxattr-tdb-samba4.so
-/usr/lib64/samba/libz-samba4.so
 /usr/lib64/samba/nss_info/hash.so
 /usr/lib64/samba/nss_info/rfc2307.so
 /usr/lib64/samba/nss_info/sfu.so
@@ -773,6 +788,22 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/vfs/worm.so
 /usr/lib64/samba/vfs/xattr_tdb.so
 /usr/lib64/security/pam_winbind.so
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/samba/COPYING
+/usr/share/doc/samba/ctdb_COPYING
+/usr/share/doc/samba/examples_pcap2nbench_COPYING
+/usr/share/doc/samba/third_party_dnspython_LICENSE
+/usr/share/doc/samba/third_party_dnspython_util_COPYRIGHT
+/usr/share/doc/samba/third_party_pep8_LICENSE
+/usr/share/doc/samba/third_party_popt_COPYING
+/usr/share/doc/samba/third_party_pyiso8601_LICENSE
+/usr/share/doc/samba/third_party_zlib_contrib_dotzlib_LICENSE_1_0.txt
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man1/pidl.1
 
 %files python
 %defattr(-,root,root,-)

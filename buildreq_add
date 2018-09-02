@@ -23,3 +23,11 @@ openssl-dev
 popt-dev
 readline-dev
 systemd-dev
+tdb-dev
+python-dev
+gdb
+intltool-dev
+fuse-dev
+zlib-dev
+talloc-dev
+libgpg-error-dev
