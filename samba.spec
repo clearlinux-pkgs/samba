@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.3
-Release  : 52
+Release  : 53
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.3.tar.gz
 Source1  : samba.tmpfiles
@@ -36,6 +36,7 @@ BuildRequires : gpgme-dev
 BuildRequires : intltool-dev
 BuildRequires : iso8601
 BuildRequires : krb5-dev
+BuildRequires : ldb-dev
 BuildRequires : libaio-dev
 BuildRequires : libcap-dev
 BuildRequires : libcap-ng-dev
@@ -50,6 +51,7 @@ BuildRequires : readline-dev
 BuildRequires : systemd-dev
 BuildRequires : talloc-dev
 BuildRequires : tdb-dev
+BuildRequires : tdb-legacypython
 BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
@@ -164,7 +166,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535906193
+export SOURCE_DATE_EPOCH=1535908912
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -173,7 +175,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1535906193
+export SOURCE_DATE_EPOCH=1535908912
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/samba
 cp COPYING %{buildroot}/usr/share/doc/samba/COPYING

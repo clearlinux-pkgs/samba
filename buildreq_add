@@ -31,3 +31,5 @@ fuse-dev
 zlib-dev
 talloc-dev
 libgpg-error-dev
+ldb-dev
+tdb-legacypython
