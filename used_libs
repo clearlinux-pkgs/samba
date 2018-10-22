@@ -1,6 +1,5 @@
 libacl.so.1
 libaio.so.1
-libattr.so.1
 libc.so.6
 libcap.so.2
 libcom_err.so.2

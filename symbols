@@ -5161,6 +5161,7 @@ libsamba-util.so.0:is_zero_addr
 libsamba-util.so.0:is_zero_ip_v4
 libsamba-util.so.0:islower_m
 libsamba-util.so.0:isupper_m
+libsamba-util.so.0:log_stack_trace
 libsamba-util.so.0:malloc_array
 libsamba-util.so.0:mdfour
 libsamba-util.so.0:memalign_array
@@ -5379,6 +5380,7 @@ libsamba-util.so.0:strv_append
 libsamba-util.so.0:strv_count
 libsamba-util.so.0:strv_delete
 libsamba-util.so.0:strv_find
+libsamba-util.so.0:strv_len_next
 libsamba-util.so.0:strv_next
 libsamba-util.so.0:strv_split
 libsamba-util.so.0:strv_to_env
@@ -5850,7 +5852,6 @@ libsmbconf.so.0:load_usershare_service
 libsmbconf.so.0:load_usershare_shares
 libsmbconf.so.0:loadparm_s3_helpers
 libsmbconf.so.0:lock_path
-libsmbconf.so.0:log_stack_trace
 libsmbconf.so.0:lp__client_ipc_max_protocol
 libsmbconf.so.0:lp__client_ipc_min_protocol
 libsmbconf.so.0:lp__client_ipc_signing
@@ -6412,6 +6413,10 @@ libsmbconf.so.0:my_sam_name
 libsmbconf.so.0:myhostname
 libsmbconf.so.0:myhostname_upper
 libsmbconf.so.0:name_to_fqdn
+libsmbconf.so.0:namemap_cache_find_name
+libsmbconf.so.0:namemap_cache_find_sid
+libsmbconf.so.0:namemap_cache_set_name2sid
+libsmbconf.so.0:namemap_cache_set_sid2name
 libsmbconf.so.0:nametogid
 libsmbconf.so.0:nametouid
 libsmbconf.so.0:ndr_print_messaging_rec
