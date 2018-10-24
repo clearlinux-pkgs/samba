@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.8
-Release  : 58
+Release  : 59
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.8.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.8.tar.gz
 Source1  : samba.tmpfiles
@@ -19,6 +19,7 @@ Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
 Requires: samba-man = %{version}-%{release}
 Requires: samba-python = %{version}-%{release}
+Requires: samba-services = %{version}-%{release}
 BuildRequires : LVM2-dev
 BuildRequires : Linux-PAM-dev
 BuildRequires : acl-dev
@@ -73,6 +74,7 @@ Requires: samba-libexec = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
 Requires: samba-man = %{version}-%{release}
+Requires: samba-services = %{version}-%{release}
 
 %description bin
 bin components for the samba package.
@@ -168,6 +170,14 @@ Group: Default
 python components for the samba package.
 
 
+%package services
+Summary: services components for the samba package.
+Group: Systemd services
+
+%description services
+services components for the samba package.
+
+
 %prep
 %setup -q -n samba-samba-4.7.8
 %patch1 -p1
@@ -180,7 +190,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1540310807
+export SOURCE_DATE_EPOCH=1540410780
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -189,7 +199,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1540310807
+export SOURCE_DATE_EPOCH=1540410780
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -294,10 +304,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 
 %files config
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/nmb.service
-/usr/lib/systemd/system/samba.service
-/usr/lib/systemd/system/smb.service
-/usr/lib/systemd/system/winbind.service
 /usr/lib/tmpfiles.d/samba.conf
 
 %files data
@@ -828,3 +834,10 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 
 %files python
 %defattr(-,root,root,-)
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/nmb.service
+/usr/lib/systemd/system/samba.service
+/usr/lib/systemd/system/smb.service
+/usr/lib/systemd/system/winbind.service
