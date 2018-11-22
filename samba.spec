@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.9
-Release  : 65
+Release  : 66
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.9.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.9.tar.gz
 Source1  : samba.tmpfiles
@@ -188,7 +188,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542433269
+export SOURCE_DATE_EPOCH=1542926974
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -197,7 +197,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1542433269
+export SOURCE_DATE_EPOCH=1542926974
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -219,32 +219,32 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/CUtil.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Compat.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Dump.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Expr.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/IDL.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/NDR.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/ODL.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba3/ClientNDR.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba3/ServerNDR.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/COM/Header.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/COM/Proxy.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/COM/Stub.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/Header.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/NDR/Client.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/NDR/Parser.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/NDR/Server.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/Python.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/TDR.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Samba4/Template.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Typelist.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Util.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Wireshark/Conformance.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Pidl/Wireshark/NDR.pm
-/usr/lib/perl5/vendor_perl/5.26.1/Parse/Yapp/Driver.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/CUtil.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Compat.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Dump.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Expr.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/IDL.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/NDR.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/ODL.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba3/ClientNDR.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba3/ServerNDR.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/COM/Header.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/COM/Proxy.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/COM/Stub.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/Header.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/NDR/Client.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/NDR/Parser.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/NDR/Server.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/Python.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/TDR.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Samba4/Template.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Typelist.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Util.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Wireshark/Conformance.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Pidl/Wireshark/NDR.pm
+/usr/lib/perl5/vendor_perl/5.28.0/Parse/Yapp/Driver.pm
 
 %files bin
 %defattr(-,root,root,-)
