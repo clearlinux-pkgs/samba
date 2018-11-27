@@ -1,1 +1,6 @@
---with-systemd --enable-fhs --with-system-mitkrb5 --nopyc --nopyo
+--with-systemd
+--enable-fhs
+--with-system-mitkrb5
+--without-ad-dc
+--nopyc
+--nopyo

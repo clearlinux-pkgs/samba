@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.7.11
-Release  : 67
+Release  : 68
 URL      : https://github.com/samba-team/samba/archive/samba-4.7.11.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.7.11.tar.gz
 Source1  : samba.tmpfiles
@@ -13,7 +13,6 @@ Group    : Development/Tools
 License  : BSL-1.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
-Requires: samba-data = %{version}-%{release}
 Requires: samba-lib = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
@@ -58,6 +57,7 @@ BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: 0002-Force-build-using-python2.patch
+Patch4: samba-4.7.11-security-2018-11-27.patch
 
 %description
 This is the release version of Samba, the free SMB and CIFS client and
@@ -68,7 +68,6 @@ original author, Andrew Tridgell.
 %package bin
 Summary: bin components for the samba package.
 Group: Binaries
-Requires: samba-data = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
@@ -87,20 +86,11 @@ Group: Default
 config components for the samba package.
 
 
-%package data
-Summary: data components for the samba package.
-Group: Data
-
-%description data
-data components for the samba package.
-
-
 %package dev
 Summary: dev components for the samba package.
 Group: Development
 Requires: samba-lib = %{version}-%{release}
 Requires: samba-bin = %{version}-%{release}
-Requires: samba-data = %{version}-%{release}
 Provides: samba-devel = %{version}-%{release}
 
 %description dev
@@ -127,7 +117,6 @@ legacypython components for the samba package.
 %package lib
 Summary: lib components for the samba package.
 Group: Libraries
-Requires: samba-data = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
 
@@ -182,22 +171,28 @@ services components for the samba package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1543337689
+export SOURCE_DATE_EPOCH=1543339609
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
-%configure --disable-static --with-systemd --enable-fhs --with-system-mitkrb5 --nopyc --nopyo
+%configure --disable-static --with-systemd \
+--enable-fhs \
+--with-system-mitkrb5 \
+--without-ad-dc \
+--nopyc \
+--nopyo
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1543337689
+export SOURCE_DATE_EPOCH=1543339609
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -276,13 +271,7 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/bin/regshell
 /usr/bin/regtree
 /usr/bin/rpcclient
-/usr/bin/samba
 /usr/bin/samba-regedit
-/usr/bin/samba-tool
-/usr/bin/samba_dnsupdate
-/usr/bin/samba_kcc
-/usr/bin/samba_spnupdate
-/usr/bin/samba_upgradedns
 /usr/bin/sharesec
 /usr/bin/smbcacls
 /usr/bin/smbclient
@@ -304,97 +293,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 %defattr(-,root,root,-)
 /usr/lib/tmpfiles.d/samba.conf
 
-%files data
-%defattr(-,root,root,-)
-/usr/share/samba/setup/DB_CONFIG
-/usr/share/samba/setup/ad-schema/MS-AD_Schema_2K8_Attributes.txt
-/usr/share/samba/setup/ad-schema/MS-AD_Schema_2K8_Classes.txt
-/usr/share/samba/setup/ad-schema/MS-AD_Schema_2K8_R2_Attributes.txt
-/usr/share/samba/setup/ad-schema/MS-AD_Schema_2K8_R2_Classes.txt
-/usr/share/samba/setup/ad-schema/licence.txt
-/usr/share/samba/setup/aggregate_schema.ldif
-/usr/share/samba/setup/cn=samba.ldif
-/usr/share/samba/setup/display-specifiers/DisplaySpecifiers-Win2k0.txt
-/usr/share/samba/setup/display-specifiers/DisplaySpecifiers-Win2k3.txt
-/usr/share/samba/setup/display-specifiers/DisplaySpecifiers-Win2k3R2.txt
-/usr/share/samba/setup/display-specifiers/DisplaySpecifiers-Win2k8.txt
-/usr/share/samba/setup/display-specifiers/DisplaySpecifiers-Win2k8R2.txt
-/usr/share/samba/setup/dns_update_list
-/usr/share/samba/setup/fedora-ds-init.ldif
-/usr/share/samba/setup/fedorads-dna.ldif
-/usr/share/samba/setup/fedorads-index.ldif
-/usr/share/samba/setup/fedorads-linked-attributes.ldif
-/usr/share/samba/setup/fedorads-pam.ldif
-/usr/share/samba/setup/fedorads-partitions.ldif
-/usr/share/samba/setup/fedorads-refint-add.ldif
-/usr/share/samba/setup/fedorads-refint-delete.ldif
-/usr/share/samba/setup/fedorads-samba.ldif
-/usr/share/samba/setup/fedorads-sasl.ldif
-/usr/share/samba/setup/fedorads.inf
-/usr/share/samba/setup/idmap_init.ldif
-/usr/share/samba/setup/krb5.conf
-/usr/share/samba/setup/memberof.conf
-/usr/share/samba/setup/mmr_serverids.conf
-/usr/share/samba/setup/mmr_syncrepl.conf
-/usr/share/samba/setup/modules.conf
-/usr/share/samba/setup/named.conf
-/usr/share/samba/setup/named.conf.dlz
-/usr/share/samba/setup/named.conf.update
-/usr/share/samba/setup/named.txt
-/usr/share/samba/setup/olc_mmr.conf
-/usr/share/samba/setup/olc_seed.ldif
-/usr/share/samba/setup/olc_serverid.conf
-/usr/share/samba/setup/olc_syncrepl.conf
-/usr/share/samba/setup/olc_syncrepl_seed.conf
-/usr/share/samba/setup/prefixMap.txt
-/usr/share/samba/setup/provision.ldif
-/usr/share/samba/setup/provision.reg
-/usr/share/samba/setup/provision.zone
-/usr/share/samba/setup/provision_basedn.ldif
-/usr/share/samba/setup/provision_basedn_modify.ldif
-/usr/share/samba/setup/provision_basedn_options.ldif
-/usr/share/samba/setup/provision_basedn_references.ldif
-/usr/share/samba/setup/provision_computers_add.ldif
-/usr/share/samba/setup/provision_computers_modify.ldif
-/usr/share/samba/setup/provision_configuration.ldif
-/usr/share/samba/setup/provision_configuration_basedn.ldif
-/usr/share/samba/setup/provision_configuration_modify.ldif
-/usr/share/samba/setup/provision_configuration_references.ldif
-/usr/share/samba/setup/provision_dns_accounts_add.ldif
-/usr/share/samba/setup/provision_dns_add_samba.ldif
-/usr/share/samba/setup/provision_dnszones_add.ldif
-/usr/share/samba/setup/provision_dnszones_modify.ldif
-/usr/share/samba/setup/provision_dnszones_partitions.ldif
-/usr/share/samba/setup/provision_group_policy.ldif
-/usr/share/samba/setup/provision_init.ldif
-/usr/share/samba/setup/provision_partitions.ldif
-/usr/share/samba/setup/provision_privilege.ldif
-/usr/share/samba/setup/provision_rootdse_add.ldif
-/usr/share/samba/setup/provision_rootdse_modify.ldif
-/usr/share/samba/setup/provision_schema_basedn.ldif
-/usr/share/samba/setup/provision_schema_basedn_modify.ldif
-/usr/share/samba/setup/provision_self_join.ldif
-/usr/share/samba/setup/provision_self_join_config.ldif
-/usr/share/samba/setup/provision_self_join_modify.ldif
-/usr/share/samba/setup/provision_self_join_modify_config.ldif
-/usr/share/samba/setup/provision_users.ldif
-/usr/share/samba/setup/provision_users_add.ldif
-/usr/share/samba/setup/provision_users_modify.ldif
-/usr/share/samba/setup/provision_well_known_sec_princ.ldif
-/usr/share/samba/setup/refint.conf
-/usr/share/samba/setup/schema-map-fedora-ds-1.0
-/usr/share/samba/setup/schema-map-openldap-2.3
-/usr/share/samba/setup/schema_samba4.ldif
-/usr/share/samba/setup/secrets.ldif
-/usr/share/samba/setup/secrets_dns.ldif
-/usr/share/samba/setup/secrets_init.ldif
-/usr/share/samba/setup/secrets_sasl_ldap.ldif
-/usr/share/samba/setup/secrets_simple_ldap.ldif
-/usr/share/samba/setup/share.ldif
-/usr/share/samba/setup/slapd.conf
-/usr/share/samba/setup/spn_update_list
-/usr/share/samba/setup/ypServ30.ldif
-
 %files dev
 %defattr(-,root,root,-)
 /usr/include/samba-4.0/charset.h
@@ -407,7 +305,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/include/samba-4.0/core/werror_gen.h
 /usr/include/samba-4.0/credentials.h
 /usr/include/samba-4.0/dcerpc.h
-/usr/include/samba-4.0/dcerpc_server.h
 /usr/include/samba-4.0/domain_credentials.h
 /usr/include/samba-4.0/gen_ndr/atsvc.h
 /usr/include/samba-4.0/gen_ndr/auth.h
@@ -484,7 +381,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/include/samba-4.0/wbclient.h
 /usr/lib64/libdcerpc-binding.so
 /usr/lib64/libdcerpc-samr.so
-/usr/lib64/libdcerpc-server.so
 /usr/lib64/libdcerpc.so
 /usr/lib64/libndr-krb5pac.so
 /usr/lib64/libndr-nbt.so
@@ -507,7 +403,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/libwbclient.so
 /usr/lib64/pkgconfig/dcerpc.pc
 /usr/lib64/pkgconfig/dcerpc_samr.pc
-/usr/lib64/pkgconfig/dcerpc_server.pc
 /usr/lib64/pkgconfig/ndr.pc
 /usr/lib64/pkgconfig/ndr_krb5pac.pc
 /usr/lib64/pkgconfig/ndr_nbt.pc
@@ -540,13 +435,10 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 %files lib
 %defattr(-,root,root,-)
 %exclude /usr/lib64/samba/libsamba-python-samba4.so
-/usr/lib64/krb5/plugins/kdb/samba.so
 /usr/lib64/libdcerpc-binding.so.0
 /usr/lib64/libdcerpc-binding.so.0.0.1
 /usr/lib64/libdcerpc-samr.so.0
 /usr/lib64/libdcerpc-samr.so.0.0.1
-/usr/lib64/libdcerpc-server.so.0
-/usr/lib64/libdcerpc-server.so.0.0.1
 /usr/lib64/libdcerpc.so.0
 /usr/lib64/libdcerpc.so.0.0.1
 /usr/lib64/libndr-krb5pac.so.0
@@ -582,11 +474,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/libwbclient.so.0
 /usr/lib64/libwbclient.so.0.14
 /usr/lib64/samba/auth/script.so
-/usr/lib64/samba/bind9/dlz_bind9.so
-/usr/lib64/samba/bind9/dlz_bind9_10.so
-/usr/lib64/samba/bind9/dlz_bind9_11.so
-/usr/lib64/samba/bind9/dlz_bind9_9.so
-/usr/lib64/samba/gensec/krb5.so
 /usr/lib64/samba/idmap/ad.so
 /usr/lib64/samba/idmap/autorid.so
 /usr/lib64/samba/idmap/hash.so
@@ -594,58 +481,16 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/idmap/rid.so
 /usr/lib64/samba/idmap/script.so
 /usr/lib64/samba/idmap/tdb2.so
-/usr/lib64/samba/ldb/acl.so
-/usr/lib64/samba/ldb/aclread.so
-/usr/lib64/samba/ldb/anr.so
 /usr/lib64/samba/ldb/asq.so
-/usr/lib64/samba/ldb/descriptor.so
-/usr/lib64/samba/ldb/dirsync.so
-/usr/lib64/samba/ldb/dns_notify.so
-/usr/lib64/samba/ldb/dsdb_notification.so
-/usr/lib64/samba/ldb/extended_dn_in.so
-/usr/lib64/samba/ldb/extended_dn_out.so
-/usr/lib64/samba/ldb/extended_dn_store.so
 /usr/lib64/samba/ldb/ildap.so
-/usr/lib64/samba/ldb/instancetype.so
-/usr/lib64/samba/ldb/lazy_commit.so
 /usr/lib64/samba/ldb/ldbsamba_extensions.so
-/usr/lib64/samba/ldb/linked_attributes.so
-/usr/lib64/samba/ldb/local_password.so
-/usr/lib64/samba/ldb/new_partition.so
-/usr/lib64/samba/ldb/objectclass.so
-/usr/lib64/samba/ldb/objectclass_attrs.so
-/usr/lib64/samba/ldb/objectguid.so
-/usr/lib64/samba/ldb/operational.so
 /usr/lib64/samba/ldb/paged_results.so
 /usr/lib64/samba/ldb/paged_searches.so
-/usr/lib64/samba/ldb/partition.so
-/usr/lib64/samba/ldb/password_hash.so
-/usr/lib64/samba/ldb/ranged_results.so
 /usr/lib64/samba/ldb/rdn_name.so
-/usr/lib64/samba/ldb/repl_meta_data.so
-/usr/lib64/samba/ldb/resolve_oids.so
-/usr/lib64/samba/ldb/rootdse.so
-/usr/lib64/samba/ldb/samba3sam.so
-/usr/lib64/samba/ldb/samba3sid.so
-/usr/lib64/samba/ldb/samba_dsdb.so
-/usr/lib64/samba/ldb/samba_secrets.so
-/usr/lib64/samba/ldb/samldb.so
 /usr/lib64/samba/ldb/sample.so
-/usr/lib64/samba/ldb/schema_data.so
-/usr/lib64/samba/ldb/schema_load.so
-/usr/lib64/samba/ldb/secrets_tdb_sync.so
 /usr/lib64/samba/ldb/server_sort.so
-/usr/lib64/samba/ldb/show_deleted.so
-/usr/lib64/samba/ldb/simple_dn.so
-/usr/lib64/samba/ldb/simple_ldap_map.so
 /usr/lib64/samba/ldb/skel.so
-/usr/lib64/samba/ldb/subtree_delete.so
-/usr/lib64/samba/ldb/subtree_rename.so
 /usr/lib64/samba/ldb/tdb.so
-/usr/lib64/samba/ldb/tombstone_reanimate.so
-/usr/lib64/samba/ldb/update_keytab.so
-/usr/lib64/samba/ldb/vlv.so
-/usr/lib64/samba/ldb/wins_ldb.so
 /usr/lib64/samba/libCHARSET3-samba4.so
 /usr/lib64/samba/libLIBWBCLIENT-OLD-samba4.so
 /usr/lib64/samba/libMESSAGING-SEND-samba4.so
@@ -668,13 +513,9 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libcmdline-credentials-samba4.so
 /usr/lib64/samba/libcmocka-samba4.so
 /usr/lib64/samba/libcommon-auth-samba4.so
-/usr/lib64/samba/libdb-glue-samba4.so
 /usr/lib64/samba/libdbwrap-samba4.so
 /usr/lib64/samba/libdcerpc-samba-samba4.so
 /usr/lib64/samba/libdcerpc-samba4.so
-/usr/lib64/samba/libdfs-server-ad-samba4.so
-/usr/lib64/samba/libdlz-bind9-for-torture-samba4.so
-/usr/lib64/samba/libdnsserver-common-samba4.so
 /usr/lib64/samba/libdsdb-garbage-collect-tombstones-samba4.so
 /usr/lib64/samba/libdsdb-module-samba4.so
 /usr/lib64/samba/libevents-samba4.so
@@ -706,11 +547,9 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libnon-posix-acls-samba4.so
 /usr/lib64/samba/libnpa-tstream-samba4.so
 /usr/lib64/samba/libnss-info-samba4.so
-/usr/lib64/samba/libpac-samba4.so
 /usr/lib64/samba/libpopt-samba3-samba4.so
 /usr/lib64/samba/libposix-eadb-samba4.so
 /usr/lib64/samba/libprinting-migrate-samba4.so
-/usr/lib64/samba/libprocess-model-samba4.so
 /usr/lib64/samba/libpyldb-util.so.1
 /usr/lib64/samba/libpyldb-util.so.1.2.3
 /usr/lib64/samba/libregistry-samba4.so
@@ -726,7 +565,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/libsecrets3-samba4.so
 /usr/lib64/samba/libserver-id-db-samba4.so
 /usr/lib64/samba/libserver-role-samba4.so
-/usr/lib64/samba/libservice-samba4.so
 /usr/lib64/samba/libshares-samba4.so
 /usr/lib64/samba/libsmb-transport-samba4.so
 /usr/lib64/samba/libsmbclient-raw-samba4.so
@@ -754,21 +592,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/nss_info/rfc2307.so
 /usr/lib64/samba/nss_info/sfu.so
 /usr/lib64/samba/nss_info/sfu20.so
-/usr/lib64/samba/process_model/standard.so
-/usr/lib64/samba/service/cldap.so
-/usr/lib64/samba/service/dcerpc.so
-/usr/lib64/samba/service/dns.so
-/usr/lib64/samba/service/dns_update.so
-/usr/lib64/samba/service/drepl.so
-/usr/lib64/samba/service/kcc.so
-/usr/lib64/samba/service/kdc.so
-/usr/lib64/samba/service/ldap.so
-/usr/lib64/samba/service/nbtd.so
-/usr/lib64/samba/service/ntp_signd.so
-/usr/lib64/samba/service/s3fs.so
-/usr/lib64/samba/service/web.so
-/usr/lib64/samba/service/winbindd.so
-/usr/lib64/samba/service/wrepl.so
 /usr/lib64/samba/vfs/acl_tdb.so
 /usr/lib64/samba/vfs/acl_xattr.so
 /usr/lib64/samba/vfs/aio_fork.so
@@ -792,7 +615,6 @@ install -m 644 ./packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 /usr/lib64/samba/vfs/media_harmony.so
 /usr/lib64/samba/vfs/netatalk.so
 /usr/lib64/samba/vfs/offline.so
-/usr/lib64/samba/vfs/posix_eadb.so
 /usr/lib64/samba/vfs/preopen.so
 /usr/lib64/samba/vfs/readahead.so
 /usr/lib64/samba/vfs/readonly.so
