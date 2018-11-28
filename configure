@@ -1,6 +1,6 @@
 --with-systemd
 --enable-fhs
 --with-system-mitkrb5
---without-ad-dc
+--with-experimental-mit-ad-dc
 --nopyc
 --nopyo
