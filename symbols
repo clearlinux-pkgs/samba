@@ -305,6 +305,7 @@ libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy
 libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy2
 libdcerpc-server.so.0:dcesrv_lsa_get_policy_state
 libdcerpc-server.so.0:dcesrv_reply
+libdcerpc-server.so.0:dcesrv_samdb_connect_as_system
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser2
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser3
@@ -314,7 +315,6 @@ libdcerpc-server.so.0:dns_addr_array_to_ip4_array
 libdcerpc-server.so.0:dns_build_tree
 libdcerpc-server.so.0:dns_fill_records_array
 libdcerpc-server.so.0:dns_name_compare
-libdcerpc-server.so.0:dns_name_equal
 libdcerpc-server.so.0:dns_record_match
 libdcerpc-server.so.0:dns_split_name_components
 libdcerpc-server.so.0:dns_split_node_name
@@ -325,6 +325,7 @@ libdcerpc-server.so.0:dnsserver_db_add_record
 libdcerpc-server.so.0:dnsserver_db_create_zone
 libdcerpc-server.so.0:dnsserver_db_delete_record
 libdcerpc-server.so.0:dnsserver_db_delete_zone
+libdcerpc-server.so.0:dnsserver_db_do_reset_dword
 libdcerpc-server.so.0:dnsserver_db_enumerate_partitions
 libdcerpc-server.so.0:dnsserver_db_enumerate_zones
 libdcerpc-server.so.0:dnsserver_db_partition_info
@@ -3360,6 +3361,7 @@ libnetapi.so.0:NetWkstaGetInfo
 libnetapi.so.0:NetWkstaGetInfo_l
 libnetapi.so.0:NetWkstaGetInfo_r
 libnetapi.so.0:add_GROUP_USERS_INFO_X_buffer
+libnetapi.so.0:cli_rpc_pipe_open_schannel
 libnetapi.so.0:dcerpc_get_query_dispinfo_params
 libnetapi.so.0:dcerpc_samr_chgpasswd_user
 libnetapi.so.0:dcerpc_samr_chgpasswd_user2
@@ -4129,12 +4131,13 @@ libsamba-hostconfig.so.0:lpcfg_allow_insecure_wide_links
 libsamba-hostconfig.so.0:lpcfg_allow_nt4_crypto
 libsamba-hostconfig.so.0:lpcfg_allow_trusted_domains
 libsamba-hostconfig.so.0:lpcfg_allow_unsafe_cluster_upgrade
+libsamba-hostconfig.so.0:lpcfg_apply_group_policies
 libsamba-hostconfig.so.0:lpcfg_async_smb_echo_handler
 libsamba-hostconfig.so.0:lpcfg_auth_event_notification
-libsamba-hostconfig.so.0:lpcfg_auth_methods
 libsamba-hostconfig.so.0:lpcfg_auto_services
 libsamba-hostconfig.so.0:lpcfg_autoloaded
 libsamba-hostconfig.so.0:lpcfg_bind_interfaces_only
+libsamba-hostconfig.so.0:lpcfg_binddns_dir
 libsamba-hostconfig.so.0:lpcfg_block_size
 libsamba-hostconfig.so.0:lpcfg_blocking_locks
 libsamba-hostconfig.so.0:lpcfg_browse_list
@@ -4144,6 +4147,7 @@ libsamba-hostconfig.so.0:lpcfg_cache_path
 libsamba-hostconfig.so.0:lpcfg_case_sensitive
 libsamba-hostconfig.so.0:lpcfg_change_notify
 libsamba-hostconfig.so.0:lpcfg_change_share_command
+libsamba-hostconfig.so.0:lpcfg_check_parent_directory_delete_on_close
 libsamba-hostconfig.so.0:lpcfg_check_password_script
 libsamba-hostconfig.so.0:lpcfg_cldap_port
 libsamba-hostconfig.so.0:lpcfg_client_ipc_max_protocol
@@ -4204,6 +4208,7 @@ libsamba-hostconfig.so.0:lpcfg_disable_netbios
 libsamba-hostconfig.so.0:lpcfg_dmapi_support
 libsamba-hostconfig.so.0:lpcfg_dns_forwarder
 libsamba-hostconfig.so.0:lpcfg_dns_update_command
+libsamba-hostconfig.so.0:lpcfg_dns_zone_scavenging
 libsamba-hostconfig.so.0:lpcfg_dnsdomain
 libsamba-hostconfig.so.0:lpcfg_do_global_parameter
 libsamba-hostconfig.so.0:lpcfg_do_global_parameter_var
@@ -4214,6 +4219,9 @@ libsamba-hostconfig.so.0:lpcfg_dos_charset
 libsamba-hostconfig.so.0:lpcfg_dos_filemode
 libsamba-hostconfig.so.0:lpcfg_dos_filetime_resolution
 libsamba-hostconfig.so.0:lpcfg_dos_filetimes
+libsamba-hostconfig.so.0:lpcfg_dsdb_event_notification
+libsamba-hostconfig.so.0:lpcfg_dsdb_group_change_notification
+libsamba-hostconfig.so.0:lpcfg_dsdb_password_event_notification
 libsamba-hostconfig.so.0:lpcfg_dump
 libsamba-hostconfig.so.0:lpcfg_dump_a_parameter
 libsamba-hostconfig.so.0:lpcfg_dump_a_service
@@ -4243,6 +4251,7 @@ libsamba-hostconfig.so.0:lpcfg_gensec_settings
 libsamba-hostconfig.so.0:lpcfg_get_parametric
 libsamba-hostconfig.so.0:lpcfg_get_quota_command
 libsamba-hostconfig.so.0:lpcfg_getwd_cache
+libsamba-hostconfig.so.0:lpcfg_gpo_update_command
 libsamba-hostconfig.so.0:lpcfg_guest_account
 libsamba-hostconfig.so.0:lpcfg_guest_ok
 libsamba-hostconfig.so.0:lpcfg_guest_only
@@ -4303,6 +4312,7 @@ libsamba-hostconfig.so.0:lpcfg_lm_announce
 libsamba-hostconfig.so.0:lpcfg_lm_interval
 libsamba-hostconfig.so.0:lpcfg_load
 libsamba-hostconfig.so.0:lpcfg_load_default
+libsamba-hostconfig.so.0:lpcfg_load_no_global
 libsamba-hostconfig.so.0:lpcfg_load_printers
 libsamba-hostconfig.so.0:lpcfg_local_master
 libsamba-hostconfig.so.0:lpcfg_lock_directory
@@ -4338,7 +4348,6 @@ libsamba-hostconfig.so.0:lpcfg_map_parameter
 libsamba-hostconfig.so.0:lpcfg_map_readonly
 libsamba-hostconfig.so.0:lpcfg_map_system
 libsamba-hostconfig.so.0:lpcfg_map_to_guest
-libsamba-hostconfig.so.0:lpcfg_map_untrusted_to_domain
 libsamba-hostconfig.so.0:lpcfg_max_connections
 libsamba-hostconfig.so.0:lpcfg_max_disk_size
 libsamba-hostconfig.so.0:lpcfg_max_log_size
@@ -4352,6 +4361,7 @@ libsamba-hostconfig.so.0:lpcfg_max_ttl
 libsamba-hostconfig.so.0:lpcfg_max_wins_ttl
 libsamba-hostconfig.so.0:lpcfg_max_xmit
 libsamba-hostconfig.so.0:lpcfg_maxprintjobs
+libsamba-hostconfig.so.0:lpcfg_mdns_name
 libsamba-hostconfig.so.0:lpcfg_message_command
 libsamba-hostconfig.so.0:lpcfg_min_print_space
 libsamba-hostconfig.so.0:lpcfg_min_receivefile_size
@@ -4385,7 +4395,6 @@ libsamba-hostconfig.so.0:lpcfg_numservices
 libsamba-hostconfig.so.0:lpcfg_obey_pam_restrictions
 libsamba-hostconfig.so.0:lpcfg_old_password_allowed_period
 libsamba-hostconfig.so.0:lpcfg_oplock_break_wait_time
-libsamba-hostconfig.so.0:lpcfg_oplock_contention_limit
 libsamba-hostconfig.so.0:lpcfg_oplocks
 libsamba-hostconfig.so.0:lpcfg_os2_driver_map
 libsamba-hostconfig.so.0:lpcfg_os_level
@@ -4419,6 +4428,7 @@ libsamba-hostconfig.so.0:lpcfg_posix_locking
 libsamba-hostconfig.so.0:lpcfg_postexec
 libsamba-hostconfig.so.0:lpcfg_preexec
 libsamba-hostconfig.so.0:lpcfg_preexec_close
+libsamba-hostconfig.so.0:lpcfg_prefork_children
 libsamba-hostconfig.so.0:lpcfg_preload_modules
 libsamba-hostconfig.so.0:lpcfg_preserve_case
 libsamba-hostconfig.so.0:lpcfg_print_command
@@ -4433,7 +4443,6 @@ libsamba-hostconfig.so.0:lpcfg_printjob_username
 libsamba-hostconfig.so.0:lpcfg_private_db_path
 libsamba-hostconfig.so.0:lpcfg_private_dir
 libsamba-hostconfig.so.0:lpcfg_private_path
-libsamba-hostconfig.so.0:lpcfg_profile_acls
 libsamba-hostconfig.so.0:lpcfg_queuepause_command
 libsamba-hostconfig.so.0:lpcfg_queueresume_command
 libsamba-hostconfig.so.0:lpcfg_raw_ntlmv2_auth
@@ -4532,7 +4541,6 @@ libsamba-hostconfig.so.0:lpcfg_unix_extensions
 libsamba-hostconfig.so.0:lpcfg_unix_password_sync
 libsamba-hostconfig.so.0:lpcfg_use_client_driver
 libsamba-hostconfig.so.0:lpcfg_use_mmap
-libsamba-hostconfig.so.0:lpcfg_use_spnego
 libsamba-hostconfig.so.0:lpcfg_username_level
 libsamba-hostconfig.so.0:lpcfg_username_map
 libsamba-hostconfig.so.0:lpcfg_username_map_cache_time
@@ -4568,9 +4576,9 @@ libsamba-hostconfig.so.0:lpcfg_winbind_reconnect_delay
 libsamba-hostconfig.so.0:lpcfg_winbind_refresh_tickets
 libsamba-hostconfig.so.0:lpcfg_winbind_request_timeout
 libsamba-hostconfig.so.0:lpcfg_winbind_rpc_only
+libsamba-hostconfig.so.0:lpcfg_winbind_scan_trusted_domains
 libsamba-hostconfig.so.0:lpcfg_winbind_sealed_pipes
 libsamba-hostconfig.so.0:lpcfg_winbind_separator
-libsamba-hostconfig.so.0:lpcfg_winbind_trusted_domains_only
 libsamba-hostconfig.so.0:lpcfg_winbind_use_default_domain
 libsamba-hostconfig.so.0:lpcfg_winbindd_socket_directory
 libsamba-hostconfig.so.0:lpcfg_wins_dns_proxy
@@ -4598,6 +4606,7 @@ libsamba-passdb.so.0:SAMBA_PASSDB_0.24.2
 libsamba-passdb.so.0:SAMBA_PASSDB_0.25.0
 libsamba-passdb.so.0:SAMBA_PASSDB_0.26.0
 libsamba-passdb.so.0:SAMBA_PASSDB_0.27.0
+libsamba-passdb.so.0:SAMBA_PASSDB_0.27.1
 libsamba-passdb.so.0:account_policy_get
 libsamba-passdb.so.0:account_policy_get_default
 libsamba-passdb.so.0:account_policy_get_desc
@@ -4614,6 +4623,7 @@ libsamba-passdb.so.0:builtin_domain_name
 libsamba-passdb.so.0:cache_account_policy_get
 libsamba-passdb.so.0:cache_account_policy_set
 libsamba-passdb.so.0:create_builtin_administrators
+libsamba-passdb.so.0:create_builtin_guests
 libsamba-passdb.so.0:create_builtin_users
 libsamba-passdb.so.0:decode_account_policy_name
 libsamba-passdb.so.0:get_account_pol_db
@@ -5008,6 +5018,7 @@ libsamba-util.so.0:count_chars
 libsamba-util.so.0:count_chars_m
 libsamba-util.so.0:crc32_calc_buffer
 libsamba-util.so.0:create_unlink_tmp
+libsamba-util.so.0:current_minimal_timestring
 libsamba-util.so.0:current_timestring
 libsamba-util.so.0:d_fprintf
 libsamba-util.so.0:d_printf
@@ -5065,6 +5076,7 @@ libsamba-util.so.0:generate_random_str
 libsamba-util.so.0:generate_random_str_list
 libsamba-util.so.0:generate_unique_strs
 libsamba-util.so.0:get_conv_handle
+libsamba-util.so.0:get_dyn_BINDDNS_DIR
 libsamba-util.so.0:get_dyn_BINDIR
 libsamba-util.so.0:get_dyn_CACHEDIR
 libsamba-util.so.0:get_dyn_CODEPAGEDIR
@@ -5125,6 +5137,7 @@ libsamba-util.so.0:interpret_string_addr_internal
 libsamba-util.so.0:interpret_string_addr_prefer_ipv4
 libsamba-util.so.0:is_address_any
 libsamba-util.so.0:is_broadcast_addr
+libsamba-util.so.0:is_default_dyn_BINDDNS_DIR
 libsamba-util.so.0:is_default_dyn_BINDIR
 libsamba-util.so.0:is_default_dyn_CACHEDIR
 libsamba-util.so.0:is_default_dyn_CODEPAGEDIR
@@ -5174,6 +5187,8 @@ libsamba-util.so.0:memcache_lookup
 libsamba-util.so.0:memcache_lookup_talloc
 libsamba-util.so.0:memcache_set_global
 libsamba-util.so.0:memcmp_const_time
+libsamba-util.so.0:minimal_timeval_string
+libsamba-util.so.0:mkdir_p
 libsamba-util.so.0:modules_path
 libsamba-util.so.0:ms_fnmatch_protocol
 libsamba-util.so.0:next_codepoint
@@ -5192,7 +5207,10 @@ libsamba-util.so.0:nttime_to_timeval
 libsamba-util.so.0:null_nttime
 libsamba-util.so.0:null_time
 libsamba-util.so.0:null_timespec
+libsamba-util.so.0:parse_guid_string
 libsamba-util.so.0:pidfile_create
+libsamba-util.so.0:pidfile_fd_close
+libsamba-util.so.0:pidfile_path_create
 libsamba-util.so.0:pidfile_pid
 libsamba-util.so.0:pidfile_unlink
 libsamba-util.so.0:pm_process
@@ -5230,11 +5248,10 @@ libsamba-util.so.0:rb_link_node
 libsamba-util.so.0:rb_next
 libsamba-util.so.0:rb_prev
 libsamba-util.so.0:rb_replace_node
+libsamba-util.so.0:read_hex_bytes
 libsamba-util.so.0:realloc_array
 libsamba-util.so.0:reinit_iconv_handle
-libsamba-util.so.0:rfc1738_escape
 libsamba-util.so.0:rfc1738_escape_part
-libsamba-util.so.0:rfc1738_escape_unescaped
 libsamba-util.so.0:rfc1738_unescape
 libsamba-util.so.0:round_timespec_to_sec
 libsamba-util.so.0:round_timespec_to_usec
@@ -5265,6 +5282,7 @@ libsamba-util.so.0:server_id_set_disconnected
 libsamba-util.so.0:server_id_str_buf
 libsamba-util.so.0:server_id_str_buf_unique
 libsamba-util.so.0:set_boolean
+libsamba-util.so.0:set_dyn_BINDDNS_DIR
 libsamba-util.so.0:set_dyn_BINDIR
 libsamba-util.so.0:set_dyn_CACHEDIR
 libsamba-util.so.0:set_dyn_CODEPAGEDIR
@@ -5460,6 +5478,7 @@ libsamdb.so.0:authsam_logon_success_accounting
 libsamdb.so.0:authsam_make_user_info_dc
 libsamdb.so.0:authsam_search_account
 libsamdb.so.0:authsam_update_bad_pwd_count
+libsamdb.so.0:authsam_update_user_info_dc
 libsamdb.so.0:crack_auto_name_to_nt4_name
 libsamdb.so.0:crack_name_to_nt4_name
 libsamdb.so.0:crack_service_principal_name
@@ -5488,6 +5507,11 @@ libsmbclient.so.0:SMBCLIENT_0.2.0
 libsmbclient.so.0:SMBCLIENT_0.2.1
 libsmbclient.so.0:SMBCLIENT_0.2.2
 libsmbclient.so.0:SMBCLIENT_0.2.3
+libsmbclient.so.0:SMBCLIENT_0.3.0
+libsmbclient.so.0:SMBCLIENT_0.3.1
+libsmbclient.so.0:SMBCLIENT_0.3.2
+libsmbclient.so.0:SMBCLIENT_0.3.3
+libsmbclient.so.0:SMBCLIENT_0.4.0
 libsmbclient.so.0:smbc_chmod
 libsmbclient.so.0:smbc_close
 libsmbclient.so.0:smbc_closedir
@@ -5529,6 +5553,7 @@ libsmbclient.so.0:smbc_getFunctionPrintFile
 libsmbclient.so.0:smbc_getFunctionPurgeCachedServers
 libsmbclient.so.0:smbc_getFunctionRead
 libsmbclient.so.0:smbc_getFunctionReaddir
+libsmbclient.so.0:smbc_getFunctionReaddirPlus
 libsmbclient.so.0:smbc_getFunctionRemoveCachedServer
 libsmbclient.so.0:smbc_getFunctionRemoveUnusedServer
 libsmbclient.so.0:smbc_getFunctionRemovexattr
@@ -5586,9 +5611,11 @@ libsmbclient.so.0:smbc_option_set
 libsmbclient.so.0:smbc_print_file
 libsmbclient.so.0:smbc_read
 libsmbclient.so.0:smbc_readdir
+libsmbclient.so.0:smbc_readdirplus
 libsmbclient.so.0:smbc_removexattr
 libsmbclient.so.0:smbc_rename
 libsmbclient.so.0:smbc_rmdir
+libsmbclient.so.0:smbc_setConfiguration
 libsmbclient.so.0:smbc_setDebug
 libsmbclient.so.0:smbc_setFunctionAddCachedServer
 libsmbclient.so.0:smbc_setFunctionAuthData
@@ -5618,6 +5645,7 @@ libsmbclient.so.0:smbc_setFunctionPrintFile
 libsmbclient.so.0:smbc_setFunctionPurgeCachedServers
 libsmbclient.so.0:smbc_setFunctionRead
 libsmbclient.so.0:smbc_setFunctionReaddir
+libsmbclient.so.0:smbc_setFunctionReaddirPlus
 libsmbclient.so.0:smbc_setFunctionRemoveCachedServer
 libsmbclient.so.0:smbc_setFunctionRemoveUnusedServer
 libsmbclient.so.0:smbc_setFunctionRemovexattr
@@ -5632,6 +5660,7 @@ libsmbclient.so.0:smbc_setFunctionUnlink
 libsmbclient.so.0:smbc_setFunctionUnlinkPrintJob
 libsmbclient.so.0:smbc_setFunctionUtimes
 libsmbclient.so.0:smbc_setFunctionWrite
+libsmbclient.so.0:smbc_setLogCallback
 libsmbclient.so.0:smbc_setNetbiosName
 libsmbclient.so.0:smbc_setOptionBrowseMaxLmbCount
 libsmbclient.so.0:smbc_setOptionCaseSensitive
@@ -5670,6 +5699,7 @@ libsmbclient.so.0:smbc_write
 libsmbconf.so.0:Get_Pwnam_alloc
 libsmbconf.so.0:SMBCONF_0
 libsmbconf.so.0:TimeInit
+libsmbconf.so.0:_libcap_strdup
 libsmbconf.so.0:add_to_large_array
 libsmbconf.so.0:addrchange_context_create
 libsmbconf.so.0:addrchange_recv
@@ -5686,13 +5716,28 @@ libsmbconf.so.0:background_job_send
 libsmbconf.so.0:cache_path
 libsmbconf.so.0:canonicalize_absolute_path
 libsmbconf.so.0:canonicalize_servicename
+libsmbconf.so.0:cap_clear
+libsmbconf.so.0:cap_clear_flag
+libsmbconf.so.0:cap_compare
+libsmbconf.so.0:cap_drop_bound
+libsmbconf.so.0:cap_dup
+libsmbconf.so.0:cap_free
+libsmbconf.so.0:cap_get_ambient
+libsmbconf.so.0:cap_get_bound
+libsmbconf.so.0:cap_get_flag
+libsmbconf.so.0:cap_get_pid
+libsmbconf.so.0:cap_get_proc
+libsmbconf.so.0:cap_init
+libsmbconf.so.0:cap_reset_ambient
+libsmbconf.so.0:cap_set_ambient
+libsmbconf.so.0:cap_set_flag
+libsmbconf.so.0:cap_set_proc
+libsmbconf.so.0:capgetp
+libsmbconf.so.0:capsetp
 libsmbconf.so.0:cbuf_puts_case
 libsmbconf.so.0:check_same_dev_ino
 libsmbconf.so.0:check_same_stat
 libsmbconf.so.0:clean_name
-libsmbconf.so.0:cleanupdb_delete_child
-libsmbconf.so.0:cleanupdb_store_child
-libsmbconf.so.0:cleanupdb_traverse_read
 libsmbconf.so.0:client_addr
 libsmbconf.so.0:cluster_probe_ok
 libsmbconf.so.0:convert_time_t_to_uint32_t
@@ -5731,9 +5776,6 @@ libsmbconf.so.0:file_pload_recv
 libsmbconf.so.0:file_pload_send
 libsmbconf.so.0:first_ipv4_iface
 libsmbconf.so.0:flush_pwnam_cache
-libsmbconf.so.0:fncall_context_init
-libsmbconf.so.0:fncall_recv
-libsmbconf.so.0:fncall_send
 libsmbconf.so.0:free_local_machine_name
 libsmbconf.so.0:fstring_sub
 libsmbconf.so.0:g_lock_ctx_init
@@ -5787,8 +5829,6 @@ libsmbconf.so.0:get_share_security_default
 libsmbconf.so.0:get_startup_time
 libsmbconf.so.0:get_string_param
 libsmbconf.so.0:get_user_home_dir
-libsmbconf.so.0:getaddrinfo_recv
-libsmbconf.so.0:getaddrinfo_send
 libsmbconf.so.0:getgroups_unix_user
 libsmbconf.so.0:getpwnam_alloc
 libsmbconf.so.0:getpwuid_alloc
@@ -5910,12 +5950,13 @@ libsmbconf.so.0:lp_allow_insecure_wide_links
 libsmbconf.so.0:lp_allow_nt4_crypto
 libsmbconf.so.0:lp_allow_trusted_domains
 libsmbconf.so.0:lp_allow_unsafe_cluster_upgrade
+libsmbconf.so.0:lp_apply_group_policies
 libsmbconf.so.0:lp_async_smb_echo_handler
 libsmbconf.so.0:lp_auth_event_notification
-libsmbconf.so.0:lp_auth_methods
 libsmbconf.so.0:lp_auto_services
 libsmbconf.so.0:lp_autoloaded
 libsmbconf.so.0:lp_bind_interfaces_only
+libsmbconf.so.0:lp_binddns_dir
 libsmbconf.so.0:lp_block_size
 libsmbconf.so.0:lp_blocking_locks
 libsmbconf.so.0:lp_browse_list
@@ -5927,6 +5968,7 @@ libsmbconf.so.0:lp_canonicalize_parameter_with_value
 libsmbconf.so.0:lp_case_sensitive
 libsmbconf.so.0:lp_change_notify
 libsmbconf.so.0:lp_change_share_command
+libsmbconf.so.0:lp_check_parent_directory_delete_on_close
 libsmbconf.so.0:lp_check_password_script
 libsmbconf.so.0:lp_cldap_port
 libsmbconf.so.0:lp_client_ipc_max_protocol
@@ -5989,6 +6031,7 @@ libsmbconf.so.0:lp_disable_spoolss
 libsmbconf.so.0:lp_dmapi_support
 libsmbconf.so.0:lp_dns_forwarder
 libsmbconf.so.0:lp_dns_update_command
+libsmbconf.so.0:lp_dns_zone_scavenging
 libsmbconf.so.0:lp_dnsdomain
 libsmbconf.so.0:lp_do_parameter
 libsmbconf.so.0:lp_do_section
@@ -5998,6 +6041,9 @@ libsmbconf.so.0:lp_dos_charset
 libsmbconf.so.0:lp_dos_filemode
 libsmbconf.so.0:lp_dos_filetime_resolution
 libsmbconf.so.0:lp_dos_filetimes
+libsmbconf.so.0:lp_dsdb_event_notification
+libsmbconf.so.0:lp_dsdb_group_change_notification
+libsmbconf.so.0:lp_dsdb_password_event_notification
 libsmbconf.so.0:lp_dump
 libsmbconf.so.0:lp_dump_one
 libsmbconf.so.0:lp_durable_handles
@@ -6023,6 +6069,7 @@ libsmbconf.so.0:lp_fstype
 libsmbconf.so.0:lp_get_quota_command
 libsmbconf.so.0:lp_get_spoolss_state
 libsmbconf.so.0:lp_getwd_cache
+libsmbconf.so.0:lp_gpo_update_command
 libsmbconf.so.0:lp_guest_account
 libsmbconf.so.0:lp_guest_ok
 libsmbconf.so.0:lp_guest_only
@@ -6130,7 +6177,6 @@ libsmbconf.so.0:lp_map_hidden
 libsmbconf.so.0:lp_map_readonly
 libsmbconf.so.0:lp_map_system
 libsmbconf.so.0:lp_map_to_guest
-libsmbconf.so.0:lp_map_untrusted_to_domain
 libsmbconf.so.0:lp_max_connections
 libsmbconf.so.0:lp_max_disk_size
 libsmbconf.so.0:lp_max_log_size
@@ -6144,6 +6190,7 @@ libsmbconf.so.0:lp_max_ttl
 libsmbconf.so.0:lp_max_wins_ttl
 libsmbconf.so.0:lp_max_xmit
 libsmbconf.so.0:lp_maxprintjobs
+libsmbconf.so.0:lp_mdns_name
 libsmbconf.so.0:lp_message_command
 libsmbconf.so.0:lp_min_print_space
 libsmbconf.so.0:lp_min_receive_file_size
@@ -6178,7 +6225,6 @@ libsmbconf.so.0:lp_numservices
 libsmbconf.so.0:lp_obey_pam_restrictions
 libsmbconf.so.0:lp_old_password_allowed_period
 libsmbconf.so.0:lp_oplock_break_wait_time
-libsmbconf.so.0:lp_oplock_contention_limit
 libsmbconf.so.0:lp_oplocks
 libsmbconf.so.0:lp_os2_driver_map
 libsmbconf.so.0:lp_os_level
@@ -6214,6 +6260,7 @@ libsmbconf.so.0:lp_postexec
 libsmbconf.so.0:lp_preexec
 libsmbconf.so.0:lp_preexec_close
 libsmbconf.so.0:lp_preferred_master
+libsmbconf.so.0:lp_prefork_children
 libsmbconf.so.0:lp_preload_modules
 libsmbconf.so.0:lp_preserve_case
 libsmbconf.so.0:lp_print_command
@@ -6226,7 +6273,6 @@ libsmbconf.so.0:lp_printername
 libsmbconf.so.0:lp_printing
 libsmbconf.so.0:lp_printjob_username
 libsmbconf.so.0:lp_private_dir
-libsmbconf.so.0:lp_profile_acls
 libsmbconf.so.0:lp_queuepause_command
 libsmbconf.so.0:lp_queueresume_command
 libsmbconf.so.0:lp_raw_ntlmv2_auth
@@ -6319,7 +6365,6 @@ libsmbconf.so.0:lp_unix_password_sync
 libsmbconf.so.0:lp_use_client_driver
 libsmbconf.so.0:lp_use_mmap
 libsmbconf.so.0:lp_use_sendfile
-libsmbconf.so.0:lp_use_spnego
 libsmbconf.so.0:lp_username_level
 libsmbconf.so.0:lp_username_map
 libsmbconf.so.0:lp_username_map_cache_time
@@ -6357,9 +6402,9 @@ libsmbconf.so.0:lp_winbind_reconnect_delay
 libsmbconf.so.0:lp_winbind_refresh_tickets
 libsmbconf.so.0:lp_winbind_request_timeout
 libsmbconf.so.0:lp_winbind_rpc_only
+libsmbconf.so.0:lp_winbind_scan_trusted_domains
 libsmbconf.so.0:lp_winbind_sealed_pipes
 libsmbconf.so.0:lp_winbind_separator
-libsmbconf.so.0:lp_winbind_trusted_domains_only
 libsmbconf.so.0:lp_winbind_use_default_domain
 libsmbconf.so.0:lp_winbindd_socket_directory
 libsmbconf.so.0:lp_wins_dns_proxy
@@ -6385,13 +6430,11 @@ libsmbconf.so.0:mask_match_list
 libsmbconf.so.0:mask_match_search
 libsmbconf.so.0:merge_nt_token
 libsmbconf.so.0:message_push_blob
-libsmbconf.so.0:message_send_all
 libsmbconf.so.0:messaging_cleanup
 libsmbconf.so.0:messaging_deregister
 libsmbconf.so.0:messaging_filtered_read_recv
 libsmbconf.so.0:messaging_filtered_read_send
 libsmbconf.so.0:messaging_init
-libsmbconf.so.0:messaging_init_client
 libsmbconf.so.0:messaging_names_db
 libsmbconf.so.0:messaging_parent_dgm_cleanup_init
 libsmbconf.so.0:messaging_read_recv
@@ -6400,6 +6443,7 @@ libsmbconf.so.0:messaging_rec_create
 libsmbconf.so.0:messaging_register
 libsmbconf.so.0:messaging_reinit
 libsmbconf.so.0:messaging_send
+libsmbconf.so.0:messaging_send_all
 libsmbconf.so.0:messaging_send_buf
 libsmbconf.so.0:messaging_send_iov
 libsmbconf.so.0:messaging_send_iov_from
@@ -6576,12 +6620,7 @@ libsmbconf.so.0:server_id_watch_recv
 libsmbconf.so.0:server_id_watch_send
 libsmbconf.so.0:server_messaging_context
 libsmbconf.so.0:server_messaging_context_free
-libsmbconf.so.0:serverid_deregister
 libsmbconf.so.0:serverid_exists
-libsmbconf.so.0:serverid_parent_init
-libsmbconf.so.0:serverid_register
-libsmbconf.so.0:serverid_traverse
-libsmbconf.so.0:serverid_traverse_read
 libsmbconf.so.0:set_Protocol
 libsmbconf.so.0:set_current_user_info
 libsmbconf.so.0:set_effective_capability
@@ -6654,7 +6693,6 @@ libsmbconf.so.0:smbconf_transaction_start
 libsmbconf.so.0:smbrun
 libsmbconf.so.0:smbrun_no_sanitize
 libsmbconf.so.0:smbrunsecret
-libsmbconf.so.0:sock_exec
 libsmbconf.so.0:socket_exist
 libsmbconf.so.0:split_domain_user
 libsmbconf.so.0:srprs_bom
@@ -6711,10 +6749,6 @@ libsmbconf.so.0:sys_setgroups
 libsmbconf.so.0:sys_srandom
 libsmbconf.so.0:sys_stat
 libsmbconf.so.0:tab_depth
-libsmbconf.so.0:talloc_dict_fetch
-libsmbconf.so.0:talloc_dict_init
-libsmbconf.so.0:talloc_dict_set
-libsmbconf.so.0:talloc_dict_traverse
 libsmbconf.so.0:talloc_sub_advanced
 libsmbconf.so.0:talloc_sub_basic
 libsmbconf.so.0:talloc_sub_specified
@@ -6808,6 +6842,9 @@ libtevent-util.so.0:tevent_req_is_werror
 libtevent-util.so.0:tevent_req_poll_ntstatus
 libtevent-util.so.0:tevent_req_poll_unix
 libtevent-util.so.0:tevent_req_poll_werror
+libtevent-util.so.0:tevent_req_profile_pack
+libtevent-util.so.0:tevent_req_profile_string
+libtevent-util.so.0:tevent_req_profile_unpack
 libtevent-util.so.0:tevent_req_simple_finish_ntstatus
 libtevent-util.so.0:tevent_req_simple_finish_werror
 libtevent-util.so.0:tevent_req_simple_recv_ntstatus
