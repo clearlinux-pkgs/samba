@@ -29,6 +29,7 @@ libreadline.so.7
 libresolv.so.2
 librt.so.1
 libsystemd.so.0
+libtalloc.so.2
 libtdb.so.1
 libtinfo.so.6
 libtinfow.so.6

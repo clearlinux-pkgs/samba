@@ -27,6 +27,7 @@ libcap-ng-dev
 libgpg-error-dev
 libgpg-error-dev
 libunwind-dev
+lmdb-dev
 ncurses-dev
 openldap-dev
 openssl-dev
@@ -36,5 +37,4 @@ readline-dev
 systemd-dev
 talloc-dev
 tdb-dev
-tdb-legacypython
 zlib-dev

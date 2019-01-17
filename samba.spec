@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.9.4
-Release  : 72
+Release  : 73
 URL      : https://github.com/samba-team/samba/archive/samba-4.9.4.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.9.4.tar.gz
 Source1  : samba.tmpfiles
@@ -49,6 +49,7 @@ BuildRequires : libcap-dev
 BuildRequires : libcap-ng-dev
 BuildRequires : libgpg-error-dev
 BuildRequires : libunwind-dev
+BuildRequires : lmdb-dev
 BuildRequires : ncurses-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
@@ -58,7 +59,6 @@ BuildRequires : readline-dev
 BuildRequires : systemd-dev
 BuildRequires : talloc-dev
 BuildRequires : tdb-dev
-BuildRequires : tdb-legacypython
 BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
@@ -193,7 +193,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546898453
+export SOURCE_DATE_EPOCH=1547683859
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -207,7 +207,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1546898453
+export SOURCE_DATE_EPOCH=1547683859
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -782,8 +782,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsocket-blocking-samba4.so
 /usr/lib64/samba/libsys-rw-samba4.so
 /usr/lib64/samba/libtalloc-report-samba4.so
-/usr/lib64/samba/libtalloc.so.2
-/usr/lib64/samba/libtalloc.so.2.1.14
 /usr/lib64/samba/libtdb-wrap-samba4.so
 /usr/lib64/samba/libtevent.so.0
 /usr/lib64/samba/libtevent.so.0.9.37
