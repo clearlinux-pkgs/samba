@@ -37,4 +37,5 @@ readline-dev
 systemd-dev
 talloc-dev
 tdb-dev
+tevent-dev
 zlib-dev

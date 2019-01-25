@@ -31,6 +31,7 @@ librt.so.1
 libsystemd.so.0
 libtalloc.so.2
 libtdb.so.1
+libtevent.so.0
 libtinfo.so.6
 libtinfow.so.6
 libz.so.1
