@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.9.4
-Release  : 74
+Release  : 75
 URL      : https://github.com/samba-team/samba/archive/samba-4.9.4.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.9.4.tar.gz
 Source1  : samba.tmpfiles
@@ -64,6 +64,7 @@ BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: 0002-Force-build-using-python2.patch
+Patch4: CVE-2019-3824.patch
 
 %description
 This is the release version of Samba, the free SMB and CIFS client and
@@ -188,13 +189,15 @@ services components for the samba package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1548378943
+export SOURCE_DATE_EPOCH=1551905322
+export LDFLAGS="${LDFLAGS} -fno-lto"
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -208,7 +211,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python2
 
 %install
-export SOURCE_DATE_EPOCH=1548378943
+export SOURCE_DATE_EPOCH=1551905322
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING

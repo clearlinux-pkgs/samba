@@ -1,3 +1,4 @@
 0001-add-mock-disable-static-option.patch
 timestamps.patch
 0002-Force-build-using-python2.patch
+CVE-2019-3824.patch
