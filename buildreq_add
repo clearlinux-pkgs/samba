@@ -32,10 +32,10 @@ ncurses-dev
 openldap-dev
 openssl-dev
 popt-dev
-python-dev
 readline-dev
 systemd-dev
 talloc-dev
 tdb-dev
 tevent-dev
 zlib-dev
+python3-dev

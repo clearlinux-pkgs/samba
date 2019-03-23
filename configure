@@ -1,6 +1,12 @@
 --with-systemd
+--systemd-install-services
 --enable-fhs
 --with-system-mitkrb5
 --with-experimental-mit-ad-dc
+--accel-aes=intelaesni
 --nopyc
 --nopyo
+--with-cluster-support 
+--with-shared-modules=idmap_rid,idmap_tdb2,idmap_ad
+
+

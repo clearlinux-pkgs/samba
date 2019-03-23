@@ -3,3 +3,4 @@ timestamps.patch
 #0002-Force-build-using-python2.patch
 #CVE-2019-3824.patch
 xml.patch
+noman.patch
