@@ -28,12 +28,16 @@ libpam.so.0
 libpanel.so.6
 libpopt.so.0
 libpthread.so.0
+libpytalloc-util.cpython-37m-x86-64-linux-gnu.so.2
 libpython3.7m.so.1.0
 libreadline.so.7
 libresolv.so.2
 librt.so.1
 libsystemd.so.0
+libtalloc.so.2
 libtasn1.so.6
+libtdb.so.1
+libtevent.so.0
 libtinfo.so.6
 libtinfow.so.6
 libutil.so.1

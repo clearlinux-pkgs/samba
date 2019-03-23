@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.10.0
-Release  : 76
+Release  : 78
 URL      : https://github.com/samba-team/samba/archive/samba-4.10.0.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.10.0.tar.gz
 Source1  : samba.tmpfiles
@@ -192,12 +192,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553360027
-export LDFLAGS="${LDFLAGS} -fno-lto"
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export SOURCE_DATE_EPOCH=1553368540
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -211,7 +213,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semanti
 make  %{?_smp_mflags} PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1553360027
+export SOURCE_DATE_EPOCH=1553368540
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -322,10 +324,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/bin/smbtar
 /usr/bin/smbtorture
 /usr/bin/smbtree
-/usr/bin/tdbbackup
-/usr/bin/tdbdump
-/usr/bin/tdbrestore
-/usr/bin/tdbtool
 /usr/bin/testparm
 /usr/bin/wbinfo
 /usr/bin/winbindd
@@ -1431,8 +1429,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libprocess-model-samba4.so
 /usr/lib64/samba/libpyldb-util.cpython-37m-x86-64-linux-gnu.so.1
 /usr/lib64/samba/libpyldb-util.cpython-37m-x86-64-linux-gnu.so.1.5.4
-/usr/lib64/samba/libpytalloc-util.cpython-37m-x86-64-linux-gnu.so.2
-/usr/lib64/samba/libpytalloc-util.cpython-37m-x86-64-linux-gnu.so.2.1.16
 /usr/lib64/samba/libregistry-samba4.so
 /usr/lib64/samba/libreplace-samba4.so
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
@@ -1460,13 +1456,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsocket-blocking-samba4.so
 /usr/lib64/samba/libsys-rw-samba4.so
 /usr/lib64/samba/libtalloc-report-samba4.so
-/usr/lib64/samba/libtalloc.so.2
-/usr/lib64/samba/libtalloc.so.2.1.16
 /usr/lib64/samba/libtdb-wrap-samba4.so
-/usr/lib64/samba/libtdb.so.1
-/usr/lib64/samba/libtdb.so.1.3.18
-/usr/lib64/samba/libtevent.so.0
-/usr/lib64/samba/libtevent.so.0.9.39
 /usr/lib64/samba/libtime-basic-samba4.so
 /usr/lib64/samba/libtorture-samba4.so
 /usr/lib64/samba/libtrusts-util-samba4.so
