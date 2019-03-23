@@ -20,6 +20,7 @@ jansson-dev
 kdoctools-dev
 krb5-dev
 ldb-dev
+ldb-extras
 libarchive-dev
 libaio-dev
 libcap-dev
