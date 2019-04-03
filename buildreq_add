@@ -40,3 +40,4 @@ tdb-dev
 tevent-dev
 zlib-dev
 python3-dev
+talloc-extras
