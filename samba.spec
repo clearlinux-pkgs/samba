@@ -4,11 +4,11 @@
 #
 Name     : samba
 Version  : 4.10.2
-Release  : 83
+Release  : 84
 URL      : https://github.com/samba-team/samba/archive/samba-4.10.2/samba-4.10.2.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.10.2/samba-4.10.2.tar.gz
 Source1  : samba.tmpfiles
-Summary  : SMB Fileserver and AD Domain server
+Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
 License  : BSL-1.0 CC-BY-4.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin = %{version}-%{release}
@@ -27,7 +27,6 @@ BuildRequires : acl-dev
 BuildRequires : attr-dev
 BuildRequires : buildreq-cpan
 BuildRequires : buildreq-distutils3
-BuildRequires : buildreq-qmake
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
 BuildRequires : docbook-utils
@@ -68,13 +67,12 @@ Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: xml.patch
 Patch4: noman.patch
+Patch5: a5d1df4a8f9c535ff2f7ef11d7dfea4d79d65e7e.patch
 
 %description
-coverity_assert_model.c:
-This file is a Coverity Modeling file for which currently adds the needed models
-for using the cmocka unit test framework. The assert functions could create
-false positives, to avoid that you can load this modeling file in the Coverity
-web interface. If needed add models for torture_ and talloc_ macros.
+Please see the wiki page at:
+http://wiki.samba.org/index.php/WinTest
+for details on configuring and running wintest
 
 %package bin
 Summary: bin components for the samba package.
@@ -187,17 +185,19 @@ services components for the samba package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555800933
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
+export SOURCE_DATE_EPOCH=1557509686
+export LDFLAGS="${LDFLAGS} -fno-lto"
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -211,7 +211,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -fno-ma
 make  %{?_smp_mflags} PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1555800933
+export SOURCE_DATE_EPOCH=1557509686
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING

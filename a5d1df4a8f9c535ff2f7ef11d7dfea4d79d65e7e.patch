@@ -1,0 +1,75 @@
+commit a5d1df4a8f9c535ff2f7ef11d7dfea4d79d65e7e
+Author: Gary Lockyer <gary@catalyst.net.nz>
+Date:   Fri May 10 08:47:46 2019 +1200
+
+    s3 rpc_client: Fix Asan stack use after scope
+    
+    Fixes Asan error:
+    
+    ==1924==ERROR: AddressSanitizer: stack-use-after-scope on address
+        0x7ffe63f873d0 at pc 0x7fb99dae1733 bp 0x7ffe63f86a00 sp 0x7ffe63f861a8
+    READ of size 24 at 0x7ffe63f873d0 thread T0
+        #0 0x7fb99dae1732  (/usr/lib/x86_64-linux-gnu/libasan.so.4+0x79732)
+        #1 0x7fb99cfe5549 in memcpy
+            /usr/include/x86_64-linux-gnu/bits/string_fortified.h:34
+        #2 0x7fb99cfe5549 in ndr_push_bytes
+            ../../librpc/ndr/ndr_basic.c:729
+        #3 0x7fb99cfe5646 in ndr_push_array_uint8
+            ../../librpc/ndr/ndr_basic.c:754
+        #4 0x7fb99a69dd1b in ndr_push_netr_ChallengeResponse
+            librpc/gen_ndr/ndr_netlogon.c:462
+        #5 0x7fb99a6c5fab in ndr_push_netr_NetworkInfo
+            librpc/gen_ndr/ndr_netlogon.c:556
+        #6 0x7fb99a6c749d in ndr_push_netr_LogonLevel
+             librpc/gen_ndr/ndr_netlogon.c:783
+        #7 0x7fb99a7222de in ndr_push_netr_LogonSamLogonEx
+             librpc/gen_ndr/ndr_netlogon.c:16547
+        #8 0x7fb99c982c97 in dcerpc_binding_handle_call_send
+             ../../librpc/rpc/binding_handle.c:416
+    
+    Bug: https://bugzilla.samba.org/show_bug.cgi?id=13936
+    
+    Signed-off-by: Gary Lockyer <gary@catalyst.net.nz>
+    Reviewed-by: Andrew Bartlett <abartlet@samba.org>
+    
+    Autobuild-User(master): Andrew Bartlett <abartlet@samba.org>
+    Autobuild-Date(master): Fri May 10 10:02:21 UTC 2019 on sn-devel-184
+
+diff --git a/source3/rpc_client/cli_netlogon.c b/source3/rpc_client/cli_netlogon.c
+index 3ed49686..505a1d01 100644
+--- a/source3/rpc_client/cli_netlogon.c
++++ b/source3/rpc_client/cli_netlogon.c
+@@ -472,6 +472,13 @@ NTSTATUS rpccli_netlogon_password_logon(
+ 	union netr_Validation *validation = NULL;
+ 	char *workstation_slash = NULL;
+ 
++	unsigned char local_nt_response[24];
++	unsigned char local_lm_response[24];
++	struct samr_Password lmpassword = {.hash = {0}};
++	struct samr_Password ntpassword = {.hash = {0}};
++	struct netr_ChallengeResponse lm = {0};
++	struct netr_ChallengeResponse nt = {0};
++
+ 	logon = talloc_zero(frame, union netr_LogonLevel);
+ 	if (logon == NULL) {
+ 		TALLOC_FREE(frame);
+@@ -496,8 +503,6 @@ NTSTATUS rpccli_netlogon_password_logon(
+ 
+ 		struct netr_PasswordInfo *password_info;
+ 
+-		struct samr_Password lmpassword;
+-		struct samr_Password ntpassword;
+ 
+ 		password_info = talloc_zero(frame, struct netr_PasswordInfo);
+ 		if (password_info == NULL) {
+@@ -524,10 +529,6 @@ NTSTATUS rpccli_netlogon_password_logon(
+ 	case NetlogonNetworkTransitiveInformation: {
+ 		struct netr_NetworkInfo *network_info;
+ 		uint8_t chal[8];
+-		unsigned char local_lm_response[24];
+-		unsigned char local_nt_response[24];
+-		struct netr_ChallengeResponse lm;
+-		struct netr_ChallengeResponse nt;
+ 
+ 		ZERO_STRUCT(lm);
+ 		ZERO_STRUCT(nt);
