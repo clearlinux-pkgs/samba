@@ -1,0 +1,103 @@
+From d575ffb1e4307b2f0b4aae4055afcedbcb5588d5 Mon Sep 17 00:00:00 2001
+From: santoshkumar <santoshkumar.laxminarayan.rai@intel.com>
+Date: Thu, 15 Aug 2019 15:35:09 +0800
+Subject: [PATCH] Removed stropts.h checking
+
+---
+ lib/replace/getifaddrs.c                | 4 ----
+ lib/replace/system/network.h            | 4 ----
+ lib/replace/wscript                     | 2 +-
+ lib/texpect/texpect.c                   | 4 ----
+ source4/heimdal/lib/roken/rkpty.c       | 4 ----
+ source4/heimdal_build/wscript_configure | 2 +-
+ 6 files changed, 2 insertions(+), 18 deletions(-)
+
+diff --git a/lib/replace/getifaddrs.c b/lib/replace/getifaddrs.c
+index a55ef7e..6754d74 100644
+--- a/lib/replace/getifaddrs.c
++++ b/lib/replace/getifaddrs.c
+@@ -177,10 +177,6 @@ int rep_getifaddrs(struct ifaddrs **ifap)
+ #endif /* HAVE_IFACE_IFCONF */
+ #ifdef HAVE_IFACE_IFREQ
+ 
+-#ifndef I_STR
+-#include <sys/stropts.h>
+-#endif
+-
+ /****************************************************************************
+ this should cover most of the streams based systems
+ Thanks to Andrej.Borsenkow@mow.siemens.ru for several ideas in this code
+diff --git a/lib/replace/system/network.h b/lib/replace/system/network.h
+index 8254551..80ef896 100644
+--- a/lib/replace/system/network.h
++++ b/lib/replace/system/network.h
+@@ -87,10 +87,6 @@
+ #include <sys/uio.h>
+ #endif
+ 
+-#ifdef HAVE_STROPTS_H
+-#include <stropts.h>
+-#endif
+-
+ #ifndef HAVE_SOCKLEN_T
+ #define HAVE_SOCKLEN_T
+ typedef int socklen_t;
+diff --git a/lib/replace/wscript b/lib/replace/wscript
+index a7fd25d..ad3f1da 100644
+--- a/lib/replace/wscript
++++ b/lib/replace/wscript
+@@ -53,7 +53,7 @@ def configure(conf):
+     conf.CHECK_HEADERS('grp.h')
+     conf.CHECK_HEADERS('sys/select.h setjmp.h utime.h sys/syslog.h syslog.h')
+     conf.CHECK_HEADERS('stdarg.h vararg.h sys/mount.h mntent.h')
+-    conf.CHECK_HEADERS('stropts.h unix.h string.h strings.h sys/param.h limits.h')
++    conf.CHECK_HEADERS('unix.h string.h strings.h sys/param.h limits.h')
+     conf.CHECK_HEADERS('''sys/socket.h netinet/in.h netdb.h arpa/inet.h netinet/in_systm.h
+                           netinet/ip.h netinet/tcp.h netinet/in_ip.h
+                           sys/sockio.h sys/un.h''', together=True)
+diff --git a/lib/texpect/texpect.c b/lib/texpect/texpect.c
+index dd78670..740fcff 100644
+--- a/lib/texpect/texpect.c
++++ b/lib/texpect/texpect.c
+@@ -47,10 +47,6 @@
+ #include <libutil.h>
+ #endif
+ 
+-#ifdef	STREAMSPTY
+-#include <stropts.h>
+-#endif /* STREAMPTY */
+-
+ #include <popt.h>
+ 
+ #ifdef HAVE_ERR_H
+diff --git a/source4/heimdal/lib/roken/rkpty.c b/source4/heimdal/lib/roken/rkpty.c
+index a7b7825..f74e833 100644
+--- a/source4/heimdal/lib/roken/rkpty.c
++++ b/source4/heimdal/lib/roken/rkpty.c
+@@ -54,10 +54,6 @@
+ #include <libutil.h>
+ #endif
+ 
+-#ifdef	STREAMSPTY
+-#include <stropts.h>
+-#endif /* STREAMPTY */
+-
+ #include "roken.h"
+ #include <getarg.h>
+ 
+diff --git a/source4/heimdal_build/wscript_configure b/source4/heimdal_build/wscript_configure
+index 4d4e6a0..b5bfb41 100644
+--- a/source4/heimdal_build/wscript_configure
++++ b/source4/heimdal_build/wscript_configure
+@@ -18,7 +18,7 @@ conf.CHECK_HEADERS('err.h')
+ 
+ conf.CHECK_HEADERS('ifaddrs.h')
+ conf.CHECK_HEADERS('''crypt.h errno.h inttypes.h netdb.h signal.h sys/bswap.h
+-                  sys/file.h sys/stropts.h sys/timeb.h sys/times.h sys/uio.h sys/un.h
++                  sys/file.h sys/timeb.h sys/times.h sys/uio.h sys/un.h
+               sys/utsname.h time.h timezone.h ttyname.h netinet/in.h
+               netinet/in6.h netinet6/in6.h''')
+ 
+-- 
+2.22.0
+

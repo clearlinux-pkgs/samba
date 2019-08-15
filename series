@@ -2,3 +2,4 @@
 timestamps.patch
 xml.patch
 noman.patch
+0001-Removed-stropts.h-checking.patch

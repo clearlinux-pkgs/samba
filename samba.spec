@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.10.6
-Release  : 89
+Release  : 90
 URL      : https://github.com/samba-team/samba/archive/samba-4.10.6/samba-4.10.6.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.10.6/samba-4.10.6.tar.gz
 Source1  : samba.tmpfiles
@@ -67,6 +67,7 @@ Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: timestamps.patch
 Patch3: xml.patch
 Patch4: noman.patch
+Patch5: 0001-Removed-stropts.h-checking.patch
 
 %description
 Please see the wiki page at:
@@ -184,13 +185,14 @@ services components for the samba package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1562610716
+export SOURCE_DATE_EPOCH=1565857734
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -212,7 +214,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags} PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1562610716
+export SOURCE_DATE_EPOCH=1565857734
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp COPYING %{buildroot}/usr/share/package-licenses/samba/COPYING
@@ -227,6 +229,15 @@ cp third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/packa
 %make_install PYTHON=python3
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
+## Remove excluded files
+rm -f %{buildroot}/usr/lib/python2.7/site-packages/_tdb_text.py
+rm -f %{buildroot}/usr/lib/python2.7/site-packages/tdb.so
+rm -f %{buildroot}/usr/bin/ldbmodify
+rm -f %{buildroot}/usr/bin/ldbedit
+rm -f %{buildroot}/usr/bin/ldbdel
+rm -f %{buildroot}/usr/bin/ldbrename
+rm -f %{buildroot}/usr/bin/ldbsearch
+rm -f %{buildroot}/usr/bin/ldbadd
 ## install_append content
 install -d -m 755 %{buildroot}/usr/lib/systemd/system
 install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
