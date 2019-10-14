@@ -4,11 +4,11 @@
 #
 Name     : samba
 Version  : 4.11.0
-Release  : 93
+Release  : 94
 URL      : https://github.com/samba-team/samba/archive/samba-4.11.0/samba-4.11.0.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.11.0/samba-4.11.0.tar.gz
 Source1  : samba.tmpfiles
-Summary  : SMB Fileserver and AD Domain server
+Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
 License  : BSD-3-Clause BSL-1.0 CC-BY-4.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin = %{version}-%{release}
@@ -68,11 +68,9 @@ Patch3: noman.patch
 Patch4: 0001-Removed-stropts.h-checking.patch
 
 %description
-coverity_assert_model.c:
-This file is a Coverity Modeling file for which currently adds the needed models
-for using the cmocka unit test framework. The assert functions could create
-false positives, to avoid that you can load this modeling file in the Coverity
-web interface. If needed add models for torture_ and talloc_ macros.
+Please see the wiki page at:
+http://wiki.samba.org/index.php/WinTest
+for details on configuring and running wintest
 
 %package bin
 Summary: bin components for the samba package.
@@ -110,7 +108,6 @@ Requires: samba-lib = %{version}-%{release}
 Requires: samba-bin = %{version}-%{release}
 Requires: samba-data = %{version}-%{release}
 Provides: samba-devel = %{version}-%{release}
-Requires: samba = %{version}-%{release}
 Requires: samba = %{version}-%{release}
 
 %description dev
@@ -184,16 +181,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571002669
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1571019834
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -207,7 +203,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-l
 make  %{?_smp_mflags}  PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1571002669
+export SOURCE_DATE_EPOCH=1571019834
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-samba-4.11.0/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -223,7 +219,7 @@ cp %{_builddir}/samba-samba-4.11.0/third_party/pep8/LICENSE %{buildroot}/usr/sha
 cp %{_builddir}/samba-samba-4.11.0/third_party/popt/COPYING %{buildroot}/usr/share/package-licenses/samba/61bb7a8ea669080cfc9e7dbf37079eae70b535fb
 cp %{_builddir}/samba-samba-4.11.0/third_party/pyiso8601/LICENSE %{buildroot}/usr/share/package-licenses/samba/55cca48a26c0bb6f271e0d968449f9797f3d0820
 cp %{_builddir}/samba-samba-4.11.0/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/samba/892b34f7865d90a6f949f50d95e49625a10bc7f0
-%make_install PYTHON=python3
+%make_install PYTHON=python3 %{?_smp_mflags}
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## Remove excluded files
@@ -299,10 +295,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/bin/smbtar
 /usr/bin/smbtorture
 /usr/bin/smbtree
-/usr/bin/tdbbackup
-/usr/bin/tdbdump
-/usr/bin/tdbrestore
-/usr/bin/tdbtool
 /usr/bin/testparm
 /usr/bin/wbinfo
 /usr/bin/winbindd
@@ -1271,7 +1263,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/acl.so
 /usr/lib64/samba/ldb/aclread.so
 /usr/lib64/samba/ldb/anr.so
-/usr/lib64/samba/ldb/asq.so
 /usr/lib64/samba/ldb/audit_log.so
 /usr/lib64/samba/ldb/count_attrs.so
 /usr/lib64/samba/ldb/descriptor.so
@@ -1286,22 +1277,18 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/ildap.so
 /usr/lib64/samba/ldb/instancetype.so
 /usr/lib64/samba/ldb/lazy_commit.so
-/usr/lib64/samba/ldb/ldb.so
 /usr/lib64/samba/ldb/ldbsamba_extensions.so
 /usr/lib64/samba/ldb/linked_attributes.so
 /usr/lib64/samba/ldb/local_password.so
-/usr/lib64/samba/ldb/mdb.so
 /usr/lib64/samba/ldb/new_partition.so
 /usr/lib64/samba/ldb/objectclass.so
 /usr/lib64/samba/ldb/objectclass_attrs.so
 /usr/lib64/samba/ldb/objectguid.so
 /usr/lib64/samba/ldb/operational.so
 /usr/lib64/samba/ldb/paged_results.so
-/usr/lib64/samba/ldb/paged_searches.so
 /usr/lib64/samba/ldb/partition.so
 /usr/lib64/samba/ldb/password_hash.so
 /usr/lib64/samba/ldb/ranged_results.so
-/usr/lib64/samba/ldb/rdn_name.so
 /usr/lib64/samba/ldb/repl_meta_data.so
 /usr/lib64/samba/ldb/resolve_oids.so
 /usr/lib64/samba/ldb/rootdse.so
@@ -1310,18 +1297,14 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/samba_dsdb.so
 /usr/lib64/samba/ldb/samba_secrets.so
 /usr/lib64/samba/ldb/samldb.so
-/usr/lib64/samba/ldb/sample.so
 /usr/lib64/samba/ldb/schema_data.so
 /usr/lib64/samba/ldb/schema_load.so
 /usr/lib64/samba/ldb/secrets_tdb_sync.so
-/usr/lib64/samba/ldb/server_sort.so
 /usr/lib64/samba/ldb/show_deleted.so
 /usr/lib64/samba/ldb/simple_dn.so
 /usr/lib64/samba/ldb/simple_ldap_map.so
-/usr/lib64/samba/ldb/skel.so
 /usr/lib64/samba/ldb/subtree_delete.so
 /usr/lib64/samba/ldb/subtree_rename.so
-/usr/lib64/samba/ldb/tdb.so
 /usr/lib64/samba/ldb/tombstone_reanimate.so
 /usr/lib64/samba/ldb/unique_object_sids.so
 /usr/lib64/samba/ldb/update_keytab.so
@@ -1374,13 +1357,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libinterfaces-samba4.so
 /usr/lib64/samba/libiov-buf-samba4.so
 /usr/lib64/samba/libkrb5samba-samba4.so
-/usr/lib64/samba/libldb-cmdline-samba4.so
-/usr/lib64/samba/libldb-key-value-samba4.so
-/usr/lib64/samba/libldb-mdb-int-samba4.so
-/usr/lib64/samba/libldb-tdb-err-map-samba4.so
-/usr/lib64/samba/libldb-tdb-int-samba4.so
-/usr/lib64/samba/libldb.so.2
-/usr/lib64/samba/libldb.so.2.0.7
 /usr/lib64/samba/libldbsamba-samba4.so
 /usr/lib64/samba/liblibcli-lsa3-samba4.so
 /usr/lib64/samba/liblibcli-netlogon3-samba4.so
@@ -1403,8 +1379,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libprinter-driver-samba4.so
 /usr/lib64/samba/libprinting-migrate-samba4.so
 /usr/lib64/samba/libprocess-model-samba4.so
-/usr/lib64/samba/libpyldb-util.cpython-37m-x86-64-linux-gnu.so.2
-/usr/lib64/samba/libpyldb-util.cpython-37m-x86-64-linux-gnu.so.2.0.7
 /usr/lib64/samba/libregistry-samba4.so
 /usr/lib64/samba/libreplace-samba4.so
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
@@ -1433,8 +1407,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsys-rw-samba4.so
 /usr/lib64/samba/libtalloc-report-samba4.so
 /usr/lib64/samba/libtdb-wrap-samba4.so
-/usr/lib64/samba/libtdb.so.1
-/usr/lib64/samba/libtdb.so.1.4.2
 /usr/lib64/samba/libtime-basic-samba4.so
 /usr/lib64/samba/libtorture-samba4.so
 /usr/lib64/samba/libtrusts-util-samba4.so
