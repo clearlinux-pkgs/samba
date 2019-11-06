@@ -4,11 +4,11 @@
 #
 Name     : samba
 Version  : 4.11.2
-Release  : 98
+Release  : 101
 URL      : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source1  : samba.tmpfiles
-Summary  : SMB Fileserver and AD Domain server
+Summary  : Generate parsers / DCE/RPC-clients from IDL
 Group    : Development/Tools
 License  : BSD-3-Clause BSL-1.0 CC-BY-4.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Domain X11
 Requires: samba-bin = %{version}-%{release}
@@ -69,11 +69,9 @@ Patch3: noman.patch
 Patch4: 0001-Removed-stropts.h-checking.patch
 
 %description
-coverity_assert_model.c:
-This file is a Coverity Modeling file for which currently adds the needed models
-for using the cmocka unit test framework. The assert functions could create
-false positives, to avoid that you can load this modeling file in the Coverity
-web interface. If needed add models for torture_ and talloc_ macros.
+Please see the wiki page at:
+http://wiki.samba.org/index.php/WinTest
+for details on configuring and running wintest
 
 %package bin
 Summary: bin components for the samba package.
@@ -111,7 +109,6 @@ Requires: samba-lib = %{version}-%{release}
 Requires: samba-bin = %{version}-%{release}
 Requires: samba-data = %{version}-%{release}
 Provides: samba-devel = %{version}-%{release}
-Requires: samba = %{version}-%{release}
 Requires: samba = %{version}-%{release}
 
 %description dev
@@ -175,6 +172,7 @@ services components for the samba package.
 
 %prep
 %setup -q -n samba-samba-4.11.2
+cd %{_builddir}/samba-samba-4.11.2
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -185,16 +183,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1572545960
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1574297732
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong "
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -208,7 +205,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fcf-protection=full -ffat-l
 make  %{?_smp_mflags}  PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1572545960
+export SOURCE_DATE_EPOCH=1574297732
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-samba-4.11.2/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -230,6 +227,10 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## Remove excluded files
 rm -f %{buildroot}/usr/lib/python2.7/site-packages/_tdb_text.py
 rm -f %{buildroot}/usr/lib/python2.7/site-packages/tdb.so
+rm -f %{buildroot}/usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}/usr/lib/python3*/site-packages/ldb.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}/usr/lib/python3*/site-packages/talloc.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}/usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
 rm -f %{buildroot}/usr/bin/ldbmodify
 rm -f %{buildroot}/usr/bin/ldbedit
 rm -f %{buildroot}/usr/bin/ldbdel
@@ -1182,7 +1183,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-errors.so
 /usr/lib64/libsamba-hostconfig.so
 /usr/lib64/libsamba-passdb.so
-/usr/lib64/libsamba-policy.cpython-37m-x86-64-linux-gnu.so
+/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so
 /usr/lib64/libsamba-util.so
 /usr/lib64/libsamdb.so
 /usr/lib64/libsmbclient.so
@@ -1200,7 +1201,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/pkgconfig/netapi.pc
 /usr/lib64/pkgconfig/samba-credentials.pc
 /usr/lib64/pkgconfig/samba-hostconfig.pc
-/usr/lib64/pkgconfig/samba-policy.cpython-37m-x86_64-linux-gnu.pc
+/usr/lib64/pkgconfig/samba-policy.cpython-38-x86_64-linux-gnu.pc
 /usr/lib64/pkgconfig/samba-util.pc
 /usr/lib64/pkgconfig/samdb.pc
 /usr/lib64/pkgconfig/smbclient.pc
@@ -1235,8 +1236,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-hostconfig.so.0.0.1
 /usr/lib64/libsamba-passdb.so.0
 /usr/lib64/libsamba-passdb.so.0.28.0
-/usr/lib64/libsamba-policy.cpython-37m-x86-64-linux-gnu.so.0
-/usr/lib64/libsamba-policy.cpython-37m-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so.0
+/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so.0.0.1
 /usr/lib64/libsamba-util.so.0
 /usr/lib64/libsamba-util.so.0.0.1
 /usr/lib64/libsamdb.so.0
@@ -1389,8 +1390,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
-/usr/lib64/samba/libsamba-net.cpython-37m-x86-64-linux-gnu-samba4.so
-/usr/lib64/samba/libsamba-python.cpython-37m-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-net.cpython-38-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-python.cpython-38-x86-64-linux-gnu-samba4.so
 /usr/lib64/samba/libsamba-security-samba4.so
 /usr/lib64/samba/libsamba-sockets-samba4.so
 /usr/lib64/samba/libsamba3-util-samba4.so
