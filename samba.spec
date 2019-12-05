@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.11.2
-Release  : 102
+Release  : 103
 URL      : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source1  : samba.tmpfiles
@@ -183,7 +183,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1574297732
+export SOURCE_DATE_EPOCH=1575513002
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -205,7 +205,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags}  PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1574297732
+export SOURCE_DATE_EPOCH=1575513002
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-samba-4.11.2/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -225,6 +225,8 @@ cp %{_builddir}/samba-samba-4.11.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## Remove excluded files
+rm -f %{buildroot}/usr/lib64/ldb/libpytalloc-util.cpython-38-x86-64-linux-gnu.so.2
+rm -f %{buildroot}/usr/lib64/ldb/libpytalloc-util.cpython-38-x86-64-linux-gnu.so.2.2.0
 rm -f %{buildroot}/usr/lib/python2.7/site-packages/_tdb_text.py
 rm -f %{buildroot}/usr/lib/python2.7/site-packages/tdb.so
 rm -f %{buildroot}/usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
