@@ -1,1 +1,1 @@
-PYTHON=python3 %{?_smp_mflags}
+PYTHON=python3 "%{?_smp_mflags}"

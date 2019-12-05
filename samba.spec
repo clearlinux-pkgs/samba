@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.11.2
-Release  : 101
+Release  : 102
 URL      : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.11.2/samba-4.11.2.tar.gz
 Source1  : samba.tmpfiles
@@ -221,7 +221,7 @@ cp %{_builddir}/samba-samba-4.11.2/third_party/pep8/LICENSE %{buildroot}/usr/sha
 cp %{_builddir}/samba-samba-4.11.2/third_party/popt/COPYING %{buildroot}/usr/share/package-licenses/samba/61bb7a8ea669080cfc9e7dbf37079eae70b535fb
 cp %{_builddir}/samba-samba-4.11.2/third_party/pyiso8601/LICENSE %{buildroot}/usr/share/package-licenses/samba/55cca48a26c0bb6f271e0d968449f9797f3d0820
 cp %{_builddir}/samba-samba-4.11.2/third_party/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/samba/892b34f7865d90a6f949f50d95e49625a10bc7f0
-%make_install PYTHON=python3 %{?_smp_mflags}
+%make_install PYTHON=python3 "%{?_smp_mflags}"
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## Remove excluded files
