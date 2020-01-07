@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.11.3
-Release  : 105
+Release  : 106
 URL      : https://github.com/samba-team/samba/archive/samba-4.11.3/samba-4.11.3.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.11.3/samba-4.11.3.tar.gz
 Source1  : samba.tmpfiles
