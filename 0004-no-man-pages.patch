@@ -1,6 +1,18 @@
---- samba-samba-4.10.0/buildtools/wafsamba/wafsamba.py~	2019-03-23 14:19:23.000000000 +0000
-+++ samba-samba-4.10.0/buildtools/wafsamba/wafsamba.py	2019-03-23 16:37:02.665549543 +0000
-@@ -904,16 +904,6 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sat, 23 Mar 2019 16:54:01 +0000
+Subject: [PATCH] no man pages
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ buildtools/wafsamba/wafsamba.py | 25 -------------------------
+ 1 file changed, 25 deletions(-)
+
+diff --git a/buildtools/wafsamba/wafsamba.py b/buildtools/wafsamba/wafsamba.py
+index 5934f8d..8be4ef1 100644
+--- a/buildtools/wafsamba/wafsamba.py
++++ b/buildtools/wafsamba/wafsamba.py
+@@ -902,16 +902,6 @@ Build.BuildContext.INSTALL_DIRS = INSTALL_DIRS
  def MANPAGES(bld, manpages, install):
      '''build and install manual pages'''
      bld.env.MAN_XSL = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
@@ -17,8 +29,8 @@
  Build.BuildContext.MANPAGES = MANPAGES
  
  def SAMBAMANPAGES(bld, manpages, extra_source=None):
-@@ -923,21 +913,6 @@
-     bld.env.SAMBA_CATALOG = bld.srcnode.abspath() + '/bin/default/docs-xml/build/catalog.xml'
+@@ -921,21 +911,6 @@ def SAMBAMANPAGES(bld, manpages, extra_source=None):
+     bld.env.SAMBA_CATALOG = bld.bldnode.abspath() + '/docs-xml/build/catalog.xml'
      bld.env.SAMBA_CATALOGS = 'file:///etc/xml/catalog file:///usr/share/defaults/xml/catalog file://' + bld.env.SAMBA_CATALOG
  
 -    for m in manpages.split():

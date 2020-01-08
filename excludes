@@ -1,7 +1,6 @@
 # This file contains the output files that need %exclude. Full path
 # names, one per line.
-/usr/lib64/ldb/libpytalloc-util.cpython-38-x86-64-linux-gnu.so.2
-/usr/lib64/ldb/libpytalloc-util.cpython-38-x86-64-linux-gnu.so.2.2.0
+/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
 /usr/lib/python2.7/site-packages/_tdb_text.py
 /usr/lib/python2.7/site-packages/tdb.so
 /usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so

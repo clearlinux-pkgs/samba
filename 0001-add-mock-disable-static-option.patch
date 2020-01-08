@@ -1,18 +1,19 @@
-From 53b391ab9b57743a593819435740de62bb1cc27c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: "Simental Magana, Marcos" <marcos.simental.magana@intel.com>
 Date: Wed, 8 Nov 2017 14:25:43 -0600
 Subject: [PATCH] add mock --disable-static option
 
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
  wscript | 5 +++++
  1 file changed, 5 insertions(+)
 
 diff --git a/wscript b/wscript
-index 35cb9d1..033fb2a 100644
+index 0557fa7..d6c73bb 100644
 --- a/wscript
 +++ b/wscript
-@@ -48,6 +48,11 @@ def set_options(opt):
-     opt.RECURSE('ctdb')
+@@ -50,6 +50,11 @@ def options(opt):
+ 
      opt.samba_add_onoff_option('pthreadpool', with_name="enable", without_name="disable", default=True)
  
 +    opt.add_option('--disable-static',
@@ -23,6 +24,3 @@ index 35cb9d1..033fb2a 100644
      opt.add_option('--with-system-mitkrb5',
                     help='build Samba with system MIT Kerberos. ' +
                          'You may specify list of paths where Kerberos is installed (e.g. /usr/local /usr/kerberos) to search krb5-config',
--- 
-2.15.0
-
