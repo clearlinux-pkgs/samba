@@ -1,0 +1,7 @@
+Whenever updating this package, also check for updates of the following
+packages, since they might need to be updated first:
+
+- talloc
+- tdb
+- tevent
+- ldb
