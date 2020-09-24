@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.12.6
-Release  : 117
+Release  : 118
 URL      : https://github.com/samba-team/samba/archive/samba-4.12.6/samba-4.12.6.tar.gz
 Source0  : https://github.com/samba-team/samba/archive/samba-4.12.6/samba-4.12.6.tar.gz
 Source1  : samba.tmpfiles
