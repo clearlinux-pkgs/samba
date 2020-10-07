@@ -1,5 +1,5 @@
 PKG_NAME := samba
-URL = https://github.com/samba-team/samba/archive/samba-4.12.6/samba-4.12.6.tar.gz
+URL = https://download.samba.org/pub/samba/stable/samba-4.13.0.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
