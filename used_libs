@@ -15,8 +15,8 @@ libgpgme.so.11
 libgssapi_krb5.so.2
 libjansson.so.4
 libk5crypto.so.3
-libkadm5srv_mit.so.11
-libkdb5.so.9
+libkadm5srv_mit.so.12
+libkdb5.so.10
 libkrb5.so.3
 liblber-2.4.so.2
 libldap-2.4.so.2
@@ -27,9 +27,9 @@ libpam.so.0
 libpanel.so.6
 libpopt.so.0
 libpthread.so.0
-libpyldb-util.cpython-38-x86-64-linux-gnu.so.2
-libpytalloc-util.cpython-38-x86-64-linux-gnu.so.2
-libpython3.8.so.1.0
+libpyldb-util.cpython-39-x86-64-linux-gnu.so.2
+libpytalloc-util.cpython-39-x86-64-linux-gnu.so.2
+libpython3.9.so.1.0
 libreadline.so.8
 libresolv.so.2
 libsystemd.so.0

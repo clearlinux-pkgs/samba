@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.13.2
-Release  : 126
+Release  : 127
 URL      : https://download.samba.org/pub/samba/stable/samba-4.13.2.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.13.2.tar.gz
 Source1  : samba.tmpfiles
@@ -185,7 +185,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604429250
+export SOURCE_DATE_EPOCH=1607996130
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -207,7 +207,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -f
 make  %{?_smp_mflags}  PYTHON=python3
 
 %install
-export SOURCE_DATE_EPOCH=1604429250
+export SOURCE_DATE_EPOCH=1607996130
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-4.13.2/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -1186,7 +1186,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-errors.so
 /usr/lib64/libsamba-hostconfig.so
 /usr/lib64/libsamba-passdb.so
-/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so
+/usr/lib64/libsamba-policy.cpython-39-x86-64-linux-gnu.so
 /usr/lib64/libsamba-util.so
 /usr/lib64/libsamdb.so
 /usr/lib64/libsmbclient.so
@@ -1204,7 +1204,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/pkgconfig/netapi.pc
 /usr/lib64/pkgconfig/samba-credentials.pc
 /usr/lib64/pkgconfig/samba-hostconfig.pc
-/usr/lib64/pkgconfig/samba-policy.cpython-38-x86_64-linux-gnu.pc
+/usr/lib64/pkgconfig/samba-policy.cpython-39-x86_64-linux-gnu.pc
 /usr/lib64/pkgconfig/samba-util.pc
 /usr/lib64/pkgconfig/samdb.pc
 /usr/lib64/pkgconfig/smbclient.pc
@@ -1241,8 +1241,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-hostconfig.so.0.0.1
 /usr/lib64/libsamba-passdb.so.0
 /usr/lib64/libsamba-passdb.so.0.28.0
-/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so.0
-/usr/lib64/libsamba-policy.cpython-38-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/libsamba-policy.cpython-39-x86-64-linux-gnu.so.0
+/usr/lib64/libsamba-policy.cpython-39-x86-64-linux-gnu.so.0.0.1
 /usr/lib64/libsamba-util.so.0
 /usr/lib64/libsamba-util.so.0.0.1
 /usr/lib64/libsamdb.so.0
@@ -1392,8 +1392,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
-/usr/lib64/samba/libsamba-net.cpython-38-x86-64-linux-gnu-samba4.so
-/usr/lib64/samba/libsamba-python.cpython-38-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-net.cpython-39-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-python.cpython-39-x86-64-linux-gnu-samba4.so
 /usr/lib64/samba/libsamba-security-samba4.so
 /usr/lib64/samba/libsamba-sockets-samba4.so
 /usr/lib64/samba/libsamba3-util-samba4.so
