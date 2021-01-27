@@ -8,5 +8,3 @@
 --nopyo
 --with-cluster-support 
 --with-shared-modules=idmap_rid,idmap_tdb2,idmap_ad
-
-

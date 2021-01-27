@@ -5069,6 +5069,7 @@ libsamba-util.so.0:data_blob_talloc_zero
 libsamba-util.so.0:data_path
 libsamba-util.so.0:directory_create_or_exist
 libsamba-util.so.0:directory_create_or_exist_strict
+libsamba-util.so.0:directory_create_or_exists_recursive
 libsamba-util.so.0:directory_exist
 libsamba-util.so.0:display_set_stderr
 libsamba-util.so.0:dump_data
