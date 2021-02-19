@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.13.4
-Release  : 129
+Release  : 130
 URL      : https://download.samba.org/pub/samba/stable/samba-4.13.4.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.13.4.tar.gz
 Source1  : samba.tmpfiles
