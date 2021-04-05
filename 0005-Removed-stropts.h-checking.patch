@@ -28,7 +28,7 @@ index a55ef7e..6754d74 100644
  this should cover most of the streams based systems
  Thanks to Andrej.Borsenkow@mow.siemens.ru for several ideas in this code
 diff --git a/lib/replace/system/network.h b/lib/replace/system/network.h
-index 8254551..80ef896 100644
+index a84bfd4..3062055 100644
 --- a/lib/replace/system/network.h
 +++ b/lib/replace/system/network.h
 @@ -87,10 +87,6 @@
@@ -43,10 +43,10 @@ index 8254551..80ef896 100644
  #define HAVE_SOCKLEN_T
  typedef int socklen_t;
 diff --git a/lib/replace/wscript b/lib/replace/wscript
-index 56e2a22..da62431 100644
+index 2c856b6..0b35f79 100644
 --- a/lib/replace/wscript
 +++ b/lib/replace/wscript
-@@ -53,7 +53,7 @@ def configure(conf):
+@@ -54,7 +54,7 @@ def configure(conf):
      conf.CHECK_HEADERS('grp.h')
      conf.CHECK_HEADERS('sys/select.h setjmp.h utime.h sys/syslog.h syslog.h')
      conf.CHECK_HEADERS('stdarg.h vararg.h sys/mount.h mntent.h')
@@ -56,10 +56,10 @@ index 56e2a22..da62431 100644
                            netinet/ip.h netinet/tcp.h netinet/in_ip.h
                            sys/sockio.h sys/un.h''', together=True)
 diff --git a/lib/texpect/texpect.c b/lib/texpect/texpect.c
-index 8ced563..67b456b 100644
+index 8c9431e..3dda46a 100644
 --- a/lib/texpect/texpect.c
 +++ b/lib/texpect/texpect.c
-@@ -47,10 +47,6 @@
+@@ -48,10 +48,6 @@
  #include <libutil.h>
  #endif
  
@@ -86,7 +86,7 @@ index a7b7825..f74e833 100644
  #include <getarg.h>
  
 diff --git a/source4/heimdal_build/wscript_configure b/source4/heimdal_build/wscript_configure
-index 903fb51..8047123 100644
+index 3a3d245..109635c 100644
 --- a/source4/heimdal_build/wscript_configure
 +++ b/source4/heimdal_build/wscript_configure
 @@ -18,7 +18,7 @@ conf.CHECK_HEADERS('err.h')

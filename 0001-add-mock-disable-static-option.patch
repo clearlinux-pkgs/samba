@@ -9,10 +9,10 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/wscript b/wscript
-index 0557fa7..d6c73bb 100644
+index 334b298..cd5d23c 100644
 --- a/wscript
 +++ b/wscript
-@@ -50,6 +50,11 @@ def options(opt):
+@@ -69,6 +69,11 @@ def options(opt):
  
      opt.samba_add_onoff_option('pthreadpool', with_name="enable", without_name="disable", default=True)
  

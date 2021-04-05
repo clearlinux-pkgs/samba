@@ -9,10 +9,10 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 25 deletions(-)
 
 diff --git a/buildtools/wafsamba/wafsamba.py b/buildtools/wafsamba/wafsamba.py
-index 5934f8d..8be4ef1 100644
+index 386cebc..7666b4d 100644
 --- a/buildtools/wafsamba/wafsamba.py
 +++ b/buildtools/wafsamba/wafsamba.py
-@@ -902,16 +902,6 @@ Build.BuildContext.INSTALL_DIRS = INSTALL_DIRS
+@@ -925,16 +925,6 @@ Build.BuildContext.INSTALL_DIRS = INSTALL_DIRS
  def MANPAGES(bld, manpages, install):
      '''build and install manual pages'''
      bld.env.MAN_XSL = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
@@ -29,7 +29,7 @@ index 5934f8d..8be4ef1 100644
  Build.BuildContext.MANPAGES = MANPAGES
  
  def SAMBAMANPAGES(bld, manpages, extra_source=None):
-@@ -921,21 +911,6 @@ def SAMBAMANPAGES(bld, manpages, extra_source=None):
+@@ -944,21 +934,6 @@ def SAMBAMANPAGES(bld, manpages, extra_source=None):
      bld.env.SAMBA_CATALOG = bld.bldnode.abspath() + '/docs-xml/build/catalog.xml'
      bld.env.SAMBA_CATALOGS = 'file:///etc/xml/catalog file:///usr/share/defaults/xml/catalog file://' + bld.env.SAMBA_CATALOG
  

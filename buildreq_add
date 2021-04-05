@@ -2,10 +2,12 @@
 # picked up automatically. One name per line, no whitespace.
 LVM2-dev
 Linux-PAM-dev
+Markdown
 acl-dev
 attr-dev
 cups-dev
 dbus-dev
+dnspython
 docbook-utils
 docbook-xml
 e2fsprogs-dev

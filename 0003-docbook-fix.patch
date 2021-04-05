@@ -9,10 +9,10 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/buildtools/wafsamba/wafsamba.py b/buildtools/wafsamba/wafsamba.py
-index 205d5b4..5934f8d 100644
+index d1baa3b..386cebc 100644
 --- a/buildtools/wafsamba/wafsamba.py
 +++ b/buildtools/wafsamba/wafsamba.py
-@@ -919,7 +919,7 @@ def SAMBAMANPAGES(bld, manpages, extra_source=None):
+@@ -942,7 +942,7 @@ def SAMBAMANPAGES(bld, manpages, extra_source=None):
      bld.env.SAMBA_EXPAND_XSL = bld.srcnode.abspath() + '/docs-xml/xslt/expand-sambadoc.xsl'
      bld.env.SAMBA_MAN_XSL = bld.srcnode.abspath() + '/docs-xml/xslt/man.xsl'
      bld.env.SAMBA_CATALOG = bld.bldnode.abspath() + '/docs-xml/build/catalog.xml'
