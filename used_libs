@@ -22,7 +22,6 @@ liblber-2.4.so.2
 libldap-2.4.so.2
 libldb.so.2
 libncurses.so.6
-libnsl.so.1
 libpam.so.0
 libpanel.so.6
 libpopt.so.0
@@ -38,6 +37,7 @@ libtasn1.so.6
 libtdb.so.1
 libtevent.so.0
 libtinfo.so.6
+libtirpc.so.3
 libunwind-x86_64.so.8
 libunwind.so.8
 libz.so.1

@@ -29,6 +29,7 @@ libcap-dev
 libcap-ng-dev
 libgpg-error-dev
 libgpg-error-dev
+libtirpc-dev
 libunwind-dev
 lmdb-dev
 ncurses-dev
