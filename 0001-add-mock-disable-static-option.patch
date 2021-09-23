@@ -12,7 +12,7 @@ diff --git a/wscript b/wscript
 index 334b298..cd5d23c 100644
 --- a/wscript
 +++ b/wscript
-@@ -69,6 +69,11 @@ def options(opt):
+@@ -70,6 +70,11 @@ def options(opt):
  
      opt.samba_add_onoff_option('pthreadpool', with_name="enable", without_name="disable", default=True)
  
