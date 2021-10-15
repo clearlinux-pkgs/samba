@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.15.0
-Release  : 141
+Release  : 142
 URL      : https://download.samba.org/pub/samba/stable/samba-4.15.0.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.15.0.tar.gz
 Source1  : samba.tmpfiles
@@ -14,6 +14,7 @@ License  : BSD-3-Clause BSL-1.0 CC-BY-4.0 EPL-1.0 GPL-3.0 HPND ISC MIT Public-Do
 Requires: samba-bin = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-data = %{version}-%{release}
+Requires: samba-filemap = %{version}-%{release}
 Requires: samba-lib = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
@@ -85,6 +86,7 @@ Requires: samba-libexec = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
 Requires: samba-services = %{version}-%{release}
+Requires: samba-filemap = %{version}-%{release}
 
 %description bin
 bin components for the samba package.
@@ -119,12 +121,21 @@ Requires: samba = %{version}-%{release}
 dev components for the samba package.
 
 
+%package filemap
+Summary: filemap components for the samba package.
+Group: Default
+
+%description filemap
+filemap components for the samba package.
+
+
 %package lib
 Summary: lib components for the samba package.
 Group: Libraries
 Requires: samba-data = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
+Requires: samba-filemap = %{version}-%{release}
 
 %description lib
 lib components for the samba package.
@@ -135,6 +146,7 @@ Summary: libexec components for the samba package.
 Group: Default
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
+Requires: samba-filemap = %{version}-%{release}
 
 %description libexec
 libexec components for the samba package.
@@ -152,6 +164,7 @@ license components for the samba package.
 Summary: python components for the samba package.
 Group: Default
 Requires: samba-python3 = %{version}-%{release}
+Requires: samba-filemap = %{version}-%{release}
 
 %description python
 python components for the samba package.
@@ -182,13 +195,16 @@ cd %{_builddir}/samba-4.15.0
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+pushd ..
+cp -a samba-4.15.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632438471
+export SOURCE_DATE_EPOCH=1634326160
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -209,8 +225,27 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-st
 --with-shared-modules=idmap_rid,idmap_tdb2,idmap_ad
 make  %{?_smp_mflags}  PYTHON=python3
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static --with-systemd \
+--systemd-install-services \
+--enable-fhs \
+--with-system-mitkrb5 \
+--with-experimental-mit-ad-dc \
+--accel-aes=intelaesni \
+--nopyc \
+--nopyo \
+--with-cluster-support \
+--with-shared-modules=idmap_rid,idmap_tdb2,idmap_ad
+make  %{?_smp_mflags}  PYTHON=python3
+popd
 %install
-export SOURCE_DATE_EPOCH=1632438471
+export SOURCE_DATE_EPOCH=1634326160
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-4.15.0/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -224,25 +259,29 @@ cp %{_builddir}/samba-4.15.0/source4/setup/adprep/WindowsServerDocs/LICENSE %{bu
 cp %{_builddir}/samba-4.15.0/source4/setup/adprep/WindowsServerDocs/LICENSE-CODE %{buildroot}/usr/share/package-licenses/samba/c75814379854cf0de2911449fca8c9138520f140
 cp %{_builddir}/samba-4.15.0/third_party/pep8/LICENSE %{buildroot}/usr/share/package-licenses/samba/37984ab2838de7795cd108336e00844e490457cb
 cp %{_builddir}/samba-4.15.0/third_party/popt/COPYING %{buildroot}/usr/share/package-licenses/samba/61bb7a8ea669080cfc9e7dbf37079eae70b535fb
+pushd ../buildavx2/
+%make_install_v3 PYTHON=python3 "%{?_smp_mflags}"
+popd
 %make_install PYTHON=python3 "%{?_smp_mflags}"
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/samba.conf
 ## Remove excluded files
-rm -f %{buildroot}/usr/bin/ldbadd
-rm -f %{buildroot}/usr/bin/ldbdel
-rm -f %{buildroot}/usr/bin/ldbedit
-rm -f %{buildroot}/usr/bin/ldbmodify
-rm -f %{buildroot}/usr/bin/ldbrename
-rm -f %{buildroot}/usr/bin/ldbsearch
-rm -f %{buildroot}/usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
-rm -f %{buildroot}/usr/lib/python3*/site-packages/ldb.cpython-3*-x86_64-linux-gnu.so
-rm -f %{buildroot}/usr/lib/python3*/site-packages/talloc.cpython-3*-x86_64-linux-gnu.so
-rm -f %{buildroot}/usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
-rm -f %{buildroot}/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
+rm -f %{buildroot}*/usr/bin/ldbadd
+rm -f %{buildroot}*/usr/bin/ldbdel
+rm -f %{buildroot}*/usr/bin/ldbedit
+rm -f %{buildroot}*/usr/bin/ldbmodify
+rm -f %{buildroot}*/usr/bin/ldbrename
+rm -f %{buildroot}*/usr/bin/ldbsearch
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/ldb.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/talloc.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}*/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
 ## install_append content
 install -d -m 755 %{buildroot}/usr/lib/systemd/system
 install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 ## install_append end
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -303,6 +342,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/bin/testparm
 /usr/bin/wbinfo
 /usr/bin/winbindd
+/usr/share/clear/optimized-elf/bin*
 
 %files config
 %defattr(-,root,root,-)
@@ -532,6 +572,10 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/pkgconfig/samdb.pc
 /usr/lib64/pkgconfig/smbclient.pc
 /usr/lib64/pkgconfig/wbclient.pc
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-samba
 
 %files lib
 %defattr(-,root,root,-)
@@ -807,6 +851,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/vfs/worm.so
 /usr/lib64/samba/vfs/xattr_tdb.so
 /usr/lib64/security/pam_winbind.so
+/usr/share/clear/optimized-elf/lib*
+/usr/share/clear/optimized-elf/other*
 
 %files libexec
 %defattr(-,root,root,-)
@@ -825,6 +871,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/libexec/ctdb/tdb_mutex_check
 /usr/libexec/samba/samba-bgqd
 /usr/libexec/samba/smbspool_krb5_wrapper
+/usr/share/clear/optimized-elf/exec*
 
 %files license
 %defattr(0644,root,root,0755)
