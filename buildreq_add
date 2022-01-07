@@ -2,7 +2,6 @@
 # picked up automatically. One name per line, no whitespace.
 LVM2-dev
 Linux-PAM-dev
-Markdown
 acl-dev
 attr-dev
 cups-dev
@@ -45,3 +44,4 @@ zlib-dev
 python3-dev
 talloc-extras
 perl-Parse-Yapp
+pypi(markdown)
