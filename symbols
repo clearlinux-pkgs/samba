@@ -335,6 +335,7 @@ libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy
 libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy2
 libdcerpc-server.so.0:dcesrv_lsa_get_policy_state
 libdcerpc-server.so.0:dcesrv_samdb_connect_as_system
+libdcerpc-server.so.0:dcesrv_samdb_connect_as_user
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser2
 libdcerpc-server.so.0:dcesrv_samr_ChangePasswordUser3
@@ -375,12 +376,9 @@ libdcerpc-server.so.0:ip4_array_copy
 libdcerpc-server.so.0:ip4_array_to_dns_addr_array
 libdcerpc-server.so.0:log_successful_dcesrv_authz_event
 libdcerpc-server.so.0:lpcfg_dcerpc_server_info
-libdcerpc-server.so.0:samdb_result_sid_array_dn
-libdcerpc-server.so.0:samdb_result_sid_array_ndr
 libdcerpc-server.so.0:samr_set_password
 libdcerpc-server.so.0:samr_set_password_buffers
 libdcerpc-server.so.0:samr_set_password_ex
-libdcerpc-server.so.0:sid_list_match
 libdcerpc.so.0:DCERPC_0.0.1
 libdcerpc.so.0:dcecli_generic_session_key
 libdcerpc.so.0:dcerpc_alter_context
@@ -548,12 +546,15 @@ libdcerpc.so.0:smbcli_unix_chown
 libdcerpc.so.0:smbcli_unix_hardlink
 libdcerpc.so.0:smbcli_unix_symlink
 libdcerpc.so.0:smbcli_unlink
+libdcerpc.so.0:smbcli_unlink_wcard
 libdcerpc.so.0:smbcli_unlock
 libdcerpc.so.0:smbcli_unlock64
 libdcerpc.so.0:smbcli_write
 libndr-krb5pac.so.0:NDR_KRB5PAC_0.0.1
 libndr-krb5pac.so.0:_ndr_size_PAC_INFO
 libndr-krb5pac.so.0:ndr_print_DATA_BLOB_REM
+libndr-krb5pac.so.0:ndr_print_PAC_ATTRIBUTES_INFO
+libndr-krb5pac.so.0:ndr_print_PAC_ATTRIBUTE_INFO_FLAGS
 libndr-krb5pac.so.0:ndr_print_PAC_BUFFER
 libndr-krb5pac.so.0:ndr_print_PAC_BUFFER_RAW
 libndr-krb5pac.so.0:ndr_print_PAC_CONSTRAINED_DELEGATION
@@ -572,10 +573,13 @@ libndr-krb5pac.so.0:ndr_print_PAC_INFO
 libndr-krb5pac.so.0:ndr_print_PAC_LOGON_INFO
 libndr-krb5pac.so.0:ndr_print_PAC_LOGON_INFO_CTR
 libndr-krb5pac.so.0:ndr_print_PAC_LOGON_NAME
+libndr-krb5pac.so.0:ndr_print_PAC_REQUESTER_SID
 libndr-krb5pac.so.0:ndr_print_PAC_SIGNATURE_DATA
 libndr-krb5pac.so.0:ndr_print_PAC_TYPE
 libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_FLAGS
 libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_INFO
+libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_INFO_EX
+libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_INFO_SAM_NAME_AND_SID
 libndr-krb5pac.so.0:ndr_print_PAC_Validate
 libndr-krb5pac.so.0:ndr_print_netsamlogoncache_entry
 libndr-krb5pac.so.0:ndr_pull_PAC_BUFFER
@@ -4447,6 +4451,7 @@ libsamba-hostconfig.so.0:lpcfg_max_wins_ttl
 libsamba-hostconfig.so.0:lpcfg_max_xmit
 libsamba-hostconfig.so.0:lpcfg_mdns_name
 libsamba-hostconfig.so.0:lpcfg_message_command
+libsamba-hostconfig.so.0:lpcfg_min_domain_uid
 libsamba-hostconfig.so.0:lpcfg_min_print_space
 libsamba-hostconfig.so.0:lpcfg_min_receivefile_size
 libsamba-hostconfig.so.0:lpcfg_min_wins_ttl
@@ -5289,6 +5294,7 @@ libsamba-util.so.0:nt_time_to_full_time_t
 libsamba-util.so.0:nt_time_to_full_timespec
 libsamba-util.so.0:nt_time_to_unix
 libsamba-util.so.0:nt_time_to_unix_timespec
+libsamba-util.so.0:nt_time_to_unix_timespec_raw
 libsamba-util.so.0:nttime_to_timeval
 libsamba-util.so.0:null_nttime
 libsamba-util.so.0:null_time
@@ -5828,6 +5834,7 @@ libsmbconf.so.0:cluster_probe_ok
 libsmbconf.so.0:convert_time_t_to_uint32_t
 libsmbconf.so.0:convert_uint32_t_to_time_t
 libsmbconf.so.0:copy_unix_token
+libsmbconf.so.0:create_clock_itime
 libsmbconf.so.0:create_pipe_sock
 libsmbconf.so.0:create_reg_subkey
 libsmbconf.so.0:db_is_local
@@ -6300,6 +6307,7 @@ libsmbconf.so.0:lp_max_xmit
 libsmbconf.so.0:lp_maxprintjobs
 libsmbconf.so.0:lp_mdns_name
 libsmbconf.so.0:lp_message_command
+libsmbconf.so.0:lp_min_domain_uid
 libsmbconf.so.0:lp_min_print_space
 libsmbconf.so.0:lp_min_receive_file_size
 libsmbconf.so.0:lp_min_receivefile_size
