@@ -5125,7 +5125,10 @@ libsamba-util.so.0:display_set_stderr
 libsamba-util.so.0:dump_data
 libsamba-util.so.0:dump_data_cb
 libsamba-util.so.0:dump_data_dbgc
+libsamba-util.so.0:dump_data_diff
+libsamba-util.so.0:dump_data_diff_cb
 libsamba-util.so.0:dump_data_file
+libsamba-util.so.0:dump_data_file_diff
 libsamba-util.so.0:dump_data_pw
 libsamba-util.so.0:dump_data_skip_zeros
 libsamba-util.so.0:exit_daemon
