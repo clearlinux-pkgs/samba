@@ -16,7 +16,7 @@ gmp-dev
 gnutls-dev
 gpgme-dev
 intltool-dev
-iso8601
+pypi-iso8601
 jansson-dev
 kdoctools-dev
 krb5-dev
