@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.15.6
-Release  : 153
+Release  : 154
 URL      : https://download.samba.org/pub/samba/stable/samba-4.15.6.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.15.6.tar.gz
 Source1  : samba.tmpfiles
@@ -29,7 +29,6 @@ BuildRequires : buildreq-cpan
 BuildRequires : buildreq-distutils3
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
-BuildRequires : dnspython
 BuildRequires : docbook-utils
 BuildRequires : docbook-xml
 BuildRequires : e2fsprogs-dev
@@ -58,6 +57,7 @@ BuildRequires : openssl-dev
 BuildRequires : perl-Parse-Yapp
 BuildRequires : popt-dev
 BuildRequires : pypi(markdown)
+BuildRequires : pypi-dnspython
 BuildRequires : pypi-iso8601
 BuildRequires : python3-dev
 BuildRequires : readline-dev
@@ -204,7 +204,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1649779122
+export SOURCE_DATE_EPOCH=1650496657
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -245,7 +245,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1649779122
+export SOURCE_DATE_EPOCH=1650496657
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-4.15.6/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02

@@ -6,7 +6,7 @@ acl-dev
 attr-dev
 cups-dev
 dbus-dev
-dnspython
+pypi-dnspython
 docbook-utils
 docbook-xml
 e2fsprogs-dev
