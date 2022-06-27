@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.15.6
-Release  : 154
+Release  : 155
 URL      : https://download.samba.org/pub/samba/stable/samba-4.15.6.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.15.6.tar.gz
 Source1  : samba.tmpfiles
@@ -164,7 +164,6 @@ license components for the samba package.
 Summary: python components for the samba package.
 Group: Default
 Requires: samba-python3 = %{version}-%{release}
-Requires: samba-filemap = %{version}-%{release}
 
 %description python
 python components for the samba package.
@@ -173,6 +172,7 @@ python components for the samba package.
 %package python3
 Summary: python3 components for the samba package.
 Group: Default
+Requires: samba-filemap = %{version}-%{release}
 Requires: python3-core
 
 %description python3
@@ -204,7 +204,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1650496657
+export SOURCE_DATE_EPOCH=1656364379
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -245,7 +245,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1650496657
+export SOURCE_DATE_EPOCH=1656364379
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-4.15.6/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02
@@ -281,7 +281,7 @@ rm -f %{buildroot}*/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.s
 install -d -m 755 %{buildroot}/usr/lib/systemd/system
 install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/systemd/system
 ## install_append end
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -533,6 +533,30 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/include/samba-4.0/util/time.h
 /usr/include/samba-4.0/util_ldb.h
 /usr/include/samba-4.0/wbclient.h
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_winbind.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_wins.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbconf.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so
 /usr/lib64/libdcerpc-binding.so
 /usr/lib64/libdcerpc-samr.so
 /usr/lib64/libdcerpc-server-core.so
@@ -579,6 +603,50 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so.2.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so.1.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_winbind.so.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_wins.so.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so.1.0.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0.28.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so.0.7.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbconf.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so.2.1.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so.0.15
 /usr/lib64/krb5/plugins/kdb/samba.so
 /usr/lib64/libdcerpc-binding.so.0
 /usr/lib64/libdcerpc-binding.so.0.0.1
@@ -851,7 +919,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/vfs/worm.so
 /usr/lib64/samba/vfs/xattr_tdb.so
 /usr/lib64/security/pam_winbind.so
-/usr/share/clear/optimized-elf/lib*
 /usr/share/clear/optimized-elf/other*
 
 %files libexec
