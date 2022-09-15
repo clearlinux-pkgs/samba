@@ -1,5 +1,5 @@
 0001-add-mock-disable-static-option.patch
-0002-timestamps.patch
+#0002-timestamps.patch
 0003-docbook-fix.patch
 0004-no-man-pages.patch
-0005-Removed-stropts.h-checking.patch
+#0005-Removed-stropts.h-checking.patch
