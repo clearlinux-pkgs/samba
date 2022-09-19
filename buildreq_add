@@ -45,3 +45,7 @@ python3-dev
 talloc-extras
 perl-Parse-Yapp
 pypi(markdown)
+flex
+bison
+icu4c-dev
+tracker-dev

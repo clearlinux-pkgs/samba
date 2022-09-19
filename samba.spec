@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.17.0
-Release  : 161
+Release  : 162
 URL      : https://download.samba.org/pub/samba/stable/samba-4.17.0.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.17.0.tar.gz
 Source1  : samba.tmpfiles
@@ -25,17 +25,20 @@ BuildRequires : LVM2-dev
 BuildRequires : Linux-PAM-dev
 BuildRequires : acl-dev
 BuildRequires : attr-dev
+BuildRequires : bison
 BuildRequires : buildreq-cpan
 BuildRequires : cups-dev
 BuildRequires : dbus-dev
 BuildRequires : docbook-utils
 BuildRequires : docbook-xml
 BuildRequires : e2fsprogs-dev
+BuildRequires : flex
 BuildRequires : fuse-dev
 BuildRequires : gdb
 BuildRequires : gmp-dev
 BuildRequires : gnutls-dev
 BuildRequires : gpgme-dev
+BuildRequires : icu4c-dev
 BuildRequires : intltool-dev
 BuildRequires : jansson-dev
 BuildRequires : kdoctools-dev
@@ -68,6 +71,7 @@ BuildRequires : talloc-dev
 BuildRequires : talloc-extras
 BuildRequires : tdb-dev
 BuildRequires : tevent-dev
+BuildRequires : tracker-dev
 BuildRequires : zlib-dev
 Patch1: 0001-add-mock-disable-static-option.patch
 Patch2: 0003-docbook-fix.patch
@@ -203,7 +207,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663258325
+export SOURCE_DATE_EPOCH=1663614613
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -244,7 +248,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1663258325
+export SOURCE_DATE_EPOCH=1663614613
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -370,6 +374,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/share/ctdb/events/legacy/91.lvs.script
 /usr/share/samba/admx/en-US/samba.adml
 /usr/share/samba/admx/samba.admx
+/usr/share/samba/mdssvc/elasticsearch_mappings.json
 /usr/share/samba/setup/ad-schema/AD_DS_Attributes__Windows_Server_2012_R2.ldf
 /usr/share/samba/setup/ad-schema/AD_DS_Attributes__Windows_Server_2016.ldf
 /usr/share/samba/setup/ad-schema/AD_DS_Classes__Windows_Server_2012_R2.ldf
