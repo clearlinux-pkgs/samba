@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.17.0
-Release  : 163
+Release  : 164
 URL      : https://download.samba.org/pub/samba/stable/samba-4.17.0.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.17.0.tar.gz
 Source1  : samba.tmpfiles
@@ -207,15 +207,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663614613
+export SOURCE_DATE_EPOCH=1664910460
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -248,7 +248,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1663614613
+export SOURCE_DATE_EPOCH=1664910460
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -262,7 +262,6 @@ cp %{_builddir}/samba-%{version}/source4/setup/adprep/WindowsServerDocs/LICENSE-
 cp %{_builddir}/samba-%{version}/third_party/heimdal/HEIMDAL-LICENCE.txt %{buildroot}/usr/share/package-licenses/samba/62291fbabe7cfb3fcb4046e66b74007998e147ad || :
 cp %{_builddir}/samba-%{version}/third_party/heimdal/LICENSE %{buildroot}/usr/share/package-licenses/samba/b42b3ce3285ef56e33260bcaf34ac7a3f59e03a2 || :
 cp %{_builddir}/samba-%{version}/third_party/heimdal/lib/libedit/COPYING %{buildroot}/usr/share/package-licenses/samba/23d54f3ac85bc67716a2591c090796b0937433eb || :
-cp %{_builddir}/samba-%{version}/third_party/heimdal/packages/windows/installer/lang/license-en-us.rtf %{buildroot}/usr/share/package-licenses/samba/15cb11bbbe1ef2fcdcea9a18029187a0efdc408d || :
 cp %{_builddir}/samba-%{version}/third_party/popt/COPYING %{buildroot}/usr/share/package-licenses/samba/61bb7a8ea669080cfc9e7dbf37079eae70b535fb || :
 pushd ../buildavx2/
 %make_install_v3 PYTHON=python3 "%{?_smp_mflags}"
@@ -959,7 +958,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/samba/15cb11bbbe1ef2fcdcea9a18029187a0efdc408d
 /usr/share/package-licenses/samba/23d54f3ac85bc67716a2591c090796b0937433eb
 /usr/share/package-licenses/samba/41bb27089429d9d6febf18e4237cf04d81fcc737
 /usr/share/package-licenses/samba/61bb7a8ea669080cfc9e7dbf37079eae70b535fb
