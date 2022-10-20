@@ -5614,6 +5614,7 @@ libsamdb.so.0:authsam_get_session_info_principal
 libsamdb.so.0:authsam_get_user_info_dc_principal
 libsamdb.so.0:authsam_logon_success_accounting
 libsamdb.so.0:authsam_make_user_info_dc
+libsamdb.so.0:authsam_reread_user_logon_data
 libsamdb.so.0:authsam_search_account
 libsamdb.so.0:authsam_update_bad_pwd_count
 libsamdb.so.0:authsam_update_user_info_dc
