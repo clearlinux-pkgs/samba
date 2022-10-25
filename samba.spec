@@ -4,7 +4,7 @@
 #
 Name     : samba
 Version  : 4.17.1
-Release  : 169
+Release  : 170
 URL      : https://download.samba.org/pub/samba/stable/samba-4.17.1.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.17.1.tar.gz
 Source1  : samba.tmpfiles
@@ -207,7 +207,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1666288876
+export SOURCE_DATE_EPOCH=1666720038
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -248,7 +248,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1666288876
+export SOURCE_DATE_EPOCH=1666720038
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -551,7 +551,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so
@@ -573,7 +573,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-errors.so
 /usr/lib64/libsamba-hostconfig.so
 /usr/lib64/libsamba-passdb.so
-/usr/lib64/libsamba-policy.cpython-310-x86-64-linux-gnu.so
+/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so
 /usr/lib64/libsamba-util.so
 /usr/lib64/libsamdb.so
 /usr/lib64/libsmbclient.so
@@ -591,7 +591,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/pkgconfig/netapi.pc
 /usr/lib64/pkgconfig/samba-credentials.pc
 /usr/lib64/pkgconfig/samba-hostconfig.pc
-/usr/lib64/pkgconfig/samba-policy.cpython-310-x86_64-linux-gnu.pc
+/usr/lib64/pkgconfig/samba-policy.cpython-311-x86_64-linux-gnu.pc
 /usr/lib64/pkgconfig/samba-util.pc
 /usr/lib64/pkgconfig/samdb.pc
 /usr/lib64/pkgconfig/smbclient.pc
@@ -633,8 +633,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so.0.0.1
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0.28.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0.0.1
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so.0
@@ -680,8 +680,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-hostconfig.so.0.0.1
 /usr/lib64/libsamba-passdb.so.0
 /usr/lib64/libsamba-passdb.so.0.28.0
-/usr/lib64/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0
-/usr/lib64/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
+/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
 /usr/lib64/libsamba-util.so.0
 /usr/lib64/libsamba-util.so.0.0.1
 /usr/lib64/libsamdb.so.0
@@ -716,6 +716,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/acl.so
 /usr/lib64/samba/ldb/aclread.so
 /usr/lib64/samba/ldb/anr.so
+/usr/lib64/samba/ldb/asq.so
 /usr/lib64/samba/ldb/audit_log.so
 /usr/lib64/samba/ldb/count_attrs.so
 /usr/lib64/samba/ldb/descriptor.so
@@ -730,17 +731,21 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/ildap.so
 /usr/lib64/samba/ldb/instancetype.so
 /usr/lib64/samba/ldb/lazy_commit.so
+/usr/lib64/samba/ldb/ldb.so
 /usr/lib64/samba/ldb/ldbsamba_extensions.so
 /usr/lib64/samba/ldb/linked_attributes.so
+/usr/lib64/samba/ldb/mdb.so
 /usr/lib64/samba/ldb/new_partition.so
 /usr/lib64/samba/ldb/objectclass.so
 /usr/lib64/samba/ldb/objectclass_attrs.so
 /usr/lib64/samba/ldb/objectguid.so
 /usr/lib64/samba/ldb/operational.so
 /usr/lib64/samba/ldb/paged_results.so
+/usr/lib64/samba/ldb/paged_searches.so
 /usr/lib64/samba/ldb/partition.so
 /usr/lib64/samba/ldb/password_hash.so
 /usr/lib64/samba/ldb/ranged_results.so
+/usr/lib64/samba/ldb/rdn_name.so
 /usr/lib64/samba/ldb/repl_meta_data.so
 /usr/lib64/samba/ldb/resolve_oids.so
 /usr/lib64/samba/ldb/rootdse.so
@@ -749,12 +754,16 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/ldb/samba_dsdb.so
 /usr/lib64/samba/ldb/samba_secrets.so
 /usr/lib64/samba/ldb/samldb.so
+/usr/lib64/samba/ldb/sample.so
 /usr/lib64/samba/ldb/schema_data.so
 /usr/lib64/samba/ldb/schema_load.so
 /usr/lib64/samba/ldb/secrets_tdb_sync.so
+/usr/lib64/samba/ldb/server_sort.so
 /usr/lib64/samba/ldb/show_deleted.so
+/usr/lib64/samba/ldb/skel.so
 /usr/lib64/samba/ldb/subtree_delete.so
 /usr/lib64/samba/ldb/subtree_rename.so
+/usr/lib64/samba/ldb/tdb.so
 /usr/lib64/samba/ldb/tombstone_reanimate.so
 /usr/lib64/samba/ldb/unique_object_sids.so
 /usr/lib64/samba/ldb/update_keytab.so
@@ -810,6 +819,12 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libinterfaces-samba4.so
 /usr/lib64/samba/libiov-buf-samba4.so
 /usr/lib64/samba/libkrb5samba-samba4.so
+/usr/lib64/samba/libldb-cmdline-samba4.so
+/usr/lib64/samba/libldb-key-value-samba4.so
+/usr/lib64/samba/libldb-mdb-int-samba4.so
+/usr/lib64/samba/libldb-samba4.so
+/usr/lib64/samba/libldb-tdb-err-map-samba4.so
+/usr/lib64/samba/libldb-tdb-int-samba4.so
 /usr/lib64/samba/libldbsamba-samba4.so
 /usr/lib64/samba/liblibcli-lsa3-samba4.so
 /usr/lib64/samba/liblibcli-netlogon3-samba4.so
@@ -830,13 +845,14 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libprinter-driver-samba4.so
 /usr/lib64/samba/libprinting-migrate-samba4.so
 /usr/lib64/samba/libprocess-model-samba4.so
+/usr/lib64/samba/libpyldb-util.cpython-311-x86-64-linux-gnu-samba4.so
 /usr/lib64/samba/libregistry-samba4.so
 /usr/lib64/samba/libreplace-samba4.so
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
-/usr/lib64/samba/libsamba-net.cpython-310-x86-64-linux-gnu-samba4.so
-/usr/lib64/samba/libsamba-python.cpython-310-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-net.cpython-311-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-python.cpython-311-x86-64-linux-gnu-samba4.so
 /usr/lib64/samba/libsamba-security-samba4.so
 /usr/lib64/samba/libsamba-sockets-samba4.so
 /usr/lib64/samba/libsamba3-util-samba4.so
