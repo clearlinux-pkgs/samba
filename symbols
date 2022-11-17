@@ -6878,6 +6878,7 @@ libsmbconf.so.0:store_reg_values
 libsmbconf.so.0:str_checksum
 libsmbconf.so.0:strip_hostname
 libsmbconf.so.0:sub_set_socket_ids
+libsmbconf.so.0:subdir_of
 libsmbconf.so.0:sys_fallocate
 libsmbconf.so.0:sys_fcntl_int
 libsmbconf.so.0:sys_fcntl_long
