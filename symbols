@@ -4162,6 +4162,8 @@ libsamba-hostconfig.so.0:handle_idmap_backend
 libsamba-hostconfig.so.0:handle_idmap_gid
 libsamba-hostconfig.so.0:handle_idmap_uid
 libsamba-hostconfig.so.0:handle_include
+libsamba-hostconfig.so.0:handle_kdc_default_domain_supported_enctypes
+libsamba-hostconfig.so.0:handle_kdc_supported_enctypes
 libsamba-hostconfig.so.0:handle_ldap_debug_level
 libsamba-hostconfig.so.0:handle_logfile
 libsamba-hostconfig.so.0:handle_name_resolve_order
@@ -4401,7 +4403,10 @@ libsamba-hostconfig.so.0:lpcfg_iprint_server
 libsamba-hostconfig.so.0:lpcfg_is_my_domain_or_realm
 libsamba-hostconfig.so.0:lpcfg_is_mydomain
 libsamba-hostconfig.so.0:lpcfg_is_myname
+libsamba-hostconfig.so.0:lpcfg_kdc_default_domain_supported_enctypes
 libsamba-hostconfig.so.0:lpcfg_kdc_enable_fast
+libsamba-hostconfig.so.0:lpcfg_kdc_force_enable_rc4_weak_session_keys
+libsamba-hostconfig.so.0:lpcfg_kdc_supported_enctypes
 libsamba-hostconfig.so.0:lpcfg_keepalive
 libsamba-hostconfig.so.0:lpcfg_kerberos_encryption_types
 libsamba-hostconfig.so.0:lpcfg_kerberos_method
@@ -4604,6 +4609,7 @@ libsamba-hostconfig.so.0:lpcfg_server_min_protocol
 libsamba-hostconfig.so.0:lpcfg_server_multi_channel_support
 libsamba-hostconfig.so.0:lpcfg_server_role
 libsamba-hostconfig.so.0:lpcfg_server_schannel
+libsamba-hostconfig.so.0:lpcfg_server_schannel_require_seal
 libsamba-hostconfig.so.0:lpcfg_server_services
 libsamba-hostconfig.so.0:lpcfg_server_signing
 libsamba-hostconfig.so.0:lpcfg_server_signing_allowed
@@ -6252,7 +6258,10 @@ libsmbconf.so.0:lp_interfaces
 libsmbconf.so.0:lp_invalid_users
 libsmbconf.so.0:lp_invert_boolean
 libsmbconf.so.0:lp_iprint_server
+libsmbconf.so.0:lp_kdc_default_domain_supported_enctypes
 libsmbconf.so.0:lp_kdc_enable_fast
+libsmbconf.so.0:lp_kdc_force_enable_rc4_weak_session_keys
+libsmbconf.so.0:lp_kdc_supported_enctypes
 libsmbconf.so.0:lp_keepalive
 libsmbconf.so.0:lp_kerberos_encryption_types
 libsmbconf.so.0:lp_kerberos_method
@@ -6465,6 +6474,7 @@ libsmbconf.so.0:lp_server_min_protocol
 libsmbconf.so.0:lp_server_multi_channel_support
 libsmbconf.so.0:lp_server_role
 libsmbconf.so.0:lp_server_schannel
+libsmbconf.so.0:lp_server_schannel_require_seal
 libsmbconf.so.0:lp_server_services
 libsmbconf.so.0:lp_server_signing
 libsmbconf.so.0:lp_server_smb3_encryption_algorithms

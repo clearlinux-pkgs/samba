@@ -5,13 +5,13 @@ Subject: [PATCH] timestamps
 
 Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
- source4/heimdal/lib/wind/generate.py | 4 +---
+ third_party/heimdal/lib/wind/generate.py | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/source4/heimdal/lib/wind/generate.py b/source4/heimdal/lib/wind/generate.py
+diff --git a/third_party/heimdal/lib/wind/generate.py b/third_party/heimdal/lib/wind/generate.py
 index 0a32fcd..b03ead7 100644
---- a/source4/heimdal/lib/wind/generate.py
-+++ b/source4/heimdal/lib/wind/generate.py
+--- a/third_party/heimdal/lib/wind/generate.py
++++ b/third_party/heimdal/lib/wind/generate.py
 @@ -46,9 +46,7 @@ class GeneratedFile :
          self.name  = os.path.basename(name)
          self.file  = open(name, 'w')

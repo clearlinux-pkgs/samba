@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Mon, 19 Dec 2022 18:53:03 +0000
+Subject: [PATCH] no man pages
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ buildtools/wafsamba/wafsamba.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/buildtools/wafsamba/wafsamba.py b/buildtools/wafsamba/wafsamba.py
+index 79f3528..8deb125 100644
+--- a/buildtools/wafsamba/wafsamba.py
++++ b/buildtools/wafsamba/wafsamba.py
+@@ -1163,6 +1163,7 @@ Build.BuildContext.INSTALL_DIRS = INSTALL_DIRS
+ 
+ def MANPAGES(bld, manpages, install):
+     '''build and install manual pages'''
++    return
+     bld.env.MAN_XSL = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
+     for m in manpages.split():
+         source = m + '.xml'
+@@ -1178,6 +1179,7 @@ Build.BuildContext.MANPAGES = MANPAGES
+ 
+ def SAMBAMANPAGES(bld, manpages, extra_source=None):
+     '''build and install manual pages'''
++    return
+     bld.env.SAMBA_EXPAND_XSL = bld.srcnode.abspath() + '/docs-xml/xslt/expand-sambadoc.xsl'
+     bld.env.SAMBA_MAN_XSL = bld.srcnode.abspath() + '/docs-xml/xslt/man.xsl'
+     bld.env.SAMBA_CATALOG = bld.bldnode.abspath() + '/docs-xml/build/catalog.xml'
