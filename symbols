@@ -336,6 +336,8 @@ libdcerpc-server.so.0:dcesrv_lsa_LookupSids3
 libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy
 libdcerpc-server.so.0:dcesrv_lsa_OpenPolicy2
 libdcerpc-server.so.0:dcesrv_lsa_get_policy_state
+libdcerpc-server.so.0:dcesrv_netr_check_schannel
+libdcerpc-server.so.0:dcesrv_netr_creds_server_step_check
 libdcerpc-server.so.0:dcesrv_samdb_connect_as_system
 libdcerpc-server.so.0:dcesrv_samdb_connect_as_user
 libdcerpc-server.so.0:dcesrv_samdb_connect_session_info
@@ -557,6 +559,21 @@ libdcerpc.so.0:smbcli_unlock64
 libdcerpc.so.0:smbcli_write
 libndr-krb5pac.so.0:NDR_KRB5PAC_0.0.1
 libndr-krb5pac.so.0:_ndr_size_PAC_INFO
+libndr-krb5pac.so.0:ndr_print_CLAIMS_ARRAY
+libndr-krb5pac.so.0:ndr_print_CLAIMS_COMPRESSION_FORMAT
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET_CTR
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET_METADATA
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET_METADATA_CTR
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET_METADATA_NDR
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SET_NDR
+libndr-krb5pac.so.0:ndr_print_CLAIMS_SOURCE_TYPE
+libndr-krb5pac.so.0:ndr_print_CLAIM_ENTRY
+libndr-krb5pac.so.0:ndr_print_CLAIM_ENTRY_VALUES
+libndr-krb5pac.so.0:ndr_print_CLAIM_INT64
+libndr-krb5pac.so.0:ndr_print_CLAIM_STRING
+libndr-krb5pac.so.0:ndr_print_CLAIM_TYPE
+libndr-krb5pac.so.0:ndr_print_CLAIM_UINT64
 libndr-krb5pac.so.0:ndr_print_DATA_BLOB_REM
 libndr-krb5pac.so.0:ndr_print_PAC_ATTRIBUTES_INFO
 libndr-krb5pac.so.0:ndr_print_PAC_ATTRIBUTE_INFO_FLAGS
@@ -573,6 +590,8 @@ libndr-krb5pac.so.0:ndr_print_PAC_CREDENTIAL_NTLM_SECPKG
 libndr-krb5pac.so.0:ndr_print_PAC_CREDENTIAL_SUPPLEMENTAL_SECPKG
 libndr-krb5pac.so.0:ndr_print_PAC_DATA
 libndr-krb5pac.so.0:ndr_print_PAC_DATA_RAW
+libndr-krb5pac.so.0:ndr_print_PAC_DEVICE_INFO
+libndr-krb5pac.so.0:ndr_print_PAC_DEVICE_INFO_CTR
 libndr-krb5pac.so.0:ndr_print_PAC_DOMAIN_GROUP_MEMBERSHIP
 libndr-krb5pac.so.0:ndr_print_PAC_INFO
 libndr-krb5pac.so.0:ndr_print_PAC_LOGON_INFO
@@ -587,6 +606,10 @@ libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_INFO_EX
 libndr-krb5pac.so.0:ndr_print_PAC_UPN_DNS_INFO_SAM_NAME_AND_SID
 libndr-krb5pac.so.0:ndr_print_PAC_Validate
 libndr-krb5pac.so.0:ndr_print_netsamlogoncache_entry
+libndr-krb5pac.so.0:ndr_pull_CLAIMS_SET
+libndr-krb5pac.so.0:ndr_pull_CLAIMS_SET_METADATA
+libndr-krb5pac.so.0:ndr_pull_CLAIMS_SET_METADATA_NDR
+libndr-krb5pac.so.0:ndr_pull_CLAIMS_SET_NDR
 libndr-krb5pac.so.0:ndr_pull_PAC_BUFFER
 libndr-krb5pac.so.0:ndr_pull_PAC_BUFFER_RAW
 libndr-krb5pac.so.0:ndr_pull_PAC_CONSTRAINED_DELEGATION_CTR
@@ -604,6 +627,10 @@ libndr-krb5pac.so.0:ndr_pull_PAC_SIGNATURE_DATA
 libndr-krb5pac.so.0:ndr_pull_PAC_TYPE
 libndr-krb5pac.so.0:ndr_pull_PAC_Validate
 libndr-krb5pac.so.0:ndr_pull_netsamlogoncache_entry
+libndr-krb5pac.so.0:ndr_push_CLAIMS_SET
+libndr-krb5pac.so.0:ndr_push_CLAIMS_SET_METADATA
+libndr-krb5pac.so.0:ndr_push_CLAIMS_SET_METADATA_NDR
+libndr-krb5pac.so.0:ndr_push_CLAIMS_SET_NDR
 libndr-krb5pac.so.0:ndr_push_PAC_BUFFER
 libndr-krb5pac.so.0:ndr_push_PAC_BUFFER_RAW
 libndr-krb5pac.so.0:ndr_push_PAC_CONSTRAINED_DELEGATION_CTR
@@ -4201,6 +4228,7 @@ libsamba-hostconfig.so.0:lpcfg__preferred_master
 libsamba-hostconfig.so.0:lpcfg__printername
 libsamba-hostconfig.so.0:lpcfg__security
 libsamba-hostconfig.so.0:lpcfg__server_role
+libsamba-hostconfig.so.0:lpcfg__smb3_unix_extensions
 libsamba-hostconfig.so.0:lpcfg__tls_cafile
 libsamba-hostconfig.so.0:lpcfg__tls_certfile
 libsamba-hostconfig.so.0:lpcfg__tls_crlfile
@@ -4604,6 +4632,7 @@ libsamba-hostconfig.so.0:lpcfg_sam_dnsname
 libsamba-hostconfig.so.0:lpcfg_sam_name
 libsamba-hostconfig.so.0:lpcfg_samba_kcc_command
 libsamba-hostconfig.so.0:lpcfg_security
+libsamba-hostconfig.so.0:lpcfg_server_addresses
 libsamba-hostconfig.so.0:lpcfg_server_max_protocol
 libsamba-hostconfig.so.0:lpcfg_server_min_protocol
 libsamba-hostconfig.so.0:lpcfg_server_multi_channel_support
@@ -5358,6 +5387,7 @@ libsamba-util.so.0:print_canonical_sockaddr
 libsamba-util.so.0:print_sockaddr
 libsamba-util.so.0:print_sockaddr_len
 libsamba-util.so.0:process_exists_by_pid
+libsamba-util.so.0:process_set_title
 libsamba-util.so.0:pull_ascii_talloc
 libsamba-util.so.0:pull_dos_date
 libsamba-util.so.0:pull_dos_date2
@@ -5543,7 +5573,6 @@ libsamba-util.so.0:sys_poll_intr
 libsamba-util.so.0:sys_popenv
 libsamba-util.so.0:talloc_all_string_sub
 libsamba-util.so.0:talloc_alpha_strcpy
-libsamba-util.so.0:talloc_asprintf_addbuf
 libsamba-util.so.0:talloc_stackframe_exists
 libsamba-util.so.0:talloc_strdup_upper
 libsamba-util.so.0:talloc_string_sub
@@ -5873,6 +5902,8 @@ libsmbconf.so.0:cbuf_puts_case
 libsmbconf.so.0:check_same_dev_ino
 libsmbconf.so.0:check_same_stat
 libsmbconf.so.0:clean_name
+libsmbconf.so.0:clistr_is_previous_version_path
+libsmbconf.so.0:clistr_smb2_extract_snapshot_token
 libsmbconf.so.0:cluster_probe_ok
 libsmbconf.so.0:convert_time_t_to_uint32_t
 libsmbconf.so.0:convert_uint32_t_to_time_t
@@ -5883,8 +5914,10 @@ libsmbconf.so.0:db_is_local
 libsmbconf.so.0:db_open
 libsmbconf.so.0:db_open_watched
 libsmbconf.so.0:dbwrap_watched_watch_add_instance
+libsmbconf.so.0:dbwrap_watched_watch_force_alerting
 libsmbconf.so.0:dbwrap_watched_watch_recv
 libsmbconf.so.0:dbwrap_watched_watch_remove_instance
+libsmbconf.so.0:dbwrap_watched_watch_reset_alerting
 libsmbconf.so.0:dbwrap_watched_watch_send
 libsmbconf.so.0:dbwrap_watched_watch_skip_alerting
 libsmbconf.so.0:debug_message
@@ -5904,6 +5937,7 @@ libsmbconf.so.0:dup_nt_token
 libsmbconf.so.0:escape_ldap_string
 libsmbconf.so.0:escape_rdn_val_string_alloc
 libsmbconf.so.0:event_add_idle
+libsmbconf.so.0:extract_snapshot_token
 libsmbconf.so.0:fcntl_getlock
 libsmbconf.so.0:fetch_reg_keys
 libsmbconf.so.0:fetch_reg_values
@@ -5913,13 +5947,18 @@ libsmbconf.so.0:file_ploadv_recv
 libsmbconf.so.0:file_ploadv_send
 libsmbconf.so.0:first_ipv4_iface
 libsmbconf.so.0:flush_pwnam_cache
-libsmbconf.so.0:fstring_sub
 libsmbconf.so.0:g_lock_ctx_init
 libsmbconf.so.0:g_lock_ctx_init_backend
 libsmbconf.so.0:g_lock_dump
 libsmbconf.so.0:g_lock_dump_recv
 libsmbconf.so.0:g_lock_dump_send
 libsmbconf.so.0:g_lock_lock
+libsmbconf.so.0:g_lock_lock_cb_dump
+libsmbconf.so.0:g_lock_lock_cb_unlock
+libsmbconf.so.0:g_lock_lock_cb_wake_watchers
+libsmbconf.so.0:g_lock_lock_cb_watch_data_recv
+libsmbconf.so.0:g_lock_lock_cb_watch_data_send
+libsmbconf.so.0:g_lock_lock_cb_writev
 libsmbconf.so.0:g_lock_lock_recv
 libsmbconf.so.0:g_lock_lock_send
 libsmbconf.so.0:g_lock_locks
@@ -5943,6 +5982,7 @@ libsmbconf.so.0:gencache_timeout_expired
 libsmbconf.so.0:generalized_to_unix_time
 libsmbconf.so.0:get_Protocol
 libsmbconf.so.0:get_audit_category_from_param
+libsmbconf.so.0:get_current_user_info_domain
 libsmbconf.so.0:get_current_username
 libsmbconf.so.0:get_dos_error_msg
 libsmbconf.so.0:get_file_size_stat
@@ -5962,9 +6002,6 @@ libsmbconf.so.0:get_remote_arch_from_str
 libsmbconf.so.0:get_remote_arch_str
 libsmbconf.so.0:get_remote_hostname
 libsmbconf.so.0:get_remote_machine_name
-libsmbconf.so.0:get_safe_IVAL
-libsmbconf.so.0:get_safe_SVAL
-libsmbconf.so.0:get_safe_ptr
 libsmbconf.so.0:get_safe_str_ptr
 libsmbconf.so.0:get_server_zone_offset
 libsmbconf.so.0:get_share_security
@@ -6052,6 +6089,7 @@ libsmbconf.so.0:lp__preferred_master
 libsmbconf.so.0:lp__printername
 libsmbconf.so.0:lp__security
 libsmbconf.so.0:lp__server_role
+libsmbconf.so.0:lp__smb3_unix_extensions
 libsmbconf.so.0:lp__tls_cafile
 libsmbconf.so.0:lp__tls_certfile
 libsmbconf.so.0:lp__tls_crlfile
@@ -6469,6 +6507,7 @@ libsmbconf.so.0:lp_rpc_server_port
 libsmbconf.so.0:lp_rpc_start_on_demand_helpers
 libsmbconf.so.0:lp_samba_kcc_command
 libsmbconf.so.0:lp_security
+libsmbconf.so.0:lp_server_addresses
 libsmbconf.so.0:lp_server_max_protocol
 libsmbconf.so.0:lp_server_min_protocol
 libsmbconf.so.0:lp_server_multi_channel_support
@@ -6504,7 +6543,7 @@ libsmbconf.so.0:lp_smb2_max_credits
 libsmbconf.so.0:lp_smb2_max_read
 libsmbconf.so.0:lp_smb2_max_trans
 libsmbconf.so.0:lp_smb2_max_write
-libsmbconf.so.0:lp_smb2_unix_extensions
+libsmbconf.so.0:lp_smb3_unix_extensions
 libsmbconf.so.0:lp_smb_passwd_file
 libsmbconf.so.0:lp_smb_ports
 libsmbconf.so.0:lp_smbd_async_dosmode
@@ -6601,7 +6640,6 @@ libsmbconf.so.0:make_unix_date3
 libsmbconf.so.0:map_nt_error_from_unix
 libsmbconf.so.0:map_open_params_to_ntcreate
 libsmbconf.so.0:map_process_lock_to_ofd_lock
-libsmbconf.so.0:map_share_mode_to_deny_mode
 libsmbconf.so.0:map_werror_from_unix
 libsmbconf.so.0:mask_match
 libsmbconf.so.0:mask_match_list
@@ -6692,9 +6730,7 @@ libsmbconf.so.0:readdirname
 libsmbconf.so.0:realloc_string_sub
 libsmbconf.so.0:realloc_string_sub2
 libsmbconf.so.0:receive_smb_raw
-libsmbconf.so.0:reg_create_path
 libsmbconf.so.0:reg_createkey
-libsmbconf.so.0:reg_delete_path
 libsmbconf.so.0:reg_deleteallvalues
 libsmbconf.so.0:reg_deletekey
 libsmbconf.so.0:reg_deletekey_recursive
@@ -6739,10 +6775,6 @@ libsmbconf.so.0:registry_create_admin_token
 libsmbconf.so.0:registry_init_basic
 libsmbconf.so.0:registry_init_common
 libsmbconf.so.0:registry_init_smbconf
-libsmbconf.so.0:registry_value_cmp
-libsmbconf.so.0:registry_value_dw
-libsmbconf.so.0:registry_value_multi_sz
-libsmbconf.so.0:registry_value_sz
 libsmbconf.so.0:regkey_access_check
 libsmbconf.so.0:regkey_get_secdesc
 libsmbconf.so.0:regkey_set_secdesc
@@ -6799,6 +6831,7 @@ libsmbconf.so.0:set_my_vnn
 libsmbconf.so.0:set_namearray
 libsmbconf.so.0:set_remote_arch
 libsmbconf.so.0:set_remote_machine_name
+libsmbconf.so.0:set_remote_proto
 libsmbconf.so.0:set_server_zone_offset
 libsmbconf.so.0:set_share_security
 libsmbconf.so.0:set_use_sendfile
@@ -6913,7 +6946,6 @@ libsmbconf.so.0:sys_sendfile
 libsmbconf.so.0:sys_setgroups
 libsmbconf.so.0:sys_srandom
 libsmbconf.so.0:sys_stat
-libsmbconf.so.0:tab_depth
 libsmbconf.so.0:talloc_sub_advanced
 libsmbconf.so.0:talloc_sub_basic
 libsmbconf.so.0:talloc_sub_full
@@ -6921,6 +6953,7 @@ libsmbconf.so.0:talloc_sub_specified
 libsmbconf.so.0:tcopy_passwd
 libsmbconf.so.0:tdb_chainlock_with_timeout
 libsmbconf.so.0:tdb_data_cmp
+libsmbconf.so.0:tdb_data_dbg
 libsmbconf.so.0:tdb_data_string
 libsmbconf.so.0:tdb_lock_bystring_with_timeout
 libsmbconf.so.0:tdb_open_log
@@ -7022,6 +7055,7 @@ libwbclient.so.0:WBCLIENT_0.12
 libwbclient.so.0:WBCLIENT_0.13
 libwbclient.so.0:WBCLIENT_0.14
 libwbclient.so.0:WBCLIENT_0.15
+libwbclient.so.0:WBCLIENT_0.16
 libwbclient.so.0:WBCLIENT_0.9
 libwbclient.so.0:wbcAddNamedBlob
 libwbclient.so.0:wbcAllocateGid
@@ -7031,6 +7065,7 @@ libwbclient.so.0:wbcAllocateUid
 libwbclient.so.0:wbcAuthenticateUser
 libwbclient.so.0:wbcAuthenticateUserEx
 libwbclient.so.0:wbcChangeTrustCredentials
+libwbclient.so.0:wbcChangeTrustCredentialsAt
 libwbclient.so.0:wbcChangeUserPassword
 libwbclient.so.0:wbcChangeUserPasswordEx
 libwbclient.so.0:wbcCheckTrustCredentials
@@ -7041,6 +7076,7 @@ libwbclient.so.0:wbcCtxAllocateUid
 libwbclient.so.0:wbcCtxAuthenticateUser
 libwbclient.so.0:wbcCtxAuthenticateUserEx
 libwbclient.so.0:wbcCtxChangeTrustCredentials
+libwbclient.so.0:wbcCtxChangeTrustCredentialsAt
 libwbclient.so.0:wbcCtxChangeUserPassword
 libwbclient.so.0:wbcCtxChangeUserPasswordEx
 libwbclient.so.0:wbcCtxCheckTrustCredentials
