@@ -5,7 +5,7 @@
 #
 Name     : samba
 Version  : 4.18.1
-Release  : 176
+Release  : 177
 URL      : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source1  : samba.tmpfiles
@@ -15,7 +15,6 @@ License  : BSD-3-Clause BSD-4-Clause-UC BSL-1.0 CC-BY-4.0 EPL-1.0 GPL-3.0 HPND I
 Requires: samba-bin = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-data = %{version}-%{release}
-Requires: samba-filemap = %{version}-%{release}
 Requires: samba-lib = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
@@ -94,7 +93,6 @@ Requires: samba-libexec = %{version}-%{release}
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
 Requires: samba-services = %{version}-%{release}
-Requires: samba-filemap = %{version}-%{release}
 
 %description bin
 bin components for the samba package.
@@ -129,21 +127,12 @@ Requires: samba = %{version}-%{release}
 dev components for the samba package.
 
 
-%package filemap
-Summary: filemap components for the samba package.
-Group: Default
-
-%description filemap
-filemap components for the samba package.
-
-
 %package lib
 Summary: lib components for the samba package.
 Group: Libraries
 Requires: samba-data = %{version}-%{release}
 Requires: samba-libexec = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
-Requires: samba-filemap = %{version}-%{release}
 
 %description lib
 lib components for the samba package.
@@ -154,7 +143,6 @@ Summary: libexec components for the samba package.
 Group: Default
 Requires: samba-config = %{version}-%{release}
 Requires: samba-license = %{version}-%{release}
-Requires: samba-filemap = %{version}-%{release}
 
 %description libexec
 libexec components for the samba package.
@@ -180,7 +168,6 @@ python components for the samba package.
 %package python3
 Summary: python3 components for the samba package.
 Group: Default
-Requires: samba-filemap = %{version}-%{release}
 Requires: python3-core
 Requires: ldb-python3
 
@@ -191,6 +178,7 @@ python3 components for the samba package.
 %package services
 Summary: services components for the samba package.
 Group: Systemd services
+Requires: systemd
 
 %description services
 services components for the samba package.
@@ -211,15 +199,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680125555
+export SOURCE_DATE_EPOCH=1683228570
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -252,7 +240,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1680125555
+export SOURCE_DATE_EPOCH=1683228570
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -296,6 +284,49 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/cifsdd
+/V3/usr/bin/ctdb
+/V3/usr/bin/ctdbd
+/V3/usr/bin/dbwrap_tool
+/V3/usr/bin/dumpmscat
+/V3/usr/bin/eventlogadm
+/V3/usr/bin/gentest
+/V3/usr/bin/locktest
+/V3/usr/bin/ltdbtool
+/V3/usr/bin/masktest
+/V3/usr/bin/mdsearch
+/V3/usr/bin/mvxattr
+/V3/usr/bin/ndrdump
+/V3/usr/bin/net
+/V3/usr/bin/nmbd
+/V3/usr/bin/nmblookup
+/V3/usr/bin/ntlm_auth
+/V3/usr/bin/oLschema2ldif
+/V3/usr/bin/pdbedit
+/V3/usr/bin/ping_pong
+/V3/usr/bin/profiles
+/V3/usr/bin/regdiff
+/V3/usr/bin/regpatch
+/V3/usr/bin/regshell
+/V3/usr/bin/regtree
+/V3/usr/bin/rpcclient
+/V3/usr/bin/samba
+/V3/usr/bin/samba-regedit
+/V3/usr/bin/sharesec
+/V3/usr/bin/smbcacls
+/V3/usr/bin/smbclient
+/V3/usr/bin/smbcontrol
+/V3/usr/bin/smbcquotas
+/V3/usr/bin/smbd
+/V3/usr/bin/smbget
+/V3/usr/bin/smbpasswd
+/V3/usr/bin/smbspool
+/V3/usr/bin/smbstatus
+/V3/usr/bin/smbtorture
+/V3/usr/bin/smbtree
+/V3/usr/bin/testparm
+/V3/usr/bin/wbinfo
+/V3/usr/bin/winbindd
 /usr/bin/cifsdd
 /usr/bin/ctdb
 /usr/bin/ctdb_diagnostics
@@ -349,7 +380,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/bin/testparm
 /usr/bin/wbinfo
 /usr/bin/winbindd
-/usr/share/clear/optimized-elf/bin*
 
 %files config
 %defattr(-,root,root,-)
@@ -462,6 +492,28 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libdcerpc-binding.so
+/V3/usr/lib64/libdcerpc-samr.so
+/V3/usr/lib64/libdcerpc-server-core.so
+/V3/usr/lib64/libdcerpc-server.so
+/V3/usr/lib64/libdcerpc.so
+/V3/usr/lib64/libndr-krb5pac.so
+/V3/usr/lib64/libndr-nbt.so
+/V3/usr/lib64/libndr-standard.so
+/V3/usr/lib64/libndr.so
+/V3/usr/lib64/libnetapi.so
+/V3/usr/lib64/libsamba-credentials.so
+/V3/usr/lib64/libsamba-errors.so
+/V3/usr/lib64/libsamba-hostconfig.so
+/V3/usr/lib64/libsamba-passdb.so
+/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so
+/V3/usr/lib64/libsamba-util.so
+/V3/usr/lib64/libsamdb.so
+/V3/usr/lib64/libsmbclient.so
+/V3/usr/lib64/libsmbconf.so
+/V3/usr/lib64/libsmbldap.so
+/V3/usr/lib64/libtevent-util.so
+/V3/usr/lib64/libwbclient.so
 /usr/include/samba-4.0/charset.h
 /usr/include/samba-4.0/core/doserr.h
 /usr/include/samba-4.0/core/error.h
@@ -545,28 +597,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/include/samba-4.0/util/time.h
 /usr/include/samba-4.0/util_ldb.h
 /usr/include/samba-4.0/wbclient.h
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbconf.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so
 /usr/lib64/libdcerpc-binding.so
 /usr/lib64/libdcerpc-samr.so
 /usr/lib64/libdcerpc-server-core.so
@@ -605,58 +635,286 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/pkgconfig/smbclient.pc
 /usr/lib64/pkgconfig/wbclient.pc
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-samba
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-binding.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-samr.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server-core.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc-server.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdcerpc.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-krb5pac.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-nbt.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr-standard.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so.3
-/usr/lib64/glibc-hwcaps/x86-64-v3/libndr.so.3.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libnetapi.so.1.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_winbind.so.2
-/usr/lib64/glibc-hwcaps/x86-64-v3/libnss_wins.so.2
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-credentials.so.1.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-errors.so.1.0.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-hostconfig.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-passdb.so.0.28.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamba-util.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsamdb.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbclient.so.0.7.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbconf.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbconf.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so.2
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsmbldap.so.2.1.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libtevent-util.so.0.0.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libwbclient.so.0.16
+/V3/usr/lib64/krb5/plugins/kdb/samba.so
+/V3/usr/lib64/libdcerpc-binding.so.0
+/V3/usr/lib64/libdcerpc-binding.so.0.0.1
+/V3/usr/lib64/libdcerpc-samr.so.0
+/V3/usr/lib64/libdcerpc-samr.so.0.0.1
+/V3/usr/lib64/libdcerpc-server-core.so.0
+/V3/usr/lib64/libdcerpc-server-core.so.0.0.1
+/V3/usr/lib64/libdcerpc-server.so.0
+/V3/usr/lib64/libdcerpc-server.so.0.0.1
+/V3/usr/lib64/libdcerpc.so.0
+/V3/usr/lib64/libdcerpc.so.0.0.1
+/V3/usr/lib64/libndr-krb5pac.so.0
+/V3/usr/lib64/libndr-krb5pac.so.0.0.1
+/V3/usr/lib64/libndr-nbt.so.0
+/V3/usr/lib64/libndr-nbt.so.0.0.1
+/V3/usr/lib64/libndr-standard.so.0
+/V3/usr/lib64/libndr-standard.so.0.0.1
+/V3/usr/lib64/libndr.so.3
+/V3/usr/lib64/libndr.so.3.0.0
+/V3/usr/lib64/libnetapi.so.1
+/V3/usr/lib64/libnetapi.so.1.0.0
+/V3/usr/lib64/libnss_winbind.so.2
+/V3/usr/lib64/libnss_wins.so.2
+/V3/usr/lib64/libsamba-credentials.so.1
+/V3/usr/lib64/libsamba-credentials.so.1.0.0
+/V3/usr/lib64/libsamba-errors.so.1
+/V3/usr/lib64/libsamba-errors.so.1.0.0
+/V3/usr/lib64/libsamba-hostconfig.so.0
+/V3/usr/lib64/libsamba-hostconfig.so.0.0.1
+/V3/usr/lib64/libsamba-passdb.so.0
+/V3/usr/lib64/libsamba-passdb.so.0.28.0
+/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
+/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
+/V3/usr/lib64/libsamba-util.so.0
+/V3/usr/lib64/libsamba-util.so.0.0.1
+/V3/usr/lib64/libsamdb.so.0
+/V3/usr/lib64/libsamdb.so.0.0.1
+/V3/usr/lib64/libsmbclient.so.0
+/V3/usr/lib64/libsmbclient.so.0.7.0
+/V3/usr/lib64/libsmbconf.so.0
+/V3/usr/lib64/libsmbconf.so.0.0.1
+/V3/usr/lib64/libsmbldap.so.2
+/V3/usr/lib64/libsmbldap.so.2.1.0
+/V3/usr/lib64/libtevent-util.so.0
+/V3/usr/lib64/libtevent-util.so.0.0.1
+/V3/usr/lib64/libwbclient.so.0
+/V3/usr/lib64/libwbclient.so.0.16
+/V3/usr/lib64/samba/bind9/dlz_bind9_10.so
+/V3/usr/lib64/samba/bind9/dlz_bind9_11.so
+/V3/usr/lib64/samba/bind9/dlz_bind9_12.so
+/V3/usr/lib64/samba/bind9/dlz_bind9_14.so
+/V3/usr/lib64/samba/bind9/dlz_bind9_16.so
+/V3/usr/lib64/samba/bind9/dlz_bind9_18.so
+/V3/usr/lib64/samba/gensec/krb5.so
+/V3/usr/lib64/samba/idmap/ad.so
+/V3/usr/lib64/samba/idmap/autorid.so
+/V3/usr/lib64/samba/idmap/hash.so
+/V3/usr/lib64/samba/idmap/rfc2307.so
+/V3/usr/lib64/samba/idmap/rid.so
+/V3/usr/lib64/samba/idmap/script.so
+/V3/usr/lib64/samba/idmap/tdb2.so
+/V3/usr/lib64/samba/krb5/async_dns_krb5_locator.so
+/V3/usr/lib64/samba/krb5/winbind_krb5_localauth.so
+/V3/usr/lib64/samba/krb5/winbind_krb5_locator.so
+/V3/usr/lib64/samba/ldb/acl.so
+/V3/usr/lib64/samba/ldb/aclread.so
+/V3/usr/lib64/samba/ldb/anr.so
+/V3/usr/lib64/samba/ldb/audit_log.so
+/V3/usr/lib64/samba/ldb/count_attrs.so
+/V3/usr/lib64/samba/ldb/descriptor.so
+/V3/usr/lib64/samba/ldb/dirsync.so
+/V3/usr/lib64/samba/ldb/dns_notify.so
+/V3/usr/lib64/samba/ldb/dsdb_notification.so
+/V3/usr/lib64/samba/ldb/encrypted_secrets.so
+/V3/usr/lib64/samba/ldb/extended_dn_in.so
+/V3/usr/lib64/samba/ldb/extended_dn_out.so
+/V3/usr/lib64/samba/ldb/extended_dn_store.so
+/V3/usr/lib64/samba/ldb/group_audit_log.so
+/V3/usr/lib64/samba/ldb/ildap.so
+/V3/usr/lib64/samba/ldb/instancetype.so
+/V3/usr/lib64/samba/ldb/lazy_commit.so
+/V3/usr/lib64/samba/ldb/ldbsamba_extensions.so
+/V3/usr/lib64/samba/ldb/linked_attributes.so
+/V3/usr/lib64/samba/ldb/new_partition.so
+/V3/usr/lib64/samba/ldb/objectclass.so
+/V3/usr/lib64/samba/ldb/objectclass_attrs.so
+/V3/usr/lib64/samba/ldb/objectguid.so
+/V3/usr/lib64/samba/ldb/operational.so
+/V3/usr/lib64/samba/ldb/paged_results.so
+/V3/usr/lib64/samba/ldb/partition.so
+/V3/usr/lib64/samba/ldb/password_hash.so
+/V3/usr/lib64/samba/ldb/ranged_results.so
+/V3/usr/lib64/samba/ldb/repl_meta_data.so
+/V3/usr/lib64/samba/ldb/resolve_oids.so
+/V3/usr/lib64/samba/ldb/rootdse.so
+/V3/usr/lib64/samba/ldb/samba3sam.so
+/V3/usr/lib64/samba/ldb/samba3sid.so
+/V3/usr/lib64/samba/ldb/samba_dsdb.so
+/V3/usr/lib64/samba/ldb/samba_secrets.so
+/V3/usr/lib64/samba/ldb/samldb.so
+/V3/usr/lib64/samba/ldb/schema_data.so
+/V3/usr/lib64/samba/ldb/schema_load.so
+/V3/usr/lib64/samba/ldb/secrets_tdb_sync.so
+/V3/usr/lib64/samba/ldb/show_deleted.so
+/V3/usr/lib64/samba/ldb/subtree_delete.so
+/V3/usr/lib64/samba/ldb/subtree_rename.so
+/V3/usr/lib64/samba/ldb/tombstone_reanimate.so
+/V3/usr/lib64/samba/ldb/unique_object_sids.so
+/V3/usr/lib64/samba/ldb/update_keytab.so
+/V3/usr/lib64/samba/ldb/vlv.so
+/V3/usr/lib64/samba/ldb/wins_ldb.so
+/V3/usr/lib64/samba/libCHARSET3-samba4.so
+/V3/usr/lib64/samba/libLIBWBCLIENT-OLD-samba4.so
+/V3/usr/lib64/samba/libMESSAGING-SEND-samba4.so
+/V3/usr/lib64/samba/libMESSAGING-samba4.so
+/V3/usr/lib64/samba/libREG-FULL-samba4.so
+/V3/usr/lib64/samba/libRPC-SERVER-LOOP-samba4.so
+/V3/usr/lib64/samba/libRPC-WORKER-samba4.so
+/V3/usr/lib64/samba/libaddns-samba4.so
+/V3/usr/lib64/samba/libads-samba4.so
+/V3/usr/lib64/samba/libasn1util-samba4.so
+/V3/usr/lib64/samba/libauth-samba4.so
+/V3/usr/lib64/samba/libauth-unix-token-samba4.so
+/V3/usr/lib64/samba/libauth4-samba4.so
+/V3/usr/lib64/samba/libauthkrb5-samba4.so
+/V3/usr/lib64/samba/libcli-cldap-samba4.so
+/V3/usr/lib64/samba/libcli-ldap-common-samba4.so
+/V3/usr/lib64/samba/libcli-ldap-samba4.so
+/V3/usr/lib64/samba/libcli-nbt-samba4.so
+/V3/usr/lib64/samba/libcli-smb-common-samba4.so
+/V3/usr/lib64/samba/libcli-spoolss-samba4.so
+/V3/usr/lib64/samba/libcliauth-samba4.so
+/V3/usr/lib64/samba/libclidns-samba4.so
+/V3/usr/lib64/samba/libcluster-samba4.so
+/V3/usr/lib64/samba/libcmdline-contexts-samba4.so
+/V3/usr/lib64/samba/libcmdline-samba4.so
+/V3/usr/lib64/samba/libcmocka-samba4.so
+/V3/usr/lib64/samba/libcommon-auth-samba4.so
+/V3/usr/lib64/samba/libctdb-event-client-samba4.so
+/V3/usr/lib64/samba/libdb-glue-samba4.so
+/V3/usr/lib64/samba/libdbwrap-samba4.so
+/V3/usr/lib64/samba/libdcerpc-pkt-auth-samba4.so
+/V3/usr/lib64/samba/libdcerpc-samba-samba4.so
+/V3/usr/lib64/samba/libdcerpc-samba4.so
+/V3/usr/lib64/samba/libdfs-server-ad-samba4.so
+/V3/usr/lib64/samba/libdlz-bind9-for-torture-samba4.so
+/V3/usr/lib64/samba/libdnsserver-common-samba4.so
+/V3/usr/lib64/samba/libdsdb-garbage-collect-tombstones-samba4.so
+/V3/usr/lib64/samba/libdsdb-module-samba4.so
+/V3/usr/lib64/samba/libevents-samba4.so
+/V3/usr/lib64/samba/libflag-mapping-samba4.so
+/V3/usr/lib64/samba/libgenrand-samba4.so
+/V3/usr/lib64/samba/libgensec-samba4.so
+/V3/usr/lib64/samba/libgpext-samba4.so
+/V3/usr/lib64/samba/libgpo-samba4.so
+/V3/usr/lib64/samba/libgse-samba4.so
+/V3/usr/lib64/samba/libhttp-samba4.so
+/V3/usr/lib64/samba/libidmap-samba4.so
+/V3/usr/lib64/samba/libinterfaces-samba4.so
+/V3/usr/lib64/samba/libiov-buf-samba4.so
+/V3/usr/lib64/samba/libkrb5samba-samba4.so
+/V3/usr/lib64/samba/libldbsamba-samba4.so
+/V3/usr/lib64/samba/liblibcli-lsa3-samba4.so
+/V3/usr/lib64/samba/liblibcli-netlogon3-samba4.so
+/V3/usr/lib64/samba/liblibsmb-samba4.so
+/V3/usr/lib64/samba/libmessages-dgm-samba4.so
+/V3/usr/lib64/samba/libmessages-util-samba4.so
+/V3/usr/lib64/samba/libmscat-samba4.so
+/V3/usr/lib64/samba/libmsghdr-samba4.so
+/V3/usr/lib64/samba/libmsrpc3-samba4.so
+/V3/usr/lib64/samba/libndr-samba-samba4.so
+/V3/usr/lib64/samba/libndr-samba4.so
+/V3/usr/lib64/samba/libnet-keytab-samba4.so
+/V3/usr/lib64/samba/libnetif-samba4.so
+/V3/usr/lib64/samba/libnpa-tstream-samba4.so
+/V3/usr/lib64/samba/libnss-info-samba4.so
+/V3/usr/lib64/samba/libpac-samba4.so
+/V3/usr/lib64/samba/libposix-eadb-samba4.so
+/V3/usr/lib64/samba/libprinter-driver-samba4.so
+/V3/usr/lib64/samba/libprinting-migrate-samba4.so
+/V3/usr/lib64/samba/libprocess-model-samba4.so
+/V3/usr/lib64/samba/libregistry-samba4.so
+/V3/usr/lib64/samba/libreplace-samba4.so
+/V3/usr/lib64/samba/libsamba-cluster-support-samba4.so
+/V3/usr/lib64/samba/libsamba-debug-samba4.so
+/V3/usr/lib64/samba/libsamba-modules-samba4.so
+/V3/usr/lib64/samba/libsamba-net.cpython-311-x86-64-linux-gnu-samba4.so
+/V3/usr/lib64/samba/libsamba-python.cpython-311-x86-64-linux-gnu-samba4.so
+/V3/usr/lib64/samba/libsamba-security-samba4.so
+/V3/usr/lib64/samba/libsamba-sockets-samba4.so
+/V3/usr/lib64/samba/libsamba3-util-samba4.so
+/V3/usr/lib64/samba/libsamdb-common-samba4.so
+/V3/usr/lib64/samba/libscavenge-dns-records-samba4.so
+/V3/usr/lib64/samba/libsecrets3-samba4.so
+/V3/usr/lib64/samba/libserver-id-db-samba4.so
+/V3/usr/lib64/samba/libserver-role-samba4.so
+/V3/usr/lib64/samba/libservice-samba4.so
+/V3/usr/lib64/samba/libshares-samba4.so
+/V3/usr/lib64/samba/libsmb-transport-samba4.so
+/V3/usr/lib64/samba/libsmbclient-raw-samba4.so
+/V3/usr/lib64/samba/libsmbd-base-samba4.so
+/V3/usr/lib64/samba/libsmbd-shim-samba4.so
+/V3/usr/lib64/samba/libsmbldaphelper-samba4.so
+/V3/usr/lib64/samba/libsmbpasswdparser-samba4.so
+/V3/usr/lib64/samba/libsocket-blocking-samba4.so
+/V3/usr/lib64/samba/libstable-sort-samba4.so
+/V3/usr/lib64/samba/libsys-rw-samba4.so
+/V3/usr/lib64/samba/libtalloc-report-printf-samba4.so
+/V3/usr/lib64/samba/libtalloc-report-samba4.so
+/V3/usr/lib64/samba/libtdb-wrap-samba4.so
+/V3/usr/lib64/samba/libtime-basic-samba4.so
+/V3/usr/lib64/samba/libtorture-samba4.so
+/V3/usr/lib64/samba/libtrusts-util-samba4.so
+/V3/usr/lib64/samba/libutil-reg-samba4.so
+/V3/usr/lib64/samba/libutil-setid-samba4.so
+/V3/usr/lib64/samba/libutil-tdb-samba4.so
+/V3/usr/lib64/samba/libxattr-tdb-samba4.so
+/V3/usr/lib64/samba/nss_info/hash.so
+/V3/usr/lib64/samba/nss_info/rfc2307.so
+/V3/usr/lib64/samba/nss_info/sfu.so
+/V3/usr/lib64/samba/nss_info/sfu20.so
+/V3/usr/lib64/samba/process_model/prefork.so
+/V3/usr/lib64/samba/process_model/standard.so
+/V3/usr/lib64/samba/service/cldap.so
+/V3/usr/lib64/samba/service/dcerpc.so
+/V3/usr/lib64/samba/service/dns.so
+/V3/usr/lib64/samba/service/dns_update.so
+/V3/usr/lib64/samba/service/drepl.so
+/V3/usr/lib64/samba/service/kcc.so
+/V3/usr/lib64/samba/service/kdc.so
+/V3/usr/lib64/samba/service/ldap.so
+/V3/usr/lib64/samba/service/nbtd.so
+/V3/usr/lib64/samba/service/ntp_signd.so
+/V3/usr/lib64/samba/service/s3fs.so
+/V3/usr/lib64/samba/service/winbindd.so
+/V3/usr/lib64/samba/service/wrepl.so
+/V3/usr/lib64/samba/vfs/acl_tdb.so
+/V3/usr/lib64/samba/vfs/acl_xattr.so
+/V3/usr/lib64/samba/vfs/aio_fork.so
+/V3/usr/lib64/samba/vfs/aio_pthread.so
+/V3/usr/lib64/samba/vfs/audit.so
+/V3/usr/lib64/samba/vfs/btrfs.so
+/V3/usr/lib64/samba/vfs/cap.so
+/V3/usr/lib64/samba/vfs/catia.so
+/V3/usr/lib64/samba/vfs/commit.so
+/V3/usr/lib64/samba/vfs/crossrename.so
+/V3/usr/lib64/samba/vfs/default_quota.so
+/V3/usr/lib64/samba/vfs/dirsort.so
+/V3/usr/lib64/samba/vfs/expand_msdfs.so
+/V3/usr/lib64/samba/vfs/extd_audit.so
+/V3/usr/lib64/samba/vfs/fake_perms.so
+/V3/usr/lib64/samba/vfs/fileid.so
+/V3/usr/lib64/samba/vfs/fruit.so
+/V3/usr/lib64/samba/vfs/full_audit.so
+/V3/usr/lib64/samba/vfs/glusterfs_fuse.so
+/V3/usr/lib64/samba/vfs/gpfs.so
+/V3/usr/lib64/samba/vfs/linux_xfs_sgid.so
+/V3/usr/lib64/samba/vfs/media_harmony.so
+/V3/usr/lib64/samba/vfs/offline.so
+/V3/usr/lib64/samba/vfs/posix_eadb.so
+/V3/usr/lib64/samba/vfs/preopen.so
+/V3/usr/lib64/samba/vfs/readahead.so
+/V3/usr/lib64/samba/vfs/readonly.so
+/V3/usr/lib64/samba/vfs/recycle.so
+/V3/usr/lib64/samba/vfs/shadow_copy.so
+/V3/usr/lib64/samba/vfs/shadow_copy2.so
+/V3/usr/lib64/samba/vfs/shell_snap.so
+/V3/usr/lib64/samba/vfs/snapper.so
+/V3/usr/lib64/samba/vfs/streams_depot.so
+/V3/usr/lib64/samba/vfs/streams_xattr.so
+/V3/usr/lib64/samba/vfs/syncops.so
+/V3/usr/lib64/samba/vfs/time_audit.so
+/V3/usr/lib64/samba/vfs/unityed_media.so
+/V3/usr/lib64/samba/vfs/virusfilter.so
+/V3/usr/lib64/samba/vfs/widelinks.so
+/V3/usr/lib64/samba/vfs/worm.so
+/V3/usr/lib64/samba/vfs/xattr_tdb.so
+/V3/usr/lib64/security/pam_winbind.so
 /usr/lib64/krb5/plugins/kdb/samba.so
 /usr/lib64/libdcerpc-binding.so.0
 /usr/lib64/libdcerpc-binding.so.0.0.1
@@ -935,10 +1193,31 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/vfs/worm.so
 /usr/lib64/samba/vfs/xattr_tdb.so
 /usr/lib64/security/pam_winbind.so
-/usr/share/clear/optimized-elf/other*
 
 %files libexec
 %defattr(-,root,root,-)
+/V3/usr/libexec/ctdb/ctdb-config
+/V3/usr/libexec/ctdb/ctdb-event
+/V3/usr/libexec/ctdb/ctdb-eventd
+/V3/usr/libexec/ctdb/ctdb-path
+/V3/usr/libexec/ctdb/ctdb_killtcp
+/V3/usr/libexec/ctdb/ctdb_lock_helper
+/V3/usr/libexec/ctdb/ctdb_mutex_fcntl_helper
+/V3/usr/libexec/ctdb/ctdb_recovery_helper
+/V3/usr/libexec/ctdb/ctdb_takeover_helper
+/V3/usr/libexec/ctdb/smnotify
+/V3/usr/libexec/ctdb/tdb_mutex_check
+/V3/usr/libexec/samba/rpcd_classic
+/V3/usr/libexec/samba/rpcd_epmapper
+/V3/usr/libexec/samba/rpcd_fsrvp
+/V3/usr/libexec/samba/rpcd_lsad
+/V3/usr/libexec/samba/rpcd_mdssvc
+/V3/usr/libexec/samba/rpcd_rpcecho
+/V3/usr/libexec/samba/rpcd_spoolss
+/V3/usr/libexec/samba/rpcd_winreg
+/V3/usr/libexec/samba/samba-bgqd
+/V3/usr/libexec/samba/samba-dcerpcd
+/V3/usr/libexec/samba/smbspool_krb5_wrapper
 /usr/libexec/ctdb/ctdb-config
 /usr/libexec/ctdb/ctdb-event
 /usr/libexec/ctdb/ctdb-eventd
@@ -963,7 +1242,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/libexec/samba/samba-bgqd
 /usr/libexec/samba/samba-dcerpcd
 /usr/libexec/samba/smbspool_krb5_wrapper
-/usr/share/clear/optimized-elf/exec*
 
 %files license
 %defattr(0644,root,root,0755)
@@ -982,6 +1260,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files python3
 %defattr(-,root,root,-)
+/V3/usr/lib/python3*/*
 /usr/lib/python3*/*
 
 %files services
