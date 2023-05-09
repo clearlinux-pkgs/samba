@@ -12,8 +12,8 @@ libgcc_s.so.1
 libgnutls.so.30
 libgpgme.so.11
 libgssapi_krb5.so.2
-libicui18n.so.70
-libicuuc.so.70
+libicui18n.so.73
+libicuuc.so.73
 libjansson.so.4
 libk5crypto.so.3
 libkadm5srv_mit.so.12
