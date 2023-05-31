@@ -5,7 +5,7 @@
 #
 Name     : samba
 Version  : 4.18.1
-Release  : 179
+Release  : 180
 URL      : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source1  : samba.tmpfiles
@@ -199,7 +199,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1684432374
+export SOURCE_DATE_EPOCH=1685508884
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -240,7 +240,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1684432374
+export SOURCE_DATE_EPOCH=1685508884
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -493,28 +493,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libdcerpc-binding.so
-/V3/usr/lib64/libdcerpc-samr.so
-/V3/usr/lib64/libdcerpc-server-core.so
-/V3/usr/lib64/libdcerpc-server.so
-/V3/usr/lib64/libdcerpc.so
-/V3/usr/lib64/libndr-krb5pac.so
-/V3/usr/lib64/libndr-nbt.so
-/V3/usr/lib64/libndr-standard.so
-/V3/usr/lib64/libndr.so
-/V3/usr/lib64/libnetapi.so
-/V3/usr/lib64/libsamba-credentials.so
-/V3/usr/lib64/libsamba-errors.so
-/V3/usr/lib64/libsamba-hostconfig.so
-/V3/usr/lib64/libsamba-passdb.so
-/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so
-/V3/usr/lib64/libsamba-util.so
-/V3/usr/lib64/libsamdb.so
-/V3/usr/lib64/libsmbclient.so
-/V3/usr/lib64/libsmbconf.so
-/V3/usr/lib64/libsmbldap.so
-/V3/usr/lib64/libtevent-util.so
-/V3/usr/lib64/libwbclient.so
 /usr/include/samba-4.0/charset.h
 /usr/include/samba-4.0/core/doserr.h
 /usr/include/samba-4.0/core/error.h
@@ -638,51 +616,29 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 %files lib
 %defattr(-,root,root,-)
 /V3/usr/lib64/krb5/plugins/kdb/samba.so
-/V3/usr/lib64/libdcerpc-binding.so.0
 /V3/usr/lib64/libdcerpc-binding.so.0.0.1
-/V3/usr/lib64/libdcerpc-samr.so.0
 /V3/usr/lib64/libdcerpc-samr.so.0.0.1
-/V3/usr/lib64/libdcerpc-server-core.so.0
 /V3/usr/lib64/libdcerpc-server-core.so.0.0.1
-/V3/usr/lib64/libdcerpc-server.so.0
 /V3/usr/lib64/libdcerpc-server.so.0.0.1
-/V3/usr/lib64/libdcerpc.so.0
 /V3/usr/lib64/libdcerpc.so.0.0.1
-/V3/usr/lib64/libndr-krb5pac.so.0
 /V3/usr/lib64/libndr-krb5pac.so.0.0.1
-/V3/usr/lib64/libndr-nbt.so.0
 /V3/usr/lib64/libndr-nbt.so.0.0.1
-/V3/usr/lib64/libndr-standard.so.0
 /V3/usr/lib64/libndr-standard.so.0.0.1
-/V3/usr/lib64/libndr.so.3
 /V3/usr/lib64/libndr.so.3.0.0
-/V3/usr/lib64/libnetapi.so.1
 /V3/usr/lib64/libnetapi.so.1.0.0
 /V3/usr/lib64/libnss_winbind.so.2
 /V3/usr/lib64/libnss_wins.so.2
-/V3/usr/lib64/libsamba-credentials.so.1
 /V3/usr/lib64/libsamba-credentials.so.1.0.0
-/V3/usr/lib64/libsamba-errors.so.1
 /V3/usr/lib64/libsamba-errors.so.1.0.0
-/V3/usr/lib64/libsamba-hostconfig.so.0
 /V3/usr/lib64/libsamba-hostconfig.so.0.0.1
-/V3/usr/lib64/libsamba-passdb.so.0
 /V3/usr/lib64/libsamba-passdb.so.0.28.0
-/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
 /V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
-/V3/usr/lib64/libsamba-util.so.0
 /V3/usr/lib64/libsamba-util.so.0.0.1
-/V3/usr/lib64/libsamdb.so.0
 /V3/usr/lib64/libsamdb.so.0.0.1
-/V3/usr/lib64/libsmbclient.so.0
 /V3/usr/lib64/libsmbclient.so.0.7.0
-/V3/usr/lib64/libsmbconf.so.0
 /V3/usr/lib64/libsmbconf.so.0.0.1
-/V3/usr/lib64/libsmbldap.so.2
 /V3/usr/lib64/libsmbldap.so.2.1.0
-/V3/usr/lib64/libtevent-util.so.0
 /V3/usr/lib64/libtevent-util.so.0.0.1
-/V3/usr/lib64/libwbclient.so.0
 /V3/usr/lib64/libwbclient.so.0.16
 /V3/usr/lib64/samba/bind9/dlz_bind9_10.so
 /V3/usr/lib64/samba/bind9/dlz_bind9_11.so
