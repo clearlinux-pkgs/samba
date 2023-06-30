@@ -5,7 +5,7 @@
 #
 Name     : samba
 Version  : 4.18.1
-Release  : 181
+Release  : 182
 URL      : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.18.1.tar.gz
 Source1  : samba.tmpfiles
@@ -187,9 +187,9 @@ services components for the samba package.
 %prep
 %setup -q -n samba-4.18.1
 cd %{_builddir}/samba-4.18.1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 pushd ..
 cp -a samba-4.18.1 buildavx2
 popd
@@ -199,7 +199,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685508884
+export SOURCE_DATE_EPOCH=1688164067
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -240,7 +240,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1685508884
+export SOURCE_DATE_EPOCH=1688164067
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :

@@ -19,8 +19,8 @@ libk5crypto.so.3
 libkadm5srv_mit.so.12
 libkdb5.so.10
 libkrb5.so.3
-liblber-2.4.so.2
-libldap-2.4.so.2
+liblber.so.2
+libldap.so.2
 libldb.so.2
 libncurses.so.6
 libpam.so.0
