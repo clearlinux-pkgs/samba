@@ -7,7 +7,7 @@ libcom_err.so.2
 libcrypt.so.1
 libcups.so.2
 libdbus-1.so.3
-libform.so.6
+libformw.so.6
 libgcc_s.so.1
 libgnutls.so.30
 libgpgme.so.11
@@ -22,9 +22,9 @@ libkrb5.so.3
 liblber.so.2
 libldap.so.2
 libldb.so.2
-libncurses.so.6
+libncursesw.so.6
 libpam.so.0
-libpanel.so.6
+libpanelw.so.6
 libpopt.so.0
 libpyldb-util.cpython-311-x86-64-linux-gnu.so.2
 libpytalloc-util.cpython-311-x86-64-linux-gnu.so.2
@@ -35,6 +35,5 @@ libtalloc.so.2
 libtasn1.so.6
 libtdb.so.1
 libtevent.so.0
-libtinfo.so.6
 libtirpc.so.3
 libz.so.1
