@@ -6816,6 +6816,8 @@ libsmbconf.so.0:samba_path_matching_mswild_create
 libsmbconf.so.0:samba_path_matching_regex_sub1_create
 libsmbconf.so.0:samba_version_string
 libsmbconf.so.0:sbcErrorString
+libsmbconf.so.0:security_token_del_npa_flags
+libsmbconf.so.0:security_token_find_npa_flags
 libsmbconf.so.0:server_id_db_set_exclusive
 libsmbconf.so.0:server_id_watch_recv
 libsmbconf.so.0:server_id_watch_send
