@@ -5,7 +5,7 @@
 #
 Name     : samba
 Version  : 4.18.5
-Release  : 184
+Release  : 185
 URL      : https://download.samba.org/pub/samba/stable/samba-4.18.5.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.18.5.tar.gz
 Source1  : samba.tmpfiles
@@ -170,6 +170,7 @@ Summary: python3 components for the samba package.
 Group: Default
 Requires: python3-core
 Requires: ldb-python3
+Requires: talloc-python3
 
 %description python3
 python3 components for the samba package.
@@ -199,7 +200,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1690137707
+export SOURCE_DATE_EPOCH=1694042126
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -240,7 +241,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1690137707
+export SOURCE_DATE_EPOCH=1694042126
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
