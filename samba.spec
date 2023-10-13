@@ -5,7 +5,7 @@
 #
 Name     : samba
 Version  : 4.18.5
-Release  : 185
+Release  : 186
 URL      : https://download.samba.org/pub/samba/stable/samba-4.18.5.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.18.5.tar.gz
 Source1  : samba.tmpfiles
@@ -200,15 +200,21 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1694042126
+export SOURCE_DATE_EPOCH=1697231209
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -223,11 +229,11 @@ make  %{?_smp_mflags}  PYTHON=python3
 
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
 %configure --disable-static --with-systemd \
 --systemd-install-services \
 --enable-fhs \
@@ -241,7 +247,21 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 make  %{?_smp_mflags}  PYTHON=python3
 popd
 %install
-export SOURCE_DATE_EPOCH=1694042126
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+export SOURCE_DATE_EPOCH=1697231209
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -591,7 +611,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-errors.so
 /usr/lib64/libsamba-hostconfig.so
 /usr/lib64/libsamba-passdb.so
-/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so
+/usr/lib64/libsamba-policy.cpython-312-x86-64-linux-gnu.so
 /usr/lib64/libsamba-util.so
 /usr/lib64/libsamdb.so
 /usr/lib64/libsmbclient.so
@@ -633,7 +653,7 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /V3/usr/lib64/libsamba-errors.so.1.0.0
 /V3/usr/lib64/libsamba-hostconfig.so.0.0.1
 /V3/usr/lib64/libsamba-passdb.so.0.28.0
-/V3/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
+/V3/usr/lib64/libsamba-policy.cpython-312-x86-64-linux-gnu.so.0.0.1
 /V3/usr/lib64/libsamba-util.so.0.0.1
 /V3/usr/lib64/libsamdb.so.0.0.1
 /V3/usr/lib64/libsmbclient.so.0.7.0
@@ -780,8 +800,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /V3/usr/lib64/samba/libsamba-cluster-support-samba4.so
 /V3/usr/lib64/samba/libsamba-debug-samba4.so
 /V3/usr/lib64/samba/libsamba-modules-samba4.so
-/V3/usr/lib64/samba/libsamba-net.cpython-311-x86-64-linux-gnu-samba4.so
-/V3/usr/lib64/samba/libsamba-python.cpython-311-x86-64-linux-gnu-samba4.so
+/V3/usr/lib64/samba/libsamba-net.cpython-312-x86-64-linux-gnu-samba4.so
+/V3/usr/lib64/samba/libsamba-python.cpython-312-x86-64-linux-gnu-samba4.so
 /V3/usr/lib64/samba/libsamba-security-samba4.so
 /V3/usr/lib64/samba/libsamba-sockets-samba4.so
 /V3/usr/lib64/samba/libsamba3-util-samba4.so
@@ -903,8 +923,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/libsamba-hostconfig.so.0.0.1
 /usr/lib64/libsamba-passdb.so.0
 /usr/lib64/libsamba-passdb.so.0.28.0
-/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0
-/usr/lib64/libsamba-policy.cpython-311-x86-64-linux-gnu.so.0.0.1
+/usr/lib64/libsamba-policy.cpython-312-x86-64-linux-gnu.so.0
+/usr/lib64/libsamba-policy.cpython-312-x86-64-linux-gnu.so.0.0.1
 /usr/lib64/libsamba-util.so.0
 /usr/lib64/libsamba-util.so.0.0.1
 /usr/lib64/libsamdb.so.0
@@ -1058,8 +1078,8 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libsamba-cluster-support-samba4.so
 /usr/lib64/samba/libsamba-debug-samba4.so
 /usr/lib64/samba/libsamba-modules-samba4.so
-/usr/lib64/samba/libsamba-net.cpython-311-x86-64-linux-gnu-samba4.so
-/usr/lib64/samba/libsamba-python.cpython-311-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-net.cpython-312-x86-64-linux-gnu-samba4.so
+/usr/lib64/samba/libsamba-python.cpython-312-x86-64-linux-gnu-samba4.so
 /usr/lib64/samba/libsamba-security-samba4.so
 /usr/lib64/samba/libsamba-sockets-samba4.so
 /usr/lib64/samba/libsamba3-util-samba4.so
