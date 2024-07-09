@@ -3,7 +3,6 @@
 --enable-fhs
 --with-system-mitkrb5
 --with-experimental-mit-ad-dc
---accel-aes=intelaesni
 --nopyc
 --nopyo
 --with-cluster-support 
