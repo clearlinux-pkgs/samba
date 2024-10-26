@@ -12,8 +12,8 @@ libgcc_s.so.1
 libgnutls.so.30
 libgpgme.so.11
 libgssapi_krb5.so.2
-libicui18n.so.73
-libicuuc.so.73
+libicui18n.so.75
+libicuuc.so.75
 libjansson.so.4
 libk5crypto.so.3
 libkadm5srv_mit.so.12
@@ -26,9 +26,8 @@ libncursesw.so.6
 libpam.so.0
 libpanelw.so.6
 libpopt.so.0
-libpyldb-util.cpython-312-x86-64-linux-gnu.so.2
-libpytalloc-util.cpython-312-x86-64-linux-gnu.so.2
-libpython3.12.so.1.0
+libpyldb-util.cpython-313-x86-64-linux-gnu.so.2
+libpython3.13.so.1.0
 libreadline.so.8
 libsystemd.so.0
 libtalloc.so.2
