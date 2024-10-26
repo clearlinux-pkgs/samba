@@ -7,7 +7,7 @@
 #
 Name     : samba
 Version  : 4.20.2
-Release  : 191
+Release  : 192
 URL      : https://download.samba.org/pub/samba/stable/samba-4.20.2.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.20.2.tar.gz
 Source1  : samba.tmpfiles
