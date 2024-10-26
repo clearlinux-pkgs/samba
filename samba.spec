@@ -7,7 +7,7 @@
 #
 Name     : samba
 Version  : 4.20.2
-Release  : 190
+Release  : 191
 URL      : https://download.samba.org/pub/samba/stable/samba-4.20.2.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.20.2.tar.gz
 Source1  : samba.tmpfiles
@@ -201,7 +201,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1729973006
+export SOURCE_DATE_EPOCH=1729979775
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -262,7 +262,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1729973006
+export SOURCE_DATE_EPOCH=1729979775
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -300,6 +300,7 @@ rm -f %{buildroot}*/usr/lib/python3*/site-packages/talloc.cpython-3*-x86_64-linu
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/tevent.py
 rm -f %{buildroot}*/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
+rm -f %{buildroot}*/usr/lib64/samba/libpytalloc-util.cpython-3*-x86-64-linux-gnu-private-samba.so
 rm -f %{buildroot}*/usr/lib64/pkgconfig/samba-policy.cpython-*-x86_64-linux-gnu.pc
 ## install_append content
 install -d -m 755 %{buildroot}/usr/lib/systemd/system
@@ -812,7 +813,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /V3/usr/lib64/samba/libprinter-driver-private-samba.so
 /V3/usr/lib64/samba/libprinting-migrate-private-samba.so
 /V3/usr/lib64/samba/libprocess-model-private-samba.so
-/V3/usr/lib64/samba/libpytalloc-util.cpython-313-x86-64-linux-gnu-private-samba.so
 /V3/usr/lib64/samba/libregistry-private-samba.so
 /V3/usr/lib64/samba/libreplace-private-samba.so
 /V3/usr/lib64/samba/libsamba-cluster-support-private-samba.so
@@ -1093,7 +1093,6 @@ install -m 644 ./bin/default/packaging/systemd/*.service %{buildroot}/usr/lib/sy
 /usr/lib64/samba/libprinter-driver-private-samba.so
 /usr/lib64/samba/libprinting-migrate-private-samba.so
 /usr/lib64/samba/libprocess-model-private-samba.so
-/usr/lib64/samba/libpytalloc-util.cpython-313-x86-64-linux-gnu-private-samba.so
 /usr/lib64/samba/libregistry-private-samba.so
 /usr/lib64/samba/libreplace-private-samba.so
 /usr/lib64/samba/libsamba-cluster-support-private-samba.so

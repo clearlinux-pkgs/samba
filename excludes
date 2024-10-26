@@ -13,4 +13,5 @@
 /usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
 /usr/lib/python3*/site-packages/tevent.py
 /usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
+/usr/lib64/samba/libpytalloc-util.cpython-3*-x86-64-linux-gnu-private-samba.so
 /usr/lib64/pkgconfig/samba-policy.cpython-*-x86_64-linux-gnu.pc
