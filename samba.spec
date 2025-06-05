@@ -7,7 +7,7 @@
 #
 Name     : samba
 Version  : 4.22.2
-Release  : 195
+Release  : 196
 URL      : https://download.samba.org/pub/samba/stable/samba-4.22.2.tar.gz
 Source0  : https://download.samba.org/pub/samba/stable/samba-4.22.2.tar.gz
 Source1  : samba.tmpfiles
@@ -201,7 +201,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1749164657
+export SOURCE_DATE_EPOCH=1749167940
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -262,7 +262,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1749164657
+export SOURCE_DATE_EPOCH=1749167940
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/samba
 cp %{_builddir}/samba-%{version}/COPYING %{buildroot}/usr/share/package-licenses/samba/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
@@ -298,12 +298,14 @@ rm -f %{buildroot}*/usr/bin/ldbmodify
 rm -f %{buildroot}*/usr/bin/ldbrename
 rm -f %{buildroot}*/usr/bin/ldbsearch
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/__pycache__/_ldb_text.c
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/__pycache__/_ldb_text.cpython-3*.pyc
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/__pycache__/_tdb_text.cpython-3*.pyc
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/__pycache__/tevent.cpython-3*.pyc
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/ldb.cpython-3*-x86_64-linux-gnu.so
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/talloc.cpython-3*-x86_64-linux-gnu.so
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/tdb.cpython-3*-x86_64-linux-gnu.so
+rm -f %{buildroot}*/usr/lib/python3*/site-packages/_ldb_text.py
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/_tdb_text.py
 rm -f %{buildroot}*/usr/lib/python3*/site-packages/tevent.py
 rm -f %{buildroot}*/usr/lib64/ldb/libpytalloc-util.cpython-3*-x86-64-linux-gnu.so.*
