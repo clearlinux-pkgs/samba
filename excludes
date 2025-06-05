@@ -6,6 +6,7 @@
 /usr/bin/ldbmodify
 /usr/bin/ldbrename
 /usr/bin/ldbsearch
+/usr/lib/python3*/site-packages/__pycache__/_ldb_text.c
 /usr/lib/python3*/site-packages/__pycache__/_tdb_text.cpython-3*.pyc
 /usr/lib/python3*/site-packages/__pycache__/tevent.cpython-3*.pyc
 /usr/lib/python3*/site-packages/_tevent.cpython-3*-x86_64-linux-gnu.so
